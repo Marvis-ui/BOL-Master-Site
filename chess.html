@@ -238,7 +238,7 @@
                 </p>
 
                 <form class="signup-form" onsubmit="registerPlayer(event)">
-                    <input type="text" id="player-name" placeholder="Enter your full name" required>
+                    <input type="text" id="player-name" placeholder="Enter your name or nickname" maxlength="80" autocomplete="name" required>
                     <select id="player-level">
                         <option value="Title Challenger">Status: Title Challenger</option>
                         <option value="Defending Champion">Status: Defending Champion</option>
@@ -248,6 +248,8 @@
                     <button type="submit" class="btn">Join 2027 Roster</button>
                 </form>
 
+                <p id="roster-status" aria-live="polite" style="font-size:0.86rem; color:#5c7068; margin-top:0.75rem;">Loading shared roster…</p>
+                <p style="font-size:0.8rem; color:#5c7068; margin-top:0.35rem;">Sign-ups are saved centrally. Names and statuses are visible to visitors of this public website.</p>
                 <ul class="player-list" id="roster-list"></ul>
             </div>
         </section>
@@ -271,42 +273,96 @@
     </footer>
 
     <script>
-        // 1. Live Player Sign-Up Roster (Saves entries in browser localStorage)
-        const defaultPlayers = [];
+                // Shared 2027 roster: sign-ups are stored centrally and read by every visitor.
+        let roster = [];
+        let rosterBusy = false;
 
-        let roster = JSON.parse(localStorage.getItem("bol_chess_roster")) || defaultPlayers;
+        function setRosterStatus(message, isError) {
+            const status = document.getElementById("roster-status");
+            status.textContent = message;
+            status.style.color = isError ? "#a12622" : "#5c7068";
+        }
 
         function renderRoster() {
             const list = document.getElementById("roster-list");
-            if (roster.length === 0) {
-                list.innerHTML = `<li style="justify-content:center; color:#5c7068; font-style:italic;">No players signed up yet—be the first to join!</li>`;
+            list.replaceChildren();
+            if (!roster.length) {
+                const empty = document.createElement("li");
+                empty.style.justifyContent = "center";
+                empty.style.color = "#5c7068";
+                empty.style.fontStyle = "italic";
+                empty.textContent = "No players signed up yet—be the first to join!";
+                list.appendChild(empty);
                 return;
             }
-            list.innerHTML = roster.map(p => `
-                <li>
-                    <strong>${p.name}</strong>
-                    <span style="color: #1f6f54; font-weight: 600; font-size: 0.8rem;">${p.status}</span>
-                </li>
-            `).join("");
+            roster.forEach(function (player) {
+                const row = document.createElement("li");
+                const name = document.createElement("strong");
+                const status = document.createElement("span");
+                name.textContent = player.name;
+                status.textContent = player.status;
+                status.style.color = "#1f6f54";
+                status.style.fontWeight = "600";
+                status.style.fontSize = "0.8rem";
+                row.append(name, status);
+                list.appendChild(row);
+            });
         }
 
+        async function loadRoster(announce) {
+            try {
+                const response = await fetch("/api/chess-roster", { cache: "no-store" });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "The shared roster could not be loaded.");
+                roster = Array.isArray(data.players) ? data.players : [];
+                renderRoster();
+                if (announce) setRosterStatus(roster.length + (roster.length === 1 ? " player" : " players") + " on the shared roster.", false);
+            } catch (error) {
+                if (announce) setRosterStatus(error.message || "Could not load the shared roster. Please refresh and try again.", true);
+            }
+        }
 
-        function registerPlayer(e) {
-            e.preventDefault();
+        async function registerPlayer(event) {
+            event.preventDefault();
+            if (rosterBusy) return;
+            const form = event.currentTarget;
             const nameInput = document.getElementById("player-name");
             const statusInput = document.getElementById("player-level");
-
-            roster.push({
-                name: nameInput.value.trim(),
-                status: statusInput.value
-            });
-
-            localStorage.setItem("bol_chess_roster", JSON.stringify(roster));
-            renderRoster();
-            nameInput.value = "";
+            const submitButton = form.querySelector("button[type=submit]");
+            const name = nameInput.value.trim().replace(/\s+/g, " ");
+            if (!name) {
+                setRosterStatus("Enter your name or nickname to sign up.", true);
+                return;
+            }
+            rosterBusy = true;
+            submitButton.disabled = true;
+            setRosterStatus("Saving your sign-up…", false);
+            try {
+                const response = await fetch("/api/chess-roster", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name: name, status: statusInput.value })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Your sign-up could not be saved.");
+                roster = Array.isArray(data.players) ? data.players : roster;
+                renderRoster();
+                form.reset();
+                setRosterStatus("Your sign-up is saved and shared with everyone.", false);
+            } catch (error) {
+                setRosterStatus(error.message || "Your sign-up could not be saved. Please try again.", true);
+            } finally {
+                rosterBusy = false;
+                submitButton.disabled = false;
+            }
         }
 
-        // 2. Interactive Chess Strategy Tips
+        // Open pages refresh the shared roster once a minute.
+        window.setInterval(function () {
+            if (document.visibilityState === "visible") loadRoster(false);
+        }, 60000);
+
+// 2. Interactive Chess Strategy Tips
             const chessTips = [
             "Control the center squares (e4, d4, e5, d5) early—pieces in the center reach twice as many squares as pieces on the edge.",
             "Castle early to tuck your King safely behind a shield of pawns and bring your Rook into the game.",
@@ -367,7 +423,7 @@
             document.getElementById("chess-tip-text").textContent = chessTips[tipIndex];
         }
 
-        renderRoster();
+        loadRoster(true);
     </script>
     <script src="bolsite.js"></script>
 </body>
