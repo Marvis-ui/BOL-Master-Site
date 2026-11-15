@@ -38,15 +38,5 @@ window.BOL_SERMONS = [
     "scripture": "Romans 12:1–2",
     "summary": "Practical steps for renewing your mind through daily scripture and surrounding yourself with godly community.",
     "body": ""
-  },
-  {
-    "id": "sermon-mwi5vz8p-l0x69y",
-    "title": "jerjgop",
-    "speaker": "trhtmr",
-    "date": "2026-11-15",
-    "category": "Sunday Service",
-    "scripture": "trhmlsmrnfb",
-    "summary": "herthgme;jjhhj",
-    "body": "hepomrperjphjpek-phr"
   }
 ];
