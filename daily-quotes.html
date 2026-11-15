@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beacon of Light | Daily Quotes</title>
+    <title>Beacon of Light | Daily Verses</title>
     <link rel="stylesheet" href="bolwebstyle.css">
     <style>
         .quote-featured {
@@ -99,8 +99,8 @@
 
     <div class="container" id="main">
         <div class="page-header">
-            <h1>Daily Word & Quotes</h1>
-            <p>Automatic daily encouragement from Scripture—synced with our homepage. Tap a reaction below any quote!</p>
+            <h1>Daily Verses</h1>
+            <p>A new Bible verse each day, synced with the homepage. The World English Bible (WEB) is public domain. <a href="https://ebible.org/engwebp/copyright.htm" target="_blank" rel="noopener">About this translation</a></p>
         </div>
 
         <!-- Featured Today's Quote (Auto-populated) -->
@@ -115,61 +115,13 @@
         &copy; 2026 Beacon of Light (BOL). All rights reserved.
     </footer>
 
+    <script src="daily-verses.js"></script>
     <script>
-        // Master verse pool (matches index.html so Today's Quote is always identical on both pages)
-            const dailyVerses = [
-            { text: "Your word is a lamp for my feet, a light on my path.", ref: "Psalm 119:105", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", ref: "Joshua 1:9", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "I can do all this through him who gives me strength.", ref: "Philippians 4:13", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Trust in the Lord with all your heart and lean not on your own understanding.", ref: "Proverbs 3:5", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "For we live by faith, not by sight.", ref: "2 Corinthians 5:7", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "This is the day the Lord has made; let us rejoice and be glad in it.", ref: "Psalm 118:24", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Be joyful in hope, patient in affliction, faithful in prayer.", ref: "Romans 12:12", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.", ref: "Matthew 5:16", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "The Lord is my shepherd, I lack nothing.", ref: "Psalm 23:1", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "In all your ways submit to him, and he will make your paths straight.", ref: "Proverbs 3:6", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.", ref: "Jeremiah 29:11", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "The Lord is my light and my salvation—whom shall I fear? The Lord is the stronghold of my life—of whom shall I be afraid?", ref: "Psalm 27:1", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "God is our refuge and strength, an ever-present help in trouble.", ref: "Psalm 46:1", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Be still, and know that I am God.", ref: "Psalm 46:10", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Create in me a pure heart, O God, and renew a steadfast spirit within me.", ref: "Psalm 51:10", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "When I am afraid, I put my trust in you.", ref: "Psalm 56:3", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Truly my soul finds rest in God; my salvation comes from him.", ref: "Psalm 62:1", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you.", ref: "Numbers 6:24–25", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Those who hope in the Lord will renew their strength. They will soar on wings like eagles.", ref: "Isaiah 40:31", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "So do not fear, for I am with you; do not be dismayed, for I am your God.", ref: "Isaiah 41:10", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "No weapon forged against you will prevail, and you will refute every tongue that accuses you.", ref: "Isaiah 54:17", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "The joy of the Lord is your strength.", ref: "Nehemiah 8:10", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Commit to the Lord whatever you do, and he will establish your plans.", ref: "Proverbs 16:3", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "The name of the Lord is a fortified tower; the righteous run to it and are safe.", ref: "Proverbs 18:10", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "As iron sharpens iron, so one person sharpens another.", ref: "Proverbs 27:17", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning.", ref: "Lamentations 3:22–23", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Seek first his kingdom and his righteousness, and all these things will be given to you as well.", ref: "Matthew 6:33", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Ask and it will be given to you; seek and you will find; knock and the door will be opened to you.", ref: "Matthew 7:7", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Come to me, all you who are weary and burdened, and I will give you rest.", ref: "Matthew 11:28", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "With man this is impossible, but with God all things are possible.", ref: "Matthew 19:26", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "For where two or three gather in my name, there am I with them.", ref: "Matthew 18:20", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Everything is possible for one who believes.", ref: "Mark 9:23", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "For no word from God will ever fail.", ref: "Luke 1:37", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "In the beginning was the Word, and the Word was with God, and the Word was God.", ref: "John 1:1", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "The light shines in the darkness, and the darkness has not overcome it.", ref: "John 1:5", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.", ref: "John 3:16", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "I am the light of the world. Whoever follows me will never walk in darkness, but will have the light of life.", ref: "John 8:12", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Then you will know the truth, and the truth will set you free.", ref: "John 8:32", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "I have come that they may have life, and have it to the full.", ref: "John 10:10", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "I am the way and the truth and the life. No one comes to the Father except through me.", ref: "John 14:6", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Peace I leave with you; my peace I give you. Do not let your hearts be troubled and do not be afraid.", ref: "John 14:27", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "In this world you will have trouble. But take heart! I have overcome the world.", ref: "John 16:33", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "For I am not ashamed of the gospel, because it is the power of God that brings salvation to everyone who believes.", ref: "Romans 1:16", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", ref: "Romans 8:28", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "If God is for us, who can be against us?", ref: "Romans 8:31", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "In all these things we are more than conquerors through him who loved us.", ref: "Romans 8:37", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Do not conform to the pattern of this world, but be transformed by the renewing of your mind.", ref: "Romans 12:2", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "Do not be overcome by evil, but overcome evil with good.", ref: "Romans 12:21", baseAmen: 0, baseLove: 0, baseWord: 0 },
-            { text: "May the God of hope fill you with all joy and peace as you trust in him.", ref: "Romans 15:13", baseAmen: 0, baseLove: 0, baseWord: 0 },
-
-        ];
+        // Shared verse pool (matches index.html so Today's Quote is always identical on both pages)
+            const dailyVerses = (window.BOL_DAILY_VERSES || []).map(function (verse) {
+            return Object.assign({ baseAmen: 0, baseLove: 0, baseWord: 0 }, verse);
+        });
+        if (!dailyVerses.length) throw new Error("The shared daily verse list could not be loaded.");
 
         function getLocalDateKey(date) {
             const year = date.getFullYear();
@@ -225,7 +177,7 @@
         document.getElementById("featured-quote-box").innerHTML = `
             <span class="tag">✨ Today's Word • ${formattedToday}</span>
             <p class="quote-text">"${todaysVerse.text}"</p>
-            <p class="quote-author">— ${todaysVerse.ref}</p>
+            <p class="quote-author">— ${todaysVerse.ref} · WEB</p>
             <div class="reactions">
                 ${buildReactionButtons(todayKey, todaysVerse)}
             </div>
@@ -252,7 +204,7 @@
                 <div class="card archive-card">
                     <small style="color: #1f6f54; font-weight: 700; text-transform: uppercase;">${label}</small>
                     <p style="font-size: 1.15rem; font-weight: 600; margin: 0.5rem 0; color: #13241e;">"${verse.text}"</p>
-                    <p style="color: #5c7068; font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">— ${verse.ref}</p>
+                    <p style="color: #5c7068; font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">— ${verse.ref} · WEB</p>
                     <div class="reactions">
                         ${buildReactionButtons(pastKey, verse)}
                     </div>
