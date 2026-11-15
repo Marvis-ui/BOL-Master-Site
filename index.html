@@ -2,597 +2,166 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beacon of Light | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#182e45">
+    <meta name="description" content="Beacon of Light Christian Fellowship Center Vienna — a welcoming church community growing in faith, hope and fellowship.">
+    <title>Beacon of Light Christian Fellowship Center | Vienna</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
     <link rel="stylesheet" href="bolwebstyle.css">
-    <style>
-        /* 1. Top Hero Banner */
-        .visual-banner {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            min-height: 240px;
-            background: linear-gradient(120deg, #13241e 0%, #1f4e3d 55%, #c88d1e 100%);
-            display: flex;
-            align-items: center;
-            padding: 2.75rem 3rem;
-            margin-bottom: 1.75rem;
-            color: #ffffff;
-            box-shadow: 0 10px 25px rgba(19, 36, 30, 0.12);
-        }
-        .banner-content {
-            max-width: 620px;
-        }
-        .banner-pill {
-            display: inline-block;
-            background: #f4b41a;
-            color: #13241e;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.75rem;
-        }
-        .banner-content h1 {
-            font-size: 2.35rem;
-            line-height: 1.2;
-            margin-bottom: 0.6rem;
-        }
-        .banner-content p {
-            color: #e2eee9;
-            font-size: 1.02rem;
-            margin-bottom: 1.4rem;
-        }
-        .banner-btn {
-            display: inline-block;
-            background: #ffffff;
-            color: #13241e;
-            padding: 11px 22px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.92rem;
-            transition: transform 0.15s ease;
-        }
-        .banner-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        /* 2. Middle Split Cards (Core Pillars + Interactive Bible Quiz) */
-        .middle-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.75rem;
-        }
-
-        /* Left Card: BOL Core Pillars */
-        .pillars-card {
-            background: #183329;
-            color: #ffffff;
-            border-radius: 18px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 8px 20px rgba(19, 36, 30, 0.1);
-        }
-        .pillars-tag {
-            font-size: 0.72rem;
-            font-weight: 800;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            color: #a7f3d0;
-        }
-        .pillars-card h2 {
-            font-size: 1.4rem;
-            color: #f4b41a;
-            margin: 0.4rem 0 1.1rem;
-        }
-        .pillar-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 0.7rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        }
-        .pillar-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        .pillar-icon {
-            background: rgba(244, 180, 26, 0.18);
-            color: #f4b41a;
-            font-weight: 800;
-            min-width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            margin-top: 2px;
-        }
-
-        /* Right Card: Interactive Daily Bible Quiz */
-        .quiz-card {
-            background: #ffffff;
-            border-radius: 18px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.6rem;
-        }
-        .quiz-tag {
-            background: #d9efe4;
-            color: #1f6f54;
-            font-size: 0.72rem;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 12px;
-            text-transform: uppercase;
-        }
-        .quiz-question {
-            font-size: 1.08rem;
-            font-weight: 700;
-            color: #13241e;
-            margin-bottom: 1rem;
-        }
-        .quiz-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 0.9rem;
-        }
-        .quiz-opt {
-            background: #f4f8f6;
-            border: 1px solid #d5e3dd;
-            color: #1a2b25;
-            padding: 9px 12px;
-            border-radius: 10px;
-            text-align: left;
-            font-size: 0.88rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-        .quiz-opt:hover:not(:disabled) {
-            background: #e2ece7;
-        }
-        .quiz-opt.correct {
-            background: #63c78d;
-            border-color: #1f6f54;
-            color: #0e291d;
-        }
-        .quiz-opt.wrong {
-            background: #fde2e1;
-            border-color: #e07a75;
-            color: #7f1d1d;
-        }
-        .quiz-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 28px;
-            font-size: 0.85rem;
-        }
-        .next-q-btn {
-            background: none;
-            border: none;
-            color: #1f6f54;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-        .next-q-btn:hover {
-            text-decoration: underline;
-        }
-
-        /* 3. Bottom Automatic Daily Quote Strip */
-        .quote-strip {
-            background: #ffffff;
-            border-radius: 18px;
-            padding: 1.75rem 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            border-left: 6px solid #1f6f54;
-        }
-        .quote-strip-tag {
-            font-size: 0.72rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: #1f6f54;
-            letter-spacing: 0.6px;
-        }
-        .quote-strip blockquote {
-            font-size: 1.18rem;
-            font-weight: 600;
-            color: #13241e;
-            margin: 0.4rem 0;
-        }
-        .react-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .react-pill {
-            background: #f1f6f4;
-            border: 1px solid #d5e3dd;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            user-select: none;
-            transition: all 0.15s ease;
-        }
-        .react-pill:hover {
-            background: #e2ece7;
-            transform: translateY(-2px);
-        }
-        .react-pill.voted {
-            background: #63c78d;
-            border-color: #1f6f54;
-            color: #0e291d;
-        }
-    </style>
+    <script src="bolsite.js" defer></script>
+    <script src="bible-questions.js" defer></script>
+    <script src="home.js" defer></script>
 </head>
-<body>
-
-    <header>
-        <div class="logo">
-          <img src="images/logo.png" alt="BOL Logo">
-            <div>
-                BEACON OF LIGHT
-                <span>YOUTH & CHURCH COMMUNITY</span>
-            </div>
-        </div>
-        	<link rel="icon" href="images/logo.png" type="image/png">
-        <nav>
-            <a href="index.html" class="active">Home</a>
+<body data-theme="midnight">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <a class="logo" href="index.html" aria-label="Beacon of Light home">
+            <img src="images/logo.png" alt="">
+            <span class="logo-name">BEACON OF LIGHT<span>CHRISTIAN FELLOWSHIP CENTER · VIENNA</span></span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="calendar.html">Calendar</a>
-            <a href="celebrations.html">Celebrations</a>
-            <a href="daily-quotes.html">Daily Quotes</a>
-            <a href="sermons.html">Sermons</a>
-            <a href="chess.html">Chess</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="contact.html">Contact</a>
+            <a href="bible-study.html">Bible Study</a>
+            <a href="hour-of-power.html">Hour of Power</a>
+            <details class="nav-more">
+                <summary>More</summary>
+                <div class="nav-more-menu">
+                    
+                    <a href="daily-quotes.html">Daily Quotes</a>
+                    <a href="sermons.html">Sermons</a>
+                    <a href="chess.html">Chess</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </details>
         </nav>
+        <div class="theme-switch" role="group" aria-label="Choose a color theme">
+            <span class="theme-switch-label">Theme</span>
+            <button class="theme-btn" type="button" data-theme-choice="midnight" aria-pressed="true">Midnight &amp; Gold</button>
+            <button class="theme-btn" type="button" data-theme-choice="olive" aria-pressed="false">Olive &amp; Clay</button>
+        </div>
     </header>
 
-    <div class="container">
-        <!-- 1. Top Hero Banner -->
-        <section class="visual-banner" id="hero-banner">
-            <div class="banner-content">
-                <span class="banner-pill">Welcome to Beacon of Light</span>
-                <h1>Shining Christ's Light in Every Heart</h1>
-                <p>Join us every Sunday for worship, the Word, and Hour of Power youth fellowship.</p>
-                <a href="about.html" class="banner-btn">Discover BOL &rarr;</a>
+    <main class="container" id="main">
+        <section class="home-hero">
+            <div class="home-hero-copy">
+                <span class="hero-pill">A Christian fellowship in Vienna</span>
+                <h1>Shining Christ’s light in every heart.</h1>
+                <p>A welcoming community for worship, the Word and genuine fellowship. Come as you are; grow with us in faith and purpose.</p>
+                <div class="hero-actions">
+                    <a class="button-primary" href="contact.html">Plan a visit <span aria-hidden="true">→</span></a>
+                    <a class="button-secondary" href="about.html">Discover our story</a>
+                </div>
+            </div>
+            <aside class="hero-verse" aria-label="A word of encouragement">
+                <div class="hero-verse-mark" aria-hidden="true">✦</div>
+                <blockquote>“Be joyful in hope, patient in affliction, faithful in prayer.”</blockquote>
+                <cite>Romans 12:12</cite>
+            </aside>
+        </section>
+
+        <section aria-labelledby="pathways-title">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">Find your place</span>
+                    <h2 id="pathways-title">Faith grows together.</h2>
+                </div>
+                <p>Gather in worship, grow through Scripture, and share life as one church family.</p>
+            </div>
+            <div class="pathway-grid">
+                <a class="pathway-card" href="calendar.html">
+                    <span class="pathway-icon" aria-hidden="true">☼</span>
+                    <h3>Worship &amp; fellowship</h3>
+                    <p>Join our Sunday gathering and find upcoming moments to share.</p>
+                </a>
+                <a class="pathway-card" href="bible-study.html">
+                    <span class="pathway-icon" aria-hidden="true">⌑</span>
+                    <h3>Bible Study</h3>
+                    <p>Explore the 2026–2027 curriculum and grow deeper in the Word.</p>
+                </a>
+                <a class="pathway-card" href="hour-of-power.html">
+                    <span class="pathway-icon" aria-hidden="true">✧</span>
+                    <h3>Hour of Power</h3>
+                    <p>A youth space for faith, honest questions and God-given purpose.</p>
+                </a>
+                <a class="pathway-card" href="gallery.html">
+                    <span class="pathway-icon" aria-hidden="true">♡</span>
+                    <h3>Life together</h3>
+                    <p>See the celebrations and shared memories of our community.</p>
+                </a>
             </div>
         </section>
 
-        <!-- 2. Middle Split Cards: Core Pillars + Interactive Bible Quiz -->
-        <section class="middle-grid">
-            <!-- Left Card: BOL Core Pillars -->
-            <div class="pillars-card">
+        <section aria-labelledby="pillars-title">
+            <div class="section-heading">
                 <div>
-                    <span class="pillars-tag">Who We Are</span>
-                    <h2>Our Core Pillars</h2>
-
-                    <div class="pillar-item">
-                        <div class="pillar-icon">01</div>
-                        <div>
-                            <strong>Rooted in the Word</strong><br>
-                            <span style="color: #d5e3dd; font-size: 0.9rem;">Building unshakeable faith through prayer and biblical truth.</span>
-                        </div>
-                    </div>
-
-                    <div class="pillar-item">
-                        <div class="pillar-icon">02</div>
-                        <div>
-                            <strong>Authentic Fellowship</strong><br>
-                            <span style="color: #d5e3dd; font-size: 0.9rem;">A family that celebrates every birthday, milestone, and season together.</span>
-                        </div>
-                    </div>
-
-                    <div class="pillar-item">
-                        <div class="pillar-icon">03</div>
-                        <div>
-                            <strong>Youth & Purpose (Hour of Power)</strong><br>
-
-                                                        <span style="color: #d5e3dd; font-size: 0.9rem;">Equipping the next generation to lead and shine with confidence.</span>
-                        </div>
-                    </div>
+                    <span class="eyebrow">Our heart</span>
+                    <h2 id="pillars-title">A light we carry together.</h2>
                 </div>
             </div>
+            <div class="pillars-grid">
+                <article class="pillar-card">
+                    <span class="eyebrow">01 · Rooted</span>
+                    <h3>Grounded in the Word</h3>
+                    <p>Building steady faith through Scripture, prayer and the hope of Christ.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="eyebrow">02 · Together</span>
+                    <h3>Real fellowship</h3>
+                    <p>Making room for every generation, every milestone and every season.</p>
+                </article>
+                <article class="pillar-card">
+                    <span class="eyebrow">03 · Sent</span>
+                    <h3>Purpose for every age</h3>
+                    <p>Encouraging each person to serve, lead and shine with confidence.</p>
+                </article>
+            </div>
+        </section>
 
-            <!-- Right Card: Interactive Daily Bible Quiz -->
-            <div class="quiz-card">
-                <div>
-                    <div class="quiz-header">
-                        <span class="quiz-tag">⚡ BOL Bible Trivia</span>
-                        <span id="quiz-score" style="font-size: 0.82rem; font-weight: 700; color: #5c7068;">Score: 0</span>
-                    </div>
-                    <p class="quiz-question" id="quiz-question">Loading question...</p>
-                    <div class="quiz-options" id="quiz-options"></div>
+        <section class="home-feature-grid" aria-label="Bible trivia and daily encouragement">
+            <article class="quiz-card">
+                <div class="quiz-header">
+                    <span class="quiz-tag">BOL Bible Trivia · 100 questions</span>
+                    <span id="quiz-score" aria-live="polite">Points: 0</span>
                 </div>
-
+                <div class="quiz-progress-row">
+                    <span id="quiz-progress-label">Question 1 of 100</span>
+                    <progress id="quiz-progress" value="0" max="100" aria-label="Trivia progress">0%</progress>
+                    <span id="quiz-best">Best: 0</span>
+                </div>
+                <p class="quiz-question" id="quiz-question">Loading a question…</p>
+                <div class="quiz-options" id="quiz-options"></div>
                 <div class="quiz-footer">
-                    <span id="quiz-feedback" style="font-weight: 600;"></span>
-                    <button type="button" class="next-q-btn" onclick="nextQuestion()">Next Question &rarr;</button>
+                    <span id="quiz-feedback" aria-live="polite"></span>
+                    <button class="quiz-next" id="quiz-next" type="button" disabled>Next question →</button>
                 </div>
-            </div>
+            </article>
+            <article class="quote-card">
+                <div>
+                    <span class="eyebrow">A moment in the Word</span>
+                    <blockquote id="daily-quote-text">“Your word is a lamp for my feet, a light on my path.”</blockquote>
+                    <cite id="daily-quote-ref">Psalm 119:105</cite>
+                </div>
+                <div class="react-group" aria-label="Respond to today's verse">
+                    <button class="react-pill" type="button" data-reaction="amen">🙏 Amen <span class="r-count">0</span></button>
+                    <button class="react-pill" type="button" data-reaction="love">❤️ Love <span class="r-count">0</span></button>
+                    <button class="react-pill" type="button" data-reaction="word">🔥 Word <span class="r-count">0</span></button>
+                </div>
+            </article>
         </section>
 
-        <!-- 3. Bottom Automatic Daily Quote Strip -->
-        <section class="quote-strip">
-            <div style="max-width: 620px;">
-                <span class="quote-strip-tag">✨ Hour of Power • Quote of the Day</span>
-                <blockquote id="daily-quote-text">"Your word is a lamp for my feet, a light on my path."</blockquote>
-                <small id="daily-quote-ref" style="color: #5c7068; font-weight: 600;">— Psalm 119:105</small>
+        <section class="invitation-band">
+            <div>
+                <span class="eyebrow">You are welcome here</span>
+                <h2>There’s room for you at Beacon of Light.</h2>
+                <p>Come worship, ask questions and build meaningful connections with us.</p>
             </div>
-
-            <div class="react-group">
-                <button type="button" class="react-pill" data-key="amen" onclick="handleReaction(this)">
-                    🙏 Amen <span class="r-count">0</span>
-                </button>
-                <button type="button" class="react-pill" data-key="love" onclick="handleReaction(this)">
-                    ❤️ Love <span class="r-count">0</span>
-                </button>
-                <button type="button" class="react-pill" data-key="word" onclick="handleReaction(this)">
-                    🔥 Word <span class="r-count">0</span>
-                </button>
-            </div>
+            <a class="button-primary" href="contact.html">Get in touch <span aria-hidden="true">→</span></a>
         </section>
-    </div>
+    </main>
 
-    <footer>
-        &copy; 2026 Beacon of Light (BOL). All rights reserved.
-    </footer>
-
-    <script>
-        const dailyVerses = [
-            { text: "Your word is a lamp for my feet, a light on my path.", ref: "Psalm 119:105" },
-            { text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", ref: "Joshua 1:9" },
-            { text: "I can do all this through him who gives me strength.", ref: "Philippians 4:13" },
-            { text: "Trust in the Lord with all your heart and lean not on your own understanding.", ref: "Proverbs 3:5" },
-            { text: "For we live by faith, not by sight.", ref: "2 Corinthians 5:7" },
-            { text: "This is the day the Lord has made; let us rejoice and be glad in it.", ref: "Psalm 118:24" },
-            { text: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7" },
-            { text: "Be joyful in hope, patient in affliction, faithful in prayer.", ref: "Romans 12:12" },
-            { text: "Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.", ref: "Matthew 5:16" },
-	        { text: "Your word is a lamp for my feet, a light on my path.", ref: "Psalm 119:105" },
-	        { text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", ref: "Joshua 1:9" },
-	        { text: "I can do all this through him who gives me strength.", ref: "Philippians 4:13" },
-	        { text: "The Lord is my shepherd, I lack nothing.", ref: "Psalm 23:1" },
-	        { text: "Trust in the Lord with all your heart and lean not on your own understanding.", ref: "Proverbs 3:5" },
-	        { text: "For we live by faith, not by sight.", ref: "2 Corinthians 5:7" },
-	        { text: "This is the day the Lord has made; let us rejoice and be glad in it.", ref: "Psalm 118:24" },
-	        { text: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7" },
-	        { text: "Be joyful in hope, patient in affliction, faithful in prayer.", ref: "Romans 12:12" }
-        ];
-
-        function getLocalDateKey(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, "0");
-            const day = String(date.getDate()).padStart(2, "0");
-            return `${year}-${month}-${day}`;
-        }
-
-        const today = new Date();
-        const dayKey = getLocalDateKey(today);
-        const todayLocalStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        const dayNumber = Math.floor(todayLocalStart.getTime() / (1000 * 60 * 60 * 24));
-        const todaysQuote = dailyVerses[dayNumber % dailyVerses.length];
-
-        document.getElementById("daily-quote-text").textContent = `"${todaysQuote.text}"`;
-        document.getElementById("daily-quote-ref").textContent = `— ${todaysQuote.ref}`;
-
-        document.querySelectorAll(".react-pill").forEach(btn => {
-            const storageId = `bol_react_${dayKey}_${btn.dataset.key}`;
-            const countSpan = btn.querySelector(".r-count");
-            if (localStorage.getItem(storageId) === "true") {
-                btn.classList.add("voted");
-                countSpan.textContent = parseInt(countSpan.textContent, 10) + 1;
-            }
-        });
-
-        function handleReaction(btn) {
-            const storageId = `bol_react_${dayKey}_${btn.dataset.key}`;
-            const countSpan = btn.querySelector(".r-count");
-            let current = parseInt(countSpan.textContent, 10);
-
-            if (btn.classList.contains("voted")) {
-                btn.classList.remove("voted");
-                countSpan.textContent = current - 1;
-                localStorage.removeItem(storageId);
-            } else {
-                btn.classList.add("voted");
-                countSpan.textContent = current + 1;
-                localStorage.setItem(storageId, "true");
-            }
-        }
-
-                const bibleQuiz = [
-            { q: "Who said, 'You are the light of the world. A town built on a hill cannot be hidden'?", options: ["Paul", "Jesus", "Moses", "David"], answer: 1, ref: "Matthew 5:14" },
-            { q: "How many stones did David pick up from the stream before facing Goliath?", options: ["One", "Three", "Five", "Seven"], answer: 2, ref: "1 Samuel 17:40" },
-            { q: "Which book contains the verse 'The Lord is my shepherd, I lack nothing'?", options: ["Proverbs", "Isaiah", "Psalm 23", "John"], answer: 2, ref: "Psalm 23:1" },
-            { q: "Who was swallowed by a great fish after running from God's call to Nineveh?", options: ["Elijah", "Jonah", "Daniel", "Peter"], answer: 1, ref: "Jonah 1:17" },
-            { q: "What is the shortest verse in the New Testament?", options: ["Rejoice always.", "Pray continually.", "Jesus wept.", "God is love."], answer: 2, ref: "John 11:35" },
-            { q: "Who interpreted King Nebuchadnezzar's dreams in Babylon?", options: ["Joseph", "Daniel", "Solomon", "Samuel"], answer: 1, ref: "Daniel 2" },
-            { q: "How many days and nights did Jesus fast in the wilderness?", options: ["7 days", "12 days", "30 days", "40 days"], answer: 3, ref: "Matthew 4:2" },
-            { q: "Who walked on water toward Jesus before beginning to sink?", options: ["John", "Peter", "James", "Andrew"], answer: 1, ref: "Matthew 14:29" },
-            { q: "Which Old Testament prophet was taken up to heaven in a chariot of fire?", options: ["Elisha", "Isaiah", "Elijah", "Jeremiah"], answer: 2, ref: "2 Kings 2:11" },
-            { q: "What was the first miracle Jesus performed according to the Gospel of John?", options: ["Healing a blind man", "Feeding 5,000", "Turning water into wine", "Walking on water"], answer: 2, ref: "John 2:1–11" },
-            { q: "Who was thrown into a den of lions for praying to God?", options: ["Daniel", "Joseph", "Samson", "Nehemiah"], answer: 0, ref: "Daniel 6:16" },
-            { q: "How many books are in the New Testament?", options: ["24", "27", "39", "66"], answer: 1, ref: "New Testament Canon" },
-            { q: "Who led the Israelites across the Jordan River into the Promised Land after Moses?", options: ["Caleb", "Aaron", "Joshua", "Gideon"], answer: 2, ref: "Joshua 1:1–2" },
-            { q: "Which apostle wrote the majority of the epistles (letters) in the New Testament?", options: ["Peter", "Paul", "John", "Barnabas"], answer: 1, ref: "New Testament Epistles" },
-            { q: "What did God use as a sign of His covenant never to flood the entire earth again?", options: ["A burning bush", "A pillar of cloud", "A rainbow", "A dove"], answer: 2, ref: "Genesis 9:13" },
-            { q: "Who was the mother of Samuel, who prayed earnestly for a son at the tabernacle?", options: ["Ruth", "Esther", "Hannah", "Sarah"], answer: 2, ref: "1 Samuel 1:20" },
-            { q: "In which city were followers of Jesus first called 'Christians'?", options: ["Jerusalem", "Antioch", "Ephesus", "Rome"], answer: 1, ref: "Acts 11:26" },
-            { q: "Who climbed a sycamore-fig tree just to see Jesus pass by?", options: ["Nicodemus", "Zacchaeus", "Bartimaeus", "Lazarus"], answer: 1, ref: "Luke 19:4" },
-            { q: "What armor piece represents 'the Word of God' in Ephesians 6?", options: ["The shield", "The breastplate", "The helmet", "The sword"], answer: 3, ref: "Ephesians 6:17" },
-            { q: "Which king asked God for wisdom instead of wealth or long life?", options: ["David", "Saul", "Solomon", "Hezekiah"], answer: 2, ref: "1 Kings 3:9" },
-            { q: "How many books are in the entire Protestant Bible?", options: ["39", "52", "66", "72"], answer: 2, ref: "Biblical Canon" },
-            { q: "Who was the first man created by God according to Genesis?", options: ["Noah", "Adam", "Abraham", "Abel"], answer: 1, ref: "Genesis 2:7" },
-            { q: "How many days did God take to create the heavens and the earth before resting on the seventh?", options: ["3", "5", "6", "7"], answer: 2, ref: "Genesis 1:31–2:2" },
-            { q: "Which tree in the Garden of Eden were Adam and Eve forbidden to eat from?", options: ["Tree of Life", "Tree of Knowledge of Good and Evil", "Olive Tree", "Fig Tree"], answer: 1, ref: "Genesis 2:17" },
-            { q: "Who built the ark to survive the great flood?", options: ["Moses", "Abraham", "Noah", "Lot"], answer: 2, ref: "Genesis 6:14" },
-            { q: "What kind of bird did Noah send out that returned with a fresh olive leaf?", options: ["Raven", "Eagle", "Dove", "Sparrow"], answer: 2, ref: "Genesis 8:11" },
-            { q: "Where did God confuse human languages so people scattered across the earth?", options: ["Jericho", "Tower of Babel", "Sodom", "Nineveh"], answer: 1, ref: "Genesis 11:9" },
-            { q: "Who was promised by God that his descendants would outnumber the stars in the sky?", options: ["Isaac", "Jacob", "Abraham", "Joseph"], answer: 2, ref: "Genesis 15:5" },
-            { q: "What was the name of Abraham and Sarah's promised son?", options: ["Ishmael", "Isaac", "Esau", "Benjamin"], answer: 1, ref: "Genesis 21:3" },
-            { q: "Who sold his birthright to his twin brother Jacob for a bowl of stew?", options: ["Esau", "Reuben", "Judah", "Levi"], answer: 0, ref: "Genesis 25:33" },
-            { q: "What new name did God give to Jacob after wrestling with him?", options: ["Judah", "Israel", "Ephraim", "Zion"], answer: 1, ref: "Genesis 32:28" },
-            { q: "Which of Jacob's sons was given a richly ornamented coat and sold into Egypt?", options: ["Benjamin", "Joseph", "Simeon", "Dan"], answer: 1, ref: "Genesis 37:3" },
-            { q: "How many years of abundance followed by famine did Joseph predict in Pharaoh's dream?", options: ["3 years", "5 years", "7 years", "12 years"], answer: 2, ref: "Genesis 41:29–30" },
-            { q: "Where was baby Moses hidden in a basket to save him from Pharaoh's decree?", options: ["Jordan River", "Red Sea", "Nile River", "Sea of Galilee"], answer: 2, ref: "Exodus 2:3" },
-            { q: "Through what object did God first speak to Moses at Mount Horeb?", options: ["A pillar of salt", "A burning bush", "A stone tablet", "A whirlwind"], answer: 1, ref: "Exodus 3:2" },
-            { q: "How many plagues did God send upon Egypt before Pharaoh let Israel go?", options: ["7", "10", "12", "40"], answer: 1, ref: "Exodus 7–12" },
-            { q: "Which sea did God part so the Israelites could cross on dry ground?", options: ["Dead Sea", "Mediterranean Sea", "Red Sea", "Black Sea"], answer: 2, ref: "Exodus 14:21" },
-            { q: "On which mountain did Moses receive the Ten Commandments?", options: ["Mount Carmel", "Mount Sinai", "Mount Zion", "Mount Olivet"], answer: 1, ref: "Exodus 19:20" },
-            { q: "What food did God provide from heaven each morning for Israel in the wilderness?", options: ["Figs", "Manna", "Honeycombs", "Barley"], answer: 1, ref: "Exodus 16:31" },
-            { q: "Who was Moses' brother who served as Israel's first High Priest?", options: ["Joshua", "Caleb", "Aaron", "Jethro"], answer: 2, ref: "Exodus 28:1" },
-            { q: "How many spies did Moses send to explore the land of Canaan?", options: ["2", "7", "10", "12"], answer: 3, ref: "Numbers 13:1–2" },
-            { q: "Which two spies encouraged Israel to trust God and take the Promised Land?", options: ["Joshua and Caleb", "Aaron and Hur", "Gideon and Samson", "Eli and Samuel"], answer: 0, ref: "Numbers 14:6–8" },
-            { q: "How many times did the Israelites march around Jericho on the seventh day?", options: ["Once", "Three times", "Seven times", "Twelve times"], answer: 2, ref: "Joshua 6:4" },
-            { q: "Who hid the two Israelite spies in Jericho and was spared when the city fell?", options: ["Ruth", "Deborah", "Rahab", "Esther"], answer: 2, ref: "Joshua 2:1–4" },
-            { q: "Which judge defeated a massive Midianite army with only 300 men carrying trumpets and torches?", options: ["Samson", "Gideon", "Jephthah", "Ehud"], answer: 1, ref: "Judges 7:7" },
-            { q: "What was the secret of Samson's superhuman strength?", options: ["His golden belt", "His uncut hair (Nazirite vow)", "His bronze shield", "His daily fasting"], answer: 1, ref: "Judges 16:17" },
-            { q: "Which Moabite woman told Naomi, 'Your people will be my people and your God my God'?", options: ["Orpah", "Ruth", "Hannah", "Abigail"], answer: 1, ref: "Ruth 1:16" },
-            { q: "Who was the very first king of Israel anointed by the prophet Samuel?", options: ["David", "Saul", "Solomon", "Jonathan"], answer: 1, ref: "1 Samuel 10:1" },
-            { q: "What instrument did young David play to soothe King Saul?", options: ["Trumpet", "Flute", "Harp (Lyre)", "Cymbals"], answer: 2, ref: "1 Samuel 16:23" },
-            { q: "Who was King Saul's son who became David's loyal best friend?", options: ["Absalom", "Jonathan", "Ish-Bosheth", "Abner"], answer: 1, ref: "1 Samuel 18:1" },
-                        { q: "How tall was Goliath of Gath according to 1 Samuel 17?", options: ["Over 6 feet", "Over 9 feet (six cubits and a span)", "Over 12 feet", "Over 15 feet"], answer: 1, ref: "1 Samuel 17:4" },
-            { q: "Which prophet confronted King David after his sin with Bathsheba?", options: ["Samuel", "Nathan", "Elijah", "Gad"], answer: 1, ref: "2 Samuel 12:1" },
-            { q: "Which queen risked her life to save the Jewish people from Haman's plot in Persia?", options: ["Ruth", "Esther", "Bathsheba", "Vashti"], answer: 1, ref: "Esther 4:16" },
-            { q: "Which man in the Old Testament remained faithful to God despite losing his wealth, health, and children?", options: ["Job", "Jeremiah", "Ezekiel", "Amos"], answer: 0, ref: "Job 1:21–22" },
-            { q: "Who were Daniel's three friends who survived King Nebuchadnezzar's fiery furnace?", options: ["Peter, James, and John", "Shadrach, Meshach, and Abednego", "Shem, Ham, and Japheth", "Cain, Abel, and Seth"], answer: 1, ref: "Daniel 3:23–25" },
-            { q: "Who led the rebuilding of Jerusalem's broken city walls in 52 days?", options: ["Ezra", "Nehemiah", "Zerubbabel", "Malachi"], answer: 1, ref: "Nehemiah 6:15" },
-            { q: "Which prophet challenged the prophets of Baal on Mount Carmel where fire fell from heaven?", options: ["Elisha", "Elijah", "Isaiah", "Hosea"], answer: 1, ref: "1 Kings 18:38" },
-            { q: "How many times did Naaman dip in the Jordan River to be healed of leprosy?", options: ["Once", "Three times", "Seven times", "Ten times"], answer: 2, ref: "2 Kings 5:14" },
-            { q: "What is the longest book in the Bible by number of chapters?", options: ["Genesis", "Isaiah", "Psalms", "Jeremiah"], answer: 2, ref: "Psalms (150 chapters)" },
-            { q: "In which town was Jesus born?", options: ["Nazareth", "Jerusalem", "Bethlehem", "Capernaum"], answer: 2, ref: "Matthew 2:1" },
-            { q: "Which angel appeared to Mary to announce she would give birth to Jesus?", options: ["Michael", "Gabriel", "Raphael", "Uriel"], answer: 1, ref: "Luke 1:26–27" },
-            { q: "What gifts did the Wise Men (Magi) bring to young Jesus?", options: ["Silver, bronze, and linen", "Gold, frankincense, and myrrh", "Olives, wheat, and honey", "Pearls, rubies, and silk"], answer: 1, ref: "Matthew 2:11" },
-            { q: "What was Jesus' earthly profession before beginning His public ministry?", options: ["Fisherman", "Tax collector", "Carpenter", "Tentmaker"], answer: 2, ref: "Mark 6:3" },
-            { q: "Who baptized Jesus in the Jordan River?", options: ["Peter", "John the Baptist", "Andrew", "Philip"], answer: 1, ref: "Matthew 3:13" },
-            { q: "What descended on Jesus like a dove right after His baptism?", options: ["An angel", "The Holy Spirit", "A crown of light", "A cloud"], answer: 1, ref: "Matthew 3:16" },
-            { q: "How many disciples (apostles) did Jesus choose to follow Him closely?", options: ["7", "10", "12", "70"], answer: 2, ref: "Luke 6:13" },
-            { q: "What were Peter and his brother Andrew doing when Jesus called them to become 'fishers of men'?", options: ["Collecting taxes", "Casting a net into the sea", "Mending tents", "Herding sheep"], answer: 1, ref: "Matthew 4:18–19" },
-            { q: "What was Matthew's job before Jesus called him to be a disciple?", options: ["Fisherman", "Soldier", "Tax collector", "Pharisee"], answer: 2, ref: "Matthew 9:9" },
-            { q: "With how many loaves and fish did Jesus feed the multitude of 5,000 men?", options: ["2 loaves and 5 fish", "5 loaves and 2 fish", "7 loaves and 3 fish", "12 loaves and 12 fish"], answer: 1, ref: "John 6:9" },
-            { q: "Whom did Jesus raise from the dead after he had been in the tomb for four days?", options: ["Jairus' daughter", "Lazarus", "Stephen", "Bartimaeus"], answer: 1, ref: "John 11:39–44" },
-            { q: "In the parable of the Good Samaritan, who stopped to help the injured traveler?", options: ["A priest", "A Levite", "A Samaritan", "A Roman soldier"], answer: 2, ref: "Luke 10:33" },
-            { q: "In the parable of the Prodigal Son, what did the father do when his younger son returned home?", options: ["Turned him away", "Made him a servant", "Ran to him and threw a celebration", "Scolded him publicly"], answer: 2, ref: "Luke 15:20–24" },
-            { q: "Which disciple betrayed Jesus for thirty pieces of silver?", options: ["Thomas", "Judas Iscariot", "Simon the Zealot", "Bartholomew"], answer: 1, ref: "Matthew 26:14–15" },
-            { q: "How many times did Peter deny knowing Jesus before the rooster crowed?", options: ["Once", "Twice", "Three times", "Four times"], answer: 2, ref: "Luke 22:61" },
-            { q: "Who helped carry Jesus' cross on the way to Golgotha?", options: ["Joseph of Arimathea", "Simon of Cyrene", "Nicodemus", "John"], answer: 1, ref: "Luke 23:26" },
-            { q: "On which day after His crucifixion did Jesus rise from the dead?", options: ["The next day", "The third day", "The seventh day", "The fortieth day"], answer: 1, ref: "1 Corinthians 15:4" },
-            { q: "Which disciple initially doubted Jesus' resurrection until he saw and touched His wounds?", options: ["Philip", "Thomas", "James", "Matthias"], answer: 1, ref: "John 20:25" },
-            { q: "On what day did the Holy Spirit come upon the believers like tongues of fire in Acts 2?", options: ["Passover", "Pentecost", "Yom Kippur", "Sabbath"], answer: 1, ref: "Acts 2:1–4" },
-            { q: "Who was the first Christian martyr stoned to death while speaking boldly for Jesus?", options: ["Stephen", "James", "Barnabas", "Silas"], answer: 0, ref: "Acts 7:59–60" },
-            { q: "On the road to which city did Saul (Paul) encounter a blinding light and the voice of Jesus?", options: ["Jerusalem", "Damascus", "Corinth", "Rome"], answer: 1, ref: "Acts 9:3–4" },
-            { q: "What caused the prison doors to fly open while Paul and Silas were praying and singing hymns at midnight?", options: ["An angel with a key", "A violent earthquake", "A Roman guard", "A flood"], answer: 1, ref: "Acts 16:25–26" },
-            { q: "Which island was Paul shipwrecked on while sailing as a prisoner to Rome?", options: ["Crete", "Cyprus", "Malta", "Patmos"], answer: 2, ref: "Acts 28:1" },
-            { q: "What are the nine qualities listed as the 'Fruit of the Spirit' in Galatians 5?", options: ["Love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control", "Wisdom, power, wealth, honor, glory, strength, praise, hope, truth", "Faith, hope, charity, mercy, grace, humility, courage, zeal, prayer", "Truth, justice, holiness, purity, honor, duty, respect, order, peace"], answer: 0, ref: "Galatians 5:22–23" },
-            { q: "According to 1 Corinthians 13, what is the greatest of faith, hope, and love?", options: ["Faith", "Hope", "Love", "Wisdom"], answer: 2, ref: "1 Corinthians 13:13" },
-            { q: "Complete Philippians 4:13: 'I can do all this through him who gives me _____.'", options: ["Wisdom", "Strength", "Peace", "Victory"], answer: 1, ref: "Philippians 4:13" },
-            { q: "Complete John 3:16: 'For God so loved the world that he gave his one and only _____.'", options: ["Law", "Prophet", "Son", "Angel"], answer: 2, ref: "John 3:16" },
-            { q: "Complete Proverbs 3:5: 'Trust in the Lord with all your heart and lean not on your own _____.'", options: ["Strength", "Understanding", "Riches", "Friends"], answer: 1, ref: "Proverbs 3:5" },
-            { q: "Complete Romans 8:28: 'In all things God works for the _____ of those who love him.'", options: ["Comfort", "Good", "Success", "Fame"], answer: 1, ref: "Romans 8:28" },
-            { q: "Complete Psalm 119:105: 'Your word is a lamp for my feet, a _____ on my path.'", options: ["Guide", "Light", "Shield", "Sign"], answer: 1, ref: "Psalm 119:105" },
-            { q: "Complete Joshua 1:9: 'Be strong and courageous. Do not be afraid; do not be _____.'", options: ["Worried", "Discouraged", "Silent", "Weak"], answer: 1, ref: "Joshua 1:9" },
-            { q: "According to Hebrews 11:1, faith is confidence in what we hope for and assurance about what we do not _____.", options: ["Hear", "See", "Understand", "Possess"], answer: 1, ref: "Hebrews 11:1" },
-            { q: "Which book of the Bible is known as the 'Hall of Faith' chapter?", options: ["Romans 8", "1 Corinthians 13", "Hebrews 11", "Matthew 5"], answer: 2, ref: "Hebrews 11" },
-            { q: "Who wrote the Book of Revelation while exiled on the island of Patmos?", options: ["Paul", "Peter", "John", "Luke"], answer: 2, ref: "Revelation 1:9" },
-            { q: "How many churches in Asia Minor received letters in Revelation chapters 2 and 3?", options: ["3", "5", "7", "12"], answer: 2, ref: "Revelation 1:11" },
-            { q: "In Revelation 22, Jesus declares: 'I am the Alpha and the _____, the First and the Last.'", options: ["Beginning", "Omega", "Amen", "Eternal"], answer: 1, ref: "Revelation 22:13" },
-            { q: "Which Gospel begins with 'In the beginning was the Word, and the Word was with God'?", options: ["Matthew", "Mark", "Luke", "John"], answer: 3, ref: "John 1:1" },
-            { q: "Who was the physician and companion of Paul who wrote the Gospel of Luke and the Book of Acts?", options: ["Mark", "Luke", "Timothy", "Titus"], answer: 1, ref: "Colossians 4:14" },
-            { q: "What did Jesus say are the two greatest commandments?", options: ["Pray daily and fast weekly", "Love God with all your heart and love your neighbor as yourself", "Give to the poor and attend temple", "Honor your parents and keep the Sabbath"], answer: 1, ref: "Matthew 22:37–39" },
-            { q: "According to Matthew 18:20, where two or three gather in Jesus' name, what is promised?", options: ["They will receive wealth", "He is there with them", "Angels will appear", "Mountains will move"], answer: 1, ref: "Matthew 18:20" },
-            { q: "What is the very last book of the Bible?", options: ["Jude", "3 John", "Revelation", "Malachi"], answer: 2, ref: "Revelation 22" }
-
-        ];
-
-        let qIndex = dayNumber % bibleQuiz.length;
-        let score = 0;
-        let answeredCurrent = false;
-
-        function loadQuizQuestion() {
-            answeredCurrent = false;
-            const current = bibleQuiz[qIndex];
-            document.getElementById("quiz-question").textContent = current.q;
-            document.getElementById("quiz-feedback").textContent = "";
-
-            const optionsBox = document.getElementById("quiz-options");
-            optionsBox.innerHTML = "";
-
-            current.options.forEach((optText, idx) => {
-                const btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = "quiz-opt";
-                btn.textContent = optText;
-                btn.onclick = () => checkQuizAnswer(btn, idx);
-                optionsBox.appendChild(btn);
-            });
-        }
-
-        function checkQuizAnswer(clickedBtn, chosenIndex) {
-            if (answeredCurrent) return;
-            answeredCurrent = true;
-
-            const current = bibleQuiz[qIndex];
-            const allBtns = document.querySelectorAll(".quiz-opt");
-            const feedback = document.getElementById("quiz-feedback");
-
-            allBtns.forEach((b, i) => {
-                b.disabled = true;
-                if (i === current.answer) b.classList.add("correct");
-            });
-
-            if (chosenIndex === current.answer) {
-                score++;
-                document.getElementById("quiz-score").textContent = `Score: ${score}`;
-                feedback.style.color = "#1f6f54";
-                feedback.textContent = `Correct! (${current.ref})`;
-            } else {
-                clickedBtn.classList.add("wrong");
-                feedback.style.color = "#b91c1c";
-                feedback.textContent = `Answer: ${current.options[current.answer]} (${current.ref})`;
-            }
-        }
-
-        function nextQuestion() {
-            qIndex = (qIndex + 1) % bibleQuiz.length;
-            loadQuizQuestion();
-        }
-
-        loadQuizQuestion();
-
-                const bannerImg = new Image();
-        bannerImg.onload = function() {
-            document.getElementById("hero-banner").style.backgroundImage = "url('images/banner.jpg')";
-        };
-        bannerImg.src = "images/banner.jpg";
-
-    </script>
+    <footer>© <span class="current-year">2026</span> Beacon of Light Christian Fellowship Center Vienna</footer>
 </body>
 </html>
-

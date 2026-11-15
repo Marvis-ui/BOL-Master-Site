@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Sermon Editor | Beacon of Light</title>
+    <link rel="stylesheet" href="../bolwebstyle.css">
+    <link rel="icon" href="../images/logo.png" type="image/png">
+    <style>
+        .editor-wrap { max-width: 980px; margin: 2rem auto 4rem; padding: 0 1rem; }
+        .editor-card { background: #fff; border: 1px solid #e3ebe7; border-radius: 18px; padding: clamp(1.1rem, 3vw, 2rem); box-shadow: 0 8px 24px rgba(19, 36, 30, .06); }
+        .editor-card + .editor-card { margin-top: 1.5rem; }
+        .editor-card h1, .editor-card h2 { color: #13241e; }
+        .editor-intro { color: #566960; line-height: 1.6; }
+        .editor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+        .editor-field { display: flex; flex-direction: column; gap: .4rem; }
+        .editor-field.full { grid-column: 1 / -1; }
+        .editor-field label { color: #253b32; font-weight: 700; font-size: .92rem; }
+        .editor-field input, .editor-field select, .editor-field textarea { width: 100%; border: 1px solid #cfdcd5; border-radius: 9px; padding: .75rem .85rem; font: inherit; color: #13241e; background: #fff; }
+        .editor-field textarea { min-height: 110px; resize: vertical; line-height: 1.55; }
+        .editor-field .sermon-textarea { min-height: 300px; }
+        .editor-actions { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.2rem; }
+        .editor-button { border: 0; border-radius: 9px; padding: .75rem 1rem; background: #1f6f54; color: white; font: inherit; font-weight: 700; cursor: pointer; }
+        .editor-button.secondary { background: #edf3ef; color: #1e4435; }
+        .editor-button.danger { background: #8d3030; }
+        .editor-status { min-height: 1.5rem; margin: .9rem 0 0; color: #315c47; font-weight: 600; }
+        .editor-status.error { color: #9a2e2e; }
+        .editor-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .record-list { display: grid; gap: .8rem; margin-top: 1rem; }
+        .record-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid #e3ebe7; border-radius: 12px; padding: 1rem; }
+        .record-row h3 { margin: 0 0 .3rem; color: #13241e; font-size: 1.05rem; }
+        .record-meta { margin: 0; color: #667970; font-size: .88rem; }
+        .record-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+        .hidden { display: none !important; }
+        .editor-note { background: #f5f8f6; border-left: 4px solid #1f6f54; border-radius: 7px; padding: .8rem 1rem; color: #53665d; line-height: 1.5; margin-top: 1rem; }
+        @media (max-width: 650px) {
+            .editor-grid { grid-template-columns: 1fr; }
+            .editor-field.full { grid-column: auto; }
+            .record-row { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <a class="logo" href="../index.html" aria-label="Beacon of Light home">
+            <img src="../images/logo.png" alt="">
+            <span class="logo-name">BEACON OF LIGHT<span>CHRISTIAN FELLOWSHIP CENTER · VIENNA</span></span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="../index.html">Home</a>
+            <a href="../sermons.html">View Sermons</a>
+        </nav>
+    </header>
+
+    <main class="editor-wrap" id="main">
+        <section class="editor-card" id="login-panel">
+            <h1>Church Sermon Editor</h1>
+            <p class="editor-intro">Sign in with the private editor password to add or update a written sermon.</p>
+            <form id="login-form">
+                <div class="editor-field">
+                    <label for="editor-password">Editor password</label>
+                    <input id="editor-password" type="password" autocomplete="current-password" required>
+                </div>
+                <div class="editor-actions">
+                    <button class="editor-button" type="submit">Sign in</button>
+                </div>
+            </form>
+            <p class="editor-status" id="login-status" role="status" aria-live="polite"></p>
+            <p class="editor-note">Only people with the editor password can publish. Sermons are saved as a content file in the church website’s GitHub repository; visitors can read published sermons without signing in.</p>
+        </section>
+
+        <section class="editor-card hidden" id="editor-panel">
+            <div class="editor-toolbar">
+                <div>
+                    <h1 id="form-heading">Add a sermon</h1>
+                    <p class="editor-intro">Fill in the message details and choose Save &amp; Publish.</p>
+                </div>
+                <button class="editor-button secondary" id="logout-button" type="button">Sign out</button>
+            </div>
+            <form id="sermon-form">
+                <input id="sermon-id" type="hidden">
+                <div class="editor-grid">
+                    <div class="editor-field">
+                        <label for="sermon-title">Sermon title</label>
+                        <input id="sermon-title" maxlength="180" required>
+                    </div>
+                    <div class="editor-field">
+                        <label for="sermon-date">Date preached</label>
+                        <input id="sermon-date" type="date" required>
+                    </div>
+                    <div class="editor-field">
+                        <label for="sermon-speaker">Speaker</label>
+                        <input id="sermon-speaker" maxlength="120" required>
+                    </div>
+                    <div class="editor-field">
+                        <label for="sermon-category">Service type</label>
+                        <select id="sermon-category" required>
+                            <option value="Sunday Service">Sunday Service</option>
+                            <option value="Hour of Power">Hour of Power</option>
+                            <option value="Thanksgiving">Thanksgiving</option>
+                        </select>
+                    </div>
+                    <div class="editor-field full">
+                        <label for="sermon-scripture">Bible verse or passage</label>
+                        <input id="sermon-scripture" maxlength="180" placeholder="For example, John 15:1–8" required>
+                    </div>
+                    <div class="editor-field full">
+                        <label for="sermon-summary">Short summary</label>
+                        <textarea id="sermon-summary" maxlength="5000" required></textarea>
+                    </div>
+                    <div class="editor-field full">
+                        <label for="sermon-body">Full sermon text</label>
+                        <textarea class="sermon-textarea" id="sermon-body" maxlength="100000" required placeholder="Type or paste the sermon text here. Line breaks are preserved on the public page."></textarea>
+                    </div>
+                </div>
+                <div class="editor-actions">
+                    <button class="editor-button" type="submit">Save &amp; Publish</button>
+                    <button class="editor-button secondary" id="new-sermon-button" type="button">Clear form</button>
+                </div>
+            </form>
+            <p class="editor-status" id="save-status" role="status" aria-live="polite"></p>
+            <p class="editor-note">Saving adds a change to GitHub. Vercel then publishes the updated Sermons page. It may take a short time for the new message to appear on the live site.</p>
+        </section>
+
+        <section class="editor-card hidden" id="records-panel">
+            <h2>Published sermon records</h2>
+            <div class="record-list" id="record-list"></div>
+        </section>
+    </main>
+
+    <script>
+        const loginPanel = document.getElementById("login-panel");
+        const editorPanel = document.getElementById("editor-panel");
+        const recordsPanel = document.getElementById("records-panel");
+        const loginStatus = document.getElementById("login-status");
+        const saveStatus = document.getElementById("save-status");
+        const sermonForm = document.getElementById("sermon-form");
+        let sermons = [];
+
+        async function api(action, extra) {
+            const response = await fetch("/api/sermons", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(Object.assign({ action: action }, extra || {}))
+            });
+            const result = await response.json().catch(function () { return {}; });
+            if (!response.ok) throw new Error(result.error || "The request could not be completed.");
+            return result;
+        }
+
+        function showEditor() {
+            loginPanel.classList.add("hidden");
+            editorPanel.classList.remove("hidden");
+            recordsPanel.classList.remove("hidden");
+        }
+
+        function setStatus(element, message, isError) {
+            element.textContent = message;
+            element.classList.toggle("error", Boolean(isError));
+        }
+
+        function formatDate(value) {
+            const date = new Date(value + "T12:00:00");
+            return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(undefined, {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+        }
+
+        function renderRecords() {
+            const list = document.getElementById("record-list");
+            list.replaceChildren();
+            const sorted = sermons.slice().sort(function (a, b) {
+                return b.date.localeCompare(a.date);
+            });
+            if (!sorted.length) {
+                const empty = document.createElement("p");
+                empty.textContent = "No sermons have been added yet.";
+                list.appendChild(empty);
+                return;
+            }
+            sorted.forEach(function (sermon) {
+                const row = document.createElement("article");
+                row.className = "record-row";
+                const details = document.createElement("div");
+                const title = document.createElement("h3");
+                title.textContent = sermon.title;
+                const meta = document.createElement("p");
+                meta.className = "record-meta";
+                meta.textContent = sermon.category + " · " + formatDate(sermon.date) + " · " + sermon.speaker;
+                details.append(title, meta);
+                const actions = document.createElement("div");
+                actions.className = "record-actions";
+                const editButton = document.createElement("button");
+                editButton.className = "editor-button secondary";
+                editButton.type = "button";
+                editButton.textContent = "Edit";
+                editButton.addEventListener("click", function () { fillForm(sermon); });
+                const deleteButton = document.createElement("button");
+                deleteButton.className = "editor-button danger";
+                deleteButton.type = "button";
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", function () { deleteSermon(sermon); });
+                actions.append(editButton, deleteButton);
+                row.append(details, actions);
+                list.appendChild(row);
+            });
+        }
+
+        function fillForm(sermon) {
+            document.getElementById("sermon-id").value = sermon.id;
+            document.getElementById("sermon-title").value = sermon.title;
+            document.getElementById("sermon-date").value = sermon.date;
+            document.getElementById("sermon-speaker").value = sermon.speaker;
+            document.getElementById("sermon-category").value = sermon.category;
+            document.getElementById("sermon-scripture").value = sermon.scripture;
+            document.getElementById("sermon-summary").value = sermon.summary;
+            document.getElementById("sermon-body").value = sermon.body || "";
+            document.getElementById("form-heading").textContent = "Edit sermon";
+            setStatus(saveStatus, "", false);
+            sermonForm.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        function clearForm() {
+            sermonForm.reset();
+            document.getElementById("sermon-id").value = "";
+            document.getElementById("sermon-date").value = new Date().toISOString().slice(0, 10);
+            document.getElementById("form-heading").textContent = "Add a sermon";
+            setStatus(saveStatus, "", false);
+        }
+
+        async function refreshSermons() {
+            const result = await api("load");
+            sermons = Array.isArray(result.sermons) ? result.sermons : [];
+            renderRecords();
+        }
+
+        async function persistSermons(nextSermons) {
+            setStatus(saveStatus, "Saving sermon to the shared website repository…", false);
+            try {
+                const result = await api("save", { sermons: nextSermons });
+                sermons = result.sermons || nextSermons;
+                renderRecords();
+                setStatus(saveStatus, result.message || "Sermon saved.", false);
+                return true;
+            } catch (error) {
+                setStatus(saveStatus, error.message, true);
+                return false;
+            }
+        }
+
+        async function deleteSermon(sermon) {
+            if (!window.confirm("Delete “" + sermon.title + "” from the published sermon archive?")) return;
+            const nextSermons = sermons.filter(function (item) { return item.id !== sermon.id; });
+            if (await persistSermons(nextSermons)) clearForm();
+        }
+
+        document.getElementById("login-form").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            setStatus(loginStatus, "Signing in…", false);
+            try {
+                await api("login", { password: document.getElementById("editor-password").value });
+                await refreshSermons();
+                showEditor();
+                clearForm();
+            } catch (error) {
+                setStatus(loginStatus, error.message, true);
+            }
+        });
+
+        sermonForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const id = document.getElementById("sermon-id").value ||
+                ("sermon-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8));
+            const record = {
+                id: id,
+                title: document.getElementById("sermon-title").value.trim(),
+                date: document.getElementById("sermon-date").value,
+                speaker: document.getElementById("sermon-speaker").value.trim(),
+                category: document.getElementById("sermon-category").value,
+                scripture: document.getElementById("sermon-scripture").value.trim(),
+                summary: document.getElementById("sermon-summary").value.trim(),
+                body: document.getElementById("sermon-body").value.trim()
+            };
+            const nextSermons = sermons.filter(function (item) { return item.id !== id; });
+            nextSermons.push(record);
+            if (await persistSermons(nextSermons)) clearForm();
+        });
+
+        document.getElementById("new-sermon-button").addEventListener("click", clearForm);
+        document.getElementById("logout-button").addEventListener("click", async function () {
+            try { await api("logout"); } catch (error) {}
+            editorPanel.classList.add("hidden");
+            recordsPanel.classList.add("hidden");
+            loginPanel.classList.remove("hidden");
+            document.getElementById("editor-password").value = "";
+            setStatus(loginStatus, "You are signed out.", false);
+        });
+
+        (async function startEditor() {
+            try {
+                const status = await api("session");
+                if (status.authenticated) {
+                    await refreshSermons();
+                    showEditor();
+                    clearForm();
+                } else {
+                    setStatus(loginStatus, "Sign in to continue.", false);
+                }
+            } catch (error) {
+                setStatus(loginStatus, error.message, true);
+            }
+        })();
+    </script>
+</body>
+</html>
