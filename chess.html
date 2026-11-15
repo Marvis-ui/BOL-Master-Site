@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beacon of Light | Annual Chess Championship</title>
+    <link rel="stylesheet" href="bolwebstyle.css">
+    <style>
+        .chess-hero {
+            background: linear-gradient(135deg, #13241e 0%, #1f4e3d 65%, #2a634d 100%);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 1.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            box-shadow: 0 10px 25px rgba(19, 36, 30, 0.12);
+        }
+        .badge-gold {
+            display: inline-block;
+            background: #f4b41a;
+            color: #13241e;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .champ-spotlight {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(244, 180, 26, 0.45);
+            padding: 1.35rem 1.65rem;
+            border-radius: 14px;
+            min-width: 250px;
+        }
+        .chess-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.75rem;
+        }
+        .scoring-pills {
+            display: flex;
+            gap: 8px;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .score-badge {
+            background: #eef4f1;
+            color: #13241e;
+            font-weight: 700;
+            font-size: 0.82rem;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid #d5e3dd;
+        }
+        .score-badge.win {
+            background: #d9efe4;
+            color: #1f6f54;
+            border-color: #63c78d;
+        }
+        .champion-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.95rem 0;
+            border-bottom: 1px solid #eef4f1;
+        }
+        .champion-row:last-child {
+            border-bottom: none;
+        }
+        .year-tag {
+            background: #eef4f1;
+            color: #1f6f54;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+        }
+        .year-tag.current {
+            background: #f4b41a;
+            color: #13241e;
+        }
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 0.85rem;
+        }
+        .signup-form input, .signup-form select {
+            padding: 10px 12px;
+            border: 1px solid #d5e3dd;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-family: inherit;
+        }
+        .player-list {
+            list-style: none;
+            margin-top: 1rem;
+            max-height: 185px;
+            overflow-y: auto;
+        }
+        .player-list li {
+            background: #f4f8f6;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+        }
+        .tip-strip {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.6rem 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-left: 6px solid #f4b41a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="BOL Logo">
+            <div>
+                BEACON OF LIGHT
+                <span>YOUTH & CHURCH COMMUNITY</span>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="calendar.html">Calendar</a>
+            <a href="celebrations.html">Celebrations</a>
+            <a href="daily-quotes.html">Daily Quotes</a>
+            <a href="sermons.html">Sermons</a>
+            <a href="chess.html" class="active">Chess</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    
+    <div class="container">
+        <!-- 1. Hero Banner Showing Current 2026 Champion -->
+        <section class="chess-hero">
+            <div>
+                <span class="badge-gold">Annual August Tradition • Est. 2024</span>
+                <h1 style="font-size: 2.25rem; margin: 0.65rem 0 0.45rem;">BOL Chess Championship</h1>
+                <p style="color: #e2eee9; max-width: 540px; font-size: 1.02rem;">
+                    Every August during our Church Anniversary month, the BOL family battles on the 64 squares in a round-robin points league.
+                </p>
+            </div>
+
+            <div class="champ-spotlight">
+                <div style="font-size: 0.75rem; color: #a7f3d0; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;">
+                    🏆 Reigning 2026 Champion
+                </div>
+                <div style="font-size: 1.45rem; font-weight: 800; color: #f4b41a; margin: 4px 0;">
+                    Marvelous
+                </div>
+                <div style="font-size: 0.85rem; color: #e2eee9;">
+                    Played: August 2026 • Next Edition: Aug 2027
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Three-Column Interactive Hub -->
+        <section class="chess-grid">
+            <!-- Card 1: Round-Robin League Format & Points System -->
+            <div class="card" style="border-top: 5px solid #1f6f54;">
+                <h2 style="font-size: 1.3rem; color: #13241e;">League Format & Rules</h2>
+                <p style="color: #5c7068; font-size: 0.92rem; margin-top: 0.4rem;">
+                    No knockout eliminations—everyone plays against every registered player in a round-robin league!
+                </p>
+
+                <div class="scoring-pills">
+                    <span class="score-badge win">Win = 3 Pts</span>
+                    <span class="score-badge">Draw = 1 Pt</span>
+                    <span class="score-badge">Loss = 0 Pts</span>
+                </div>
+
+                <ul style="margin: 0.5rem 0 0 1.15rem; color: #3a4d45; font-size: 0.92rem; line-height: 1.75;">
+                    <li><strong>Everyone Plays Everyone:</strong> Each competitor faces every other player on the roster once.</li>
+                    <li><strong>Points Decide the Title:</strong> Total accumulated points at the end of all matches crowns the champion.</li>
+                    <li><strong>Open to All:</strong> Youth and adults of every skill level are welcome to compete.</li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Hall of Champions (2024 – 2026) -->
+            <div class="card" style="border-top: 5px solid #f4b41a;">
+                <h2 style="font-size: 1.3rem; color: #13241e;">Hall of Champions</h2>
+                <p style="color: #5c7068; font-size: 0.9rem; margin: 0.35rem 0 0.75rem;">
+                    BOL Chess Cup title holders since our inaugural 2024 tournament:
+                </p>
+
+                <div class="champion-row">
+                    <div>
+                        <span class="year-tag current">2026</span>
+                        <strong style="margin-left: 8px; color: #13241e;">Marvelous</strong>
+                    </div>
+                    <small style="color: #1f6f54; font-weight: 700;">Current Champ</small>
+                </div>
+
+                <div class="champion-row">
+                    <div>
+                        <span class="year-tag">2025</span>
+                        <strong style="margin-left: 8px; color: #13241e;">Ify</strong>
+                    </div>
+                    <small style="color: #5c7068;">August 2025</small>
+                </div>
+
+                <div class="champion-row">
+                    <div>
+                        <span class="year-tag">2024</span>
+                        <strong style="margin-left: 8px; color: #13241e;">Ify</strong>
+                    </div>
+                    <small style="color: #5c7068;">Inaugural Champ</small>
+                </div>
+            </div>
+
+            <!-- Card 3: Interactive 2027 Player Sign-Up Roster -->
+            <div class="card" style="border-top: 5px solid #13241e;">
+                <h2 style="font-size: 1.3rem; color: #13241e;">August 2027 Player Sign-Up</h2>
+                <p style="color: #5c7068; font-size: 0.9rem; margin-top: 0.35rem;">
+                    Put your name on the roster for next August's round-robin league:
+                </p>
+
+                <form class="signup-form" onsubmit="registerPlayer(event)">
+                    <input type="text" id="player-name" placeholder="Enter your full name" required>
+                    <select id="player-level">
+                        <option value="Title Challenger">Status: Title Challenger</option>
+                        <option value="Defending Champion">Status: Defending Champion</option>
+                        <option value="Returning Player">Status: Returning Player</option>
+                        <option value="First-Time Player">Status: First-Time Player</option>
+                    </select>
+                    <button type="submit" class="btn">Join 2027 Roster</button>
+                </form>
+
+                <ul class="player-list" id="roster-list"></ul>
+            </div>
+        </section>
+
+        <!-- 3. Interactive Chess Tip Strip -->
+        <section class="tip-strip">
+            <div style="max-width: 720px;">
+                <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: #9a6b00; letter-spacing: 0.6px;">
+                    ♟️ BOL Chess Strategy Tip
+                </span>
+                <p id="chess-tip-text" style="font-size: 1.05rem; font-weight: 600; color: #13241e; margin-top: 0.35rem;">
+                    Control the center squares (e4, d4, e5, d5) early—pieces in the center reach twice as many squares as pieces on the edge.
+                </p>
+            </div>
+            <button type="button" class="btn" onclick="nextChessTip()">Next Tip &rarr;</button>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2026 Beacon of Light (BOL). All rights reserved.
+    </footer>
+
+    <script>
+        // 1. Live Player Sign-Up Roster (Saves entries in browser localStorage)
+        const defaultPlayers = [];
+
+        let roster = JSON.parse(localStorage.getItem("bol_chess_roster")) || defaultPlayers;
+
+        function renderRoster() {
+            const list = document.getElementById("roster-list");
+            if (roster.length === 0) {
+                list.innerHTML = `<li style="justify-content:center; color:#5c7068; font-style:italic;">No players signed up yet—be the first to join!</li>`;
+                return;
+            }
+            list.innerHTML = roster.map(p => `
+                <li>
+                    <strong>${p.name}</strong>
+                    <span style="color: #1f6f54; font-weight: 600; font-size: 0.8rem;">${p.status}</span>
+                </li>
+            `).join("");
+        }
+
+
+        function registerPlayer(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById("player-name");
+            const statusInput = document.getElementById("player-level");
+
+            roster.push({
+                name: nameInput.value.trim(),
+                status: statusInput.value
+            });
+
+            localStorage.setItem("bol_chess_roster", JSON.stringify(roster));
+            renderRoster();
+            nameInput.value = "";
+        }
+
+        // 2. Interactive Chess Strategy Tips
+            const chessTips = [
+            "Control the center squares (e4, d4, e5, d5) early—pieces in the center reach twice as many squares as pieces on the edge.",
+            "Castle early to tuck your King safely behind a shield of pawns and bring your Rook into the game.",
+            "In a 3-point-for-a-win round-robin league, playing boldly for a win is worth three times as much as playing safe for a draw!",
+            "Never bring your Queen out too early—your opponent can gain free tempo by chasing her with minor pieces.",
+            "Before making your move, always ask yourself: 'What is my opponent threatening right now?'",
+            "Develop your Knights and Bishops before moving the same piece twice in the opening.",
+            "Connect your Rooks by clearing the back rank—doubled Rooks on an open file dominate the endgame.",
+            "Always look for Checks, Captures, and Threats (CCT) before settling on a quiet move.",
+            "A Knight on the rim is dim—keep your Knights near the center where they can fork enemy pieces.",
+            "In the endgame, your King becomes a strong attacking piece—bring him toward the center to support your pawns.",
+            "Trade pieces when you are ahead in material, but trade pawns when you are behind.",
+            "Never resign too early in a rapid game—stay calm, defend your King, and watch for stalemate or back-rank traps!",
+            "Two Bishops working together on open diagonals are stronger than a Bishop and a Knight in open positions.",
+            "Place your Rooks behind passed pawns—both your own to push them forward and your opponent's to stop them.",
+            "Avoid moving the pawns directly in front of your castled King unless it is absolutely necessary.",
+            "Pins, forks, and skewers win more club games than deep 10-move calculations—always scan for tactical patterns.",
+            "If you are cramped with less space, trade off one or two pairs of pieces to free your position.",
+            "When you find a good move, pause for five seconds and look for an even better one.",
+            "Watch your opponent's unprotected pieces—loose pieces drop off when you create a double attack.",
+            "Don't panic after losing one round-robin match; you still have every other opponent on the roster to earn 3 points!",
+            "Keep an escape square ('luft') for your castled King later in the game so you never get caught by a back-rank checkmate.",
+            "Use your pawns to challenge your opponent's center rather than pushing random flank pawns early.",
+            "A passed pawn is a criminal that must be kept under lock and key—blockade it with a Knight if you can.",
+            "Manage your clock wisely—don't spend half your time on the first ten moves of the opening.",
+            "Shake hands before and after every match—good sportsmanship is what makes the BOL Chess Championship special!",
+            "Never move a pawn without a clear purpose—unlike pieces, pawns can never move backward.",
+            "Control open files with your Rooks by trading off pawns that block their path.",
+            "When ahead in material, simplify the position by trading Queens and major pieces.",
+            "When behind in material, keep your Queen on the board to create counterattacks and perpetual check threats.",
+            "A discovered attack happens when moving one piece uncovers an attack from another piece hiding behind it.",
+            "Always look for intermediate moves ('in-between' checks or threats) before automatically recapturing a piece.",
+            "Rooks belong on the 7th rank—a Rook on the 7th rank attacks unmoved enemy pawns and traps the enemy King.",
+            "In King and pawn endgames, the 'opposition'—placing your King directly across from the enemy King with one square between—often decides who promotes.",
+            "Use the 'rule of the square' in pawn endgames to quickly see if an enemy King can catch your passed pawn.",
+            "Don't grab a 'poisoned pawn' on the wing if it leaves your King uncastled and your development far behind.",
+            "Centralize your Queen in the middlegame only after minor pieces are developed and the center is secure.",
+            "Knights thrive in closed positions with locked pawn chains where Bishops get blocked by their own pawns.",
+            "Bishops thrive in open positions with pawns on both sides of the board because they control long diagonals.",
+            "Double your Rooks on an open file to build unstoppable pressure on your opponent's back rank.",
+            "Never assume a move is forced—always calculate at least two or three candidate moves before touching a piece.",
+            "If your opponent attacks on the flank, counterattack immediately in the center.",
+            "Keep your pawn structure compact—isolated and doubled pawns are easy targets in the endgame.",
+            "Before castling, check that your opponent doesn't have a sacrifice waiting on h7 or h2.",
+            "In rapid games, play solid, familiar openings so you save your clock for tricky middlegame tactics.",
+            "Pinning a Knight to the enemy Queen or King paralyzes that Knight and lets you pile up extra attackers on it.",
+            "When defending a tough position, look for ways to trade off your opponent's most active attacking piece.",
+            "Always check if your last move left a back-rank checkmate threat open for your opponent.",
+            "A battery—lining up a Queen and Bishop on the same diagonal or a Queen and Rook on the same file—creates deadly pressure.",
+            "Stay focused until the very last move; many winning games are lost by relaxing one move before checkmate.",
+            "Review your losses after the tournament—every mistake you spot today makes you stronger for next August!"
+        ];
+
+
+        let tipIndex = 0;
+        function nextChessTip() {
+            tipIndex = (tipIndex + 1) % chessTips.length;
+            document.getElementById("chess-tip-text").textContent = chessTips[tipIndex];
+        }
+
+        renderRoster();
+    </script>
+</body>
+</html>

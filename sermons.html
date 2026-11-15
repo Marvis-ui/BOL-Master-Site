@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beacon of Light | Sermons & Notes</title>
+    <link rel="stylesheet" href="bolwebstyle.css">
+    <style>
+        .latest-sermon {
+            background: linear-gradient(135deg, #13241e 0%, #1f4e3d 65%, #2a634d 100%);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(19, 36, 30, 0.12);
+        }
+        .sermon-pill {
+            display: inline-block;
+            background: #f4b41a;
+            color: #13241e;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+        .latest-sermon h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.4rem;
+        }
+        .sermon-meta {
+            color: #a7f3d0;
+            font-size: 0.92rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .sermon-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: #ffffff;
+            border: 1px solid #d5e3dd;
+            padding: 7px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #3a4d45;
+        }
+        .filter-btn.active {
+            background: #13241e;
+            color: #ffffff;
+            border-color: #13241e;
+        }
+        .search-box {
+            padding: 8px 14px;
+            border: 1px solid #d5e3dd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            min-width: 240px;
+        }
+        .sermon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 1.5rem;
+        }
+        .sermon-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border-top: 5px solid #1f6f54;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .cat-tag {
+            display: inline-block;
+            background: #eef4f1;
+            color: #1f6f54;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+        .watch-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #1f6f54;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .watch-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="BOL Logo">
+            <div>
+                BEACON OF LIGHT
+                <span>YOUTH & CHURCH COMMUNITY</span>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="calendar.html">Calendar</a>
+            <a href="celebrations.html">Celebrations</a>
+            <a href="daily-quotes.html">Daily Quotes</a>
+            <a href="sermons.html" class="active">Sermons</a>
+            <a href="chess.html">Chess</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>Sermons & Message Notes</h1>
+            <p>Catch up on Sunday teachings, Hour of Power discussions, and key scripture takeaways.</p>
+        </div>
+
+        <!-- Featured Latest Sermon (Auto-loads the first item in bolSermons below) -->
+        <div class="latest-sermon" id="featured-sermon"></div>
+
+        <!-- Filter & Search Bar -->
+        <div class="sermon-controls">
+            <div class="filter-group" id="category-filters">
+                <button type="button" class="filter-btn active" onclick="setCategory('All', this)">All Messages</button>
+                <button type="button" class="filter-btn" onclick="setCategory('Sunday Service', this)">Sunday Service</button>
+                <button type="button" class="filter-btn" onclick="setCategory('Hour of Power', this)">Hour of Power</button>
+                <button type="button" class="filter-btn" onclick="setCategory('Thanksgiving', this)">Thanksgiving</button>
+            </div>
+
+            <input type="text" class="search-box" id="sermon-search" placeholder="Search topic or scripture..." oninput="renderSermons()">
+        </div>
+
+        <!-- Archive Grid -->
+        <div class="sermon-grid" id="sermon-list"></div>
+    </div>
+
+    <footer>
+        &copy; 2026 Beacon of Light (BOL). All rights reserved.
+    </footer>
+
+    <script>
+        // EDIT OR ADD NEW SERMONS HERE (Always put the newest message at the top!)
+        const bolSermons = [
+            {
+                title: "Walking as Children of Light",
+                speaker: "Pastor David",
+                date: "November 8, 2026",
+                category: "Sunday Service",
+                scripture: "Ephesians 5:8–14",
+                summary: "How to reflect Christ's character in our daily choices, school, and workplaces even when the world around us feels dark.",
+                videoUrl: "" // Optional: paste a YouTube link here if you record messages
+            },
+            {
+                title: "Standing Firm Under Pressure",
+                speaker: "BOL Youth Team",
+                date: "November 8, 2026",
+                category: "Hour of Power",
+                scripture: "Daniel 3:16–18",
+                summary: "Lessons from Shadrach, Meshach, and Abednego on staying bold in your faith when facing peer pressure.",
+                videoUrl: ""
+            },
+            {
+                title: "A Heart of Gratitude",
+                speaker: "Pastor David",
+                date: "November 1, 2026",
+                category: "Thanksgiving",
+                scripture: "Psalm 100:1–5",
+                summary: "First Sunday Thanksgiving message on why remembering God's past faithfulness builds confidence for what's ahead.",
+                videoUrl: ""
+            },
+            {
+                title: "Guarding Your Mind & Purpose",
+                speaker: "BOL Youth Team",
+                date: "October 25, 2026",
+                category: "Hour of Power",
+                scripture: "Romans 12:1–2",
+                summary: "Practical steps for renewing your mind through daily scripture and surrounding yourself with godly community.",
+                videoUrl: ""
+            }
+        ];
+
+        let activeCategory = "All";
+
+        function renderFeatured() {
+            const latest = bolSermons[0];
+            if (!latest) return;
+
+            const linkHtml = latest.videoUrl
+                ? `<a href="${latest.videoUrl}" target="_blank" style="display:inline-block; margin-top:1rem; background:#ffffff; color:#13241e; padding:10px 18px; border-radius:10px; text-decoration:none; font-weight:700; font-size:0.9rem;">▶ Watch / Listen</a>`
+                : "";
+
+            document.getElementById("featured-sermon").innerHTML = `
+                <span class="sermon-pill">Latest Message • ${latest.category}</span>
+                <h2>${latest.title}</h2>
+                <div class="sermon-meta">${latest.speaker} • ${latest.date} • ${latest.scripture}</div>
+                <p style="color: #e2eee9; max-width: 720px; line-height: 1.65;">${latest.summary}</p>
+                ${linkHtml}
+            `;
+        }
+
+        function setCategory(category, btn) {
+            activeCategory = category;
+            document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            renderSermons();
+        }
+
+        function renderSermons() {
+            const query = document.getElementById("sermon-search").value.toLowerCase();
+            const container = document.getElementById("sermon-list");
+
+            const filtered = bolSermons.filter(s => {
+                const matchesCat = activeCategory === "All" || s.category === activeCategory;
+                const matchesSearch =
+                    s.title.toLowerCase().includes(query) ||
+                    s.scripture.toLowerCase().includes(query) ||
+                    s.summary.toLowerCase().includes(query) ||
+                    s.speaker.toLowerCase().includes(query);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="card"><p>No sermon notes matched your search.</p></div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(s => `
+                <div class="sermon-card">
+                    <div>
+                        <span class="cat-tag">${s.category}</span>
+                        <h3 style="font-size: 1.2rem; color: #13241e; margin-bottom: 0.3rem;">${s.title}</h3>
+                        <div style="font-size: 0.85rem; color: #1f6f54; font-weight: 700; margin-bottom: 0.75rem;">
+                            ${s.scripture} • ${s.date}
+                        </div>
+                        <p style="color: #4a5d55; font-size: 0.94rem;">${s.summary}</p>
+                    </div>
+                                        <div>
+                        <div style="margin-top: 1rem; font-size: 0.85rem; color: #5c7068; font-weight: 600;">
+                            Speaker: ${s.speaker}
+                        </div>
+                        ${s.videoUrl ? `<a href="${s.videoUrl}" target="_blank" class="watch-link">▶ Watch / Listen &rarr;</a>` : ""}
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        renderFeatured();
+        renderSermons();
+    </script>
+</body>
+</html>

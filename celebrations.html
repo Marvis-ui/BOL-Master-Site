@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beacon of Light | Birthdays & Celebrations</title>
+    <link rel="stylesheet" href="bolwebstyle.css">
+    <style>
+        .celebration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+        .celebrant-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 1.4rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+            border-left: 5px solid #f4b41a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .celebrant-card.church-event {
+            border-left-color: #1f6f54;
+        }
+        .date-pill {
+            background: #eef4f1;
+            color: #13241e;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .this-week-banner {
+            background: linear-gradient(135deg, #1a2b25, #28463b);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+        }
+        .month-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .month-tab {
+            background: #ffffff;
+            border: 1px solid #d5e3dd;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #3a4d45;
+        }
+        .month-tab.active {
+            background: #13241e;
+            color: #ffffff;
+            border-color: #13241e;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            BEACON OF LIGHT
+            <span>YOUTH & CHURCH COMMUNITY</span>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="calendar.html">Calendar</a>
+            <a href="celebrations.html" class="active">Celebrations</a>
+            <a href="daily-quotes.html">Daily Quotes</a>
+            <a href="sermons.html">Sermons</a>
+            <a href="chess.html">Chess</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>Birthdays & Church Celebrations</h1>
+            <p>Celebrating the people and milestones of Beacon of Light—synced live with our church calendar.</p>
+        </div>
+
+        <!-- Highlight Box for This Week -->
+        <div class="this-week-banner">
+            <span style="background: #f4b41a; color: #13241e; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px;">THIS WEEK AT BOL</span>
+            <h2 id="week-title" style="margin-top: 0.75rem;">Checking this week's celebrations...</h2>
+            <p id="week-list" style="color: #d5e3dd; margin-top: 0.4rem;"></p>
+        </div>
+
+        <!-- Month Filter Tabs -->
+        <div class="month-tabs" id="month-tabs"></div>
+
+        <h2 id="selected-month-heading" style="margin-bottom: 1rem;">This Month's Celebrations</h2>
+        <div class="celebration-grid" id="celebration-list"></div>
+    </div>
+
+    <footer>
+        &copy; 2026 Beacon of Light (BOL). All rights reserved.
+    </footer>
+
+            <script src="boldata.js"></script>
+    <script>
+        try {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth();
+
+            const months = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            function getNthWeekdayOfMonth(year, month, weekday, nth) {
+                if (nth > 0) {
+                    const firstDayOfMonth = new Date(year, month, 1).getDay();
+                    let diff = weekday - firstDayOfMonth;
+                    if (diff < 0) diff += 7;
+                    return 1 + diff + (nth - 1) * 7;
+                } else {
+                    const lastDate = new Date(year, month + 1, 0);
+                    const lastDayOfWeek = lastDate.getDay();
+                    let diff = lastDayOfWeek - weekday;
+                    if (diff < 0) diff += 7;
+                    return lastDate.getDate() - diff;
+                }
+            }
+
+            function getMonthCelebrations(monthIndex) {
+                const items = [];
+
+                // 1. Birthdays in this month
+                if (typeof bolBirthdays !== "undefined") {
+                    bolBirthdays
+                        .filter(b => b.month === monthIndex)
+                        .forEach(b => {
+                            items.push({
+                                day: b.day,
+                                title: b.name,
+                                subtitle: `${b.type} Celebration`,
+                                isChurchEvent: false
+                            });
+                        });
+                }
+
+                // 2. Fixed annual church celebrations in this month
+                if (typeof bolFixedEvents !== "undefined") {
+                    Object.keys(bolFixedEvents).forEach(key => {
+                        const [m, d] = key.split("-").map(Number);
+                        if (m === monthIndex) {
+                            items.push({
+                                day: d,
+                                title: bolFixedEvents[key],
+                                subtitle: "Church Celebration",
+                                isChurchEvent: true
+                            });
+                        }
+                    });
+                }
+
+                // 3. Rule-based church celebrations (1st Sunday Thanksgiving, Anniversary, etc.)
+                if (typeof bolRuleEvents !== "undefined") {
+                    bolRuleEvents.forEach(rule => {
+                        if (rule.month === "all" || rule.month === monthIndex) {
+                            const dayNum = getNthWeekdayOfMonth(currentYear, monthIndex, rule.weekday, rule.nth);
+                            items.push({
+                                day: dayNum,
+                                title: rule.title,
+                                subtitle: "Special Church Service",
+                                isChurchEvent: true
+                            });
+                        }
+                    });
+                }
+
+
+                // 4. Flexible / TBA celebrations (August highlights)
+                if (typeof bolFlexibleMonthlyEvents !== "undefined" && bolFlexibleMonthlyEvents[monthIndex]) {
+                    bolFlexibleMonthlyEvents[monthIndex].forEach(ev => {
+                        items.push({
+                            day: 99,
+                            title: ev,
+                            subtitle: "Special Monthly Highlight",
+                            isChurchEvent: true
+                        });
+                    });
+                }
+
+                return items.sort((a, b) => a.day - b.day);
+            }
+
+            function renderThisWeek() {
+                const weekMatches = [];
+                for (let i = 0; i < 7; i++) {
+                    const checkDate = new Date(today);
+                    checkDate.setDate(today.getDate() + i);
+                    const m = checkDate.getMonth();
+                    const d = checkDate.getDate();
+
+                    const monthItems = getMonthCelebrations(m);
+                    monthItems.forEach(item => {
+                        if (item.day === d) {
+                            const label = i === 0 ? "Today" : `${months[m]} ${d}`;
+                            weekMatches.push(`${item.title} (${label})`);
+                        }
+                    });
+                }
+
+                const weekTitle = document.getElementById("week-title");
+                const weekList = document.getElementById("week-list");
+
+                if (weekMatches.length > 0) {
+                    weekTitle.textContent = "Let's Celebrate Together!";
+                    weekList.textContent = weekMatches.join("  •  ");
+                } else {
+                    weekTitle.textContent = "Upcoming Celebrations";
+                    weekList.textContent = "No birthdays or special milestones in the next 7 days—check the monthly schedule below!";
+                }
+            }
+
+            function renderMonth(monthIndex) {
+                document.querySelectorAll(".month-tab").forEach((btn, idx) => {
+                    btn.classList.toggle("active", idx === monthIndex);
+                });
+
+                document.getElementById("selected-month-heading").textContent =
+                    `${months[monthIndex]} ${currentYear} Celebrations`;
+
+                const listContainer = document.getElementById("celebration-list");
+                const items = getMonthCelebrations(monthIndex);
+
+                if (items.length === 0) {
+                    listContainer.innerHTML = `<div class="card"><p>No birthdays or special celebrations listed for ${months[monthIndex]} yet.</p></div>`;
+                    return;
+                }
+
+                listContainer.innerHTML = items.map(item => `
+                    <div class="celebrant-card ${item.isChurchEvent ? "church-event" : ""}">
+                        <div>
+                            <h3 style="font-size: 1.1rem; margin-bottom: 2px;">${item.title}</h3>
+                            <small style="color: #5c7068;">${item.subtitle}</small>
+                        </div>
+                        <span class="date-pill">${item.day === 99 ? "TBA" : `${months[monthIndex].slice(0, 3)} ${item.day}`}</span>
+                    </div>
+                `).join("");
+            }
+
+            const tabsContainer = document.getElementById("month-tabs");
+            tabsContainer.innerHTML = "";
+            months.forEach((m, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "month-tab";
+                btn.textContent = m.slice(0, 3);
+                btn.onclick = () => renderMonth(idx);
+                tabsContainer.appendChild(btn);
+            });
+
+            renderThisWeek();
+            renderMonth(currentMonth);
+        } catch (err) {
+            document.getElementById("week-title").textContent = "Script Error Detected:";
+            document.getElementById("week-list").textContent = err.message;
+        }
+    </script>
+</body>
+</html>

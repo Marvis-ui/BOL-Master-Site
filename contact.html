@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beacon of Light | Contact Us</title>
+    <link rel="stylesheet" href="bolwebstyle.css">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 1.75rem;
+            align-items: start;
+        }
+        .info-card {
+            background: linear-gradient(135deg, #13241e 0%, #1f4e3d 100%);
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 2.25rem;
+            box-shadow: 0 10px 25px rgba(19, 36, 30, 0.12);
+        }
+        .info-card h2 {
+            color: #f4b41a;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .info-row {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .info-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .info-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #a7f3d0;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .form-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 2.25rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+        .form-group {
+            margin-bottom: 1.15rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: #13241e;
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #d5e3dd;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: #1a2b25;
+            background: #f9fbfa;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1f6f54;
+            background: #ffffff;
+        }
+        .submit-btn {
+            width: 100%;
+            background-color: #13241e;
+            color: #ffffff;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .submit-btn:hover {
+            background-color: #1f6f54;
+        }
+        .success-box {
+            display: none;
+            background: #d9efe4;
+            border-left: 5px solid #1f6f54;
+            color: #0e291d;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="BOL Logo">
+            <div>
+                BEACON OF LIGHT
+                <span>YOUTH & CHURCH COMMUNITY</span>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="calendar.html">Calendar</a>
+            <a href="celebrations.html">Celebrations</a>
+            <a href="daily-quotes.html">Daily Quotes</a>
+            <a href="sermons.html">Sermons</a>
+            <a href="chess.html">Chess</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+    </header>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>Connect With Beacon of Light</h1>
+            <p>Have a question, want to visit this Sunday, or need prayer? Reach out to our church family anytime.</p>
+        </div>
+
+        <div class="contact-grid">
+            <!-- Left Card: Church Info & Worship Schedule -->
+            <div class="info-card">
+                <h2>Visit & Worship With Us</h2>
+                <p style="color: #d5e3dd; font-size: 0.95rem; margin-bottom: 1.25rem;">
+                    Whether you're new to the area or looking for a home church, our doors are open every Sunday.
+                </p>
+
+                <div class="info-row">
+                    <span class="info-label">📍 Church Location</span>
+                    <strong>[Insert Your Church Street Address]</strong><br>
+                    <span style="color: #d5e3dd; font-size: 0.9rem;">[WIEN, 1030]</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">⏰ Weekly Gatherings</span>
+                    <strong>Every Sunday Service:</strong> <span style="color: #d5e3dd;">[10:00 AM]</span><br>
+                    <strong>Hour of Power (Youth):</strong> <span style="color: #d5e3dd;">Right after Sunday Service</span><br>
+                    <strong>1st Sunday Thanksgiving:</strong> <span style="color: #d5e3dd;">First Sunday of every month</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">📞 Direct Contact</span>
+                    <div>Email: <strong>[hello@bolchurch.org]</strong></div>
+                    <div>Phone / WhatsApp: <strong>[+43 XXX XXXXXXX]</strong></div>
+                </div>
+            </div>
+
+            <!-- Right Card: Interactive Message & Prayer Request Form -->
+            <div class="form-card">
+                <h2 style="font-size: 1.4rem; color: #13241e; margin-bottom: 0.35rem;">Send a Message or Prayer Request</h2>
+                <p style="color: #5c7068; font-size: 0.92rem; margin-bottom: 1.4rem;">
+                    Fill out the form below and our team will follow up with you soon.
+                </p>
+
+                <form id="bol-contact-form" onsubmit="submitContactForm(event)">
+                    <div class="form-group">
+                        <label for="sender-name">Your Name</label>
+                        <input type="text" id="sender-name" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sender-email">Email or Phone Number</label>
+                        <input type="text" id="sender-email" placeholder="How can we reach you?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="topic">What is this regarding?</label>
+                        <select id="topic">
+                            <option value="First-Time Visit">Planning a Sunday Visit</option>
+                            <option value="Prayer Request">Prayer Request</option>
+                            <option value="Hour of Power Youth">Hour of Power (Youth Fellowship)</option>
+                            <option value="Birthday / Calendar Update">Add My Birthday to BOL Calendar</option>
+                            <option value="Chess Tournament">August Chess Tournament</option>
+                            <option value="General Question">General Question</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sender-message">Your Message</label>
+                        <textarea id="sender-message" rows="4" placeholder="Write your message or prayer request here..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message to BOL &rarr;</button>
+                </form>
+
+                <div class="success-box" id="contact-success"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Beacon of Light (BOL). All rights reserved.
+    </footer>
+
+    <script>
+        function submitContactForm(event) {
+            event.preventDefault();
+            const name = document.getElementById("sender-name").value.trim();
+            const topic = document.getElementById("topic").value;
+
+            const successBox = document.getElementById("contact-success");
+            successBox.innerHTML = `✅ Thank you, <strong>${name}</strong>! Your message regarding <strong>${topic}</strong> has been received. God bless you!`;
+            successBox.style.display = "block";
+
+            document.getElementById("bol-contact-form").reset();
+        }
+    </script>
+</body>
+</html>

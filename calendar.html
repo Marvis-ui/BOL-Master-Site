@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beacon of Light | 2026 Calendar</title>
+    <link rel="stylesheet" href="bolwebstyle.css">
+    <style>
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+        }
+        .month-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        }
+        .month-card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            color: #13241e;
+        }
+        .days-header, .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.78rem;
+            gap: 4px;
+        }
+        .days-header span {
+            font-weight: 700;
+            color: #7c8f87;
+            padding-bottom: 4px;
+        }
+        .day {
+            padding: 6px 0;
+            border-radius: 6px;
+            color: #3a4d45;
+        }
+        .day.event {
+            background-color: #13241e;
+            color: #ffffff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+        .day.event:hover {
+            background-color: #1f6f54;
+            transform: scale(1.08);
+        }
+        .event-banner {
+            background-color: #d9efe4;
+            border-left: 5px solid #1f6f54;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+                .day.birthday {
+            background-color: #f4b41a;
+            color: #13241e;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .day.birthday:hover {
+            background-color: #e0a10d;
+        }
+        .day.has-birthday-ring {
+            box-shadow: inset 0 0 0 2px #f4b41a;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            BEACON OF LIGHT
+            <span>YOUTH & CHURCH COMMUNITY</span>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="calendar.html" class="active">Calendar</a>
+            <a href="celebrations.html">Celebrations</a>
+            <a href="daily-quotes.html">Daily Quotes</a>
+            <a href="sermons.html">Sermons</a>
+            <a href="chess.html">Chess</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+    <link rel="icon" href="images/logo.png" type="image/png">
+        <div class="container">
+        <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h1>Beacon of Light Calendar</h1>
+                <p>Click any dark date for details, or check each month's flexible schedule below.</p>
+            </div>
+            <!-- Year Switcher -->
+            <div style="display: flex; align-items: center; gap: 12px; background: #fff; padding: 8px 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <button class="btn" style="padding: 6px 12px;" onclick="changeYear(-1)">&lt;</button>
+                <strong id="year-label" style="font-size: 1.1rem; min-width: 95px; text-align: center;">2026 CYCLE</strong>
+                <button class="btn" style="padding: 6px 12px;" onclick="changeYear(1)">&gt;</button>
+            </div>
+        </div>
+
+        <div class="event-banner" id="event-display">
+            <div>
+                <strong id="selected-date">Selected Date: </strong>
+                <span id="selected-info">Click any highlighted date below to view the event!</span>
+            </div>
+        </div>
+
+        <div class="calendar-grid" id="year-calendar"></div>
+    </div>
+
+    <footer>
+        &copy; <span id="footer-year">2026</span> Beacon of Light (BOL). All rights reserved.
+    </footer>
+            <script src="boldata.js"></script>
+    <script>
+        let currentYear = new Date().getFullYear();
+
+        const months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const allMonthIndexes = Array.from({ length: 12 }, (_, i) => i);
+
+        function getNthWeekdayOfMonth(year, month, weekday, nth) {
+            if (nth > 0) {
+                const firstDayOfMonth = new Date(year, month, 1).getDay();
+                let diff = weekday - firstDayOfMonth;
+                if (diff < 0) diff += 7;
+                return 1 + diff + (nth - 1) * 7;
+            } else {
+                const lastDate = new Date(year, month + 1, 0);
+                const lastDayOfWeek = lastDate.getDay();
+                let diff = lastDayOfWeek - weekday;
+                if (diff < 0) diff += 7;
+                return lastDate.getDate() - diff;
+            }
+        }
+
+        function renderCalendar(year) {
+            try {
+                document.getElementById("year-label").textContent = `${year} CYCLE`;
+                document.getElementById("footer-year").textContent = year;
+                const calendarContainer = document.getElementById("year-calendar");
+                calendarContainer.innerHTML = "";
+
+                // 1. Load fixed & rule-based church events safely from boldata.js
+                const yearEventMap = typeof bolFixedEvents !== "undefined" ? { ...bolFixedEvents } : {};
+
+                if (typeof bolRuleEvents !== "undefined") {
+                    bolRuleEvents.forEach(rule => {
+                        const targetMonths = rule.month === "all" ? allMonthIndexes : [rule.month];
+                        targetMonths.forEach(m => {
+                            const dayNum = getNthWeekdayOfMonth(year, m, rule.weekday, rule.nth);
+                            const key = `${m}-${dayNum}`;
+                            yearEventMap[key] = yearEventMap[key]
+                                ? `${yearEventMap[key]} + ${rule.title}`
+                                : rule.title;
+                        });
+                    });
+                }
+
+                // 2. Map birthdays safely from boldata.js
+                const birthdayMap = {};
+                if (typeof bolBirthdays !== "undefined") {
+                    bolBirthdays.forEach(b => {
+                        const key = `${b.month}-${b.day}`;
+                        if (!birthdayMap[key]) birthdayMap[key] = [];
+                        birthdayMap[key].push(`${b.name}'s ${b.type}`);
+                    });
+                }
+
+                const weeklyEnabled = typeof bolWeeklyService !== "undefined" && bolWeeklyService.enabled;
+                const weeklyTitle = typeof bolWeeklyService !== "undefined"
+                    ? bolWeeklyService.title
+                    : "Sunday Service & Hour of Power (Youth Sunday School after service)";
+
+                months.forEach((monthName, monthIndex) => {
+                    const card = document.createElement("div");
+                    card.className = "month-card";
+
+                    const firstDay = new Date(year, monthIndex, 1).getDay();
+                    const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+
+                    let html = `<h3>${monthName}</h3>
+                        <div class="days-header">
+                            <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                        </div>
+                        <div class="days-grid">`;
+
+                    for (let empty = 0; empty < firstDay; empty++) {
+                        html += `<div class="day"></div>`;
+                    }
+
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        const key = `${monthIndex}-${day}`;
+                        const dayOfWeek = new Date(year, monthIndex, day).getDay();
+                        const hasChurchEvent = Boolean(yearEventMap[key]);
+                        const hasBirthday = Boolean(birthdayMap[key]);
+                        const isWeeklySunday = dayOfWeek === 0 && weeklyEnabled;
+
+                        let details = [];
+                        if (hasChurchEvent) details.push(yearEventMap[key]);
+                        else if (isWeeklySunday) details.push(weeklyTitle);
+                        if (hasBirthday) details.push("🎂 " + birthdayMap[key].join(", "));
+
+                        const safeDetails = details.join(" | ").replace(/'/g, "\\'");
+
+                        if (hasChurchEvent) {
+                            const ringClass = hasBirthday ? " has-birthday-ring" : "";
+                            html += `<div class="day event${ringClass}" onclick="showEvent('${monthName} ${day}, ${year}', '${safeDetails}')">${day}</div>`;
+                        } else if (isWeeklySunday) {
+                            const ringClass = hasBirthday ? " has-birthday-ring" : "";
+                            html += `<div class="day sunday${ringClass}" onclick="showEvent('${monthName} ${day}, ${year}', '${safeDetails}')">${day}</div>`;
+                        } else if (hasBirthday) {
+                            html += `<div class="day birthday" onclick="showEvent('${monthName} ${day}, ${year}', '${safeDetails}')">${day}</div>`;
+                        } else {
+                            html += `<div class="day">${day}</div>`;
+                        }
+                    }
+
+                    html += `</div>`;
+
+                    if (typeof bolFlexibleMonthlyEvents !== "undefined" && bolFlexibleMonthlyEvents[monthIndex]) {
+                        html += `<div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed #d5e3dd; font-size: 0.78rem; color: #1f6f54; font-weight: 600;">`;
+                        bolFlexibleMonthlyEvents[monthIndex].forEach(item => {
+                            html += `<div style="margin-bottom: 3px;">• ${item}</div>`;
+                        });
+                        html += `</div>`;
+                    }
+
+                    card.innerHTML = html;
+                    calendarContainer.appendChild(card);
+                });
+            } catch (err) {
+                document.getElementById("selected-date").textContent = "Calendar Error: ";
+                document.getElementById("selected-info").textContent = err.message;
+            }
+        }
+
+        function showEvent(dateText, eventText) {
+            document.getElementById("selected-date").textContent = dateText + ": ";
+            document.getElementById("selected-info").textContent = eventText;
+        }
+
+        function changeYear(step) {
+            currentYear += step;
+            renderCalendar(currentYear);
+        }
+
+        renderCalendar(currentYear);
+    </script>
+</body>
+</html>
