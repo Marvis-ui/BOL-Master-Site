@@ -2,267 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beacon of Light | 2026 Calendar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore the Beacon of Light church calendar in two-month or annual view.">
+    <title>Church Calendar | Beacon of Light Vienna</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
     <link rel="stylesheet" href="bolwebstyle.css">
-    <style>
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.25rem;
-        }
-        .month-card {
-            background: #fff;
-            border-radius: 14px;
-            padding: 1.2rem;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
-        }
-        .month-card h3 {
-            margin-bottom: 0.75rem;
-            font-size: 1.05rem;
-            color: #13241e;
-        }
-        .days-header, .days-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
-            font-size: 0.78rem;
-            gap: 4px;
-        }
-        .days-header span {
-            font-weight: 700;
-            color: #7c8f87;
-            padding-bottom: 4px;
-        }
-        .day {
-            padding: 6px 0;
-            border-radius: 6px;
-            color: #3a4d45;
-        }
-        .day.event {
-            background-color: #13241e;
-            color: #ffffff;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.15s ease;
-        }
-        .day.event:hover {
-            background-color: #1f6f54;
-            transform: scale(1.08);
-        }
-        .event-banner {
-            background-color: #d9efe4;
-            border-left: 5px solid #1f6f54;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-                .day.birthday {
-            background-color: #f4b41a;
-            color: #13241e;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .day.birthday:hover {
-            background-color: #e0a10d;
-        }
-        .day.has-birthday-ring {
-            box-shadow: inset 0 0 0 2px #f4b41a;
-        }
-
-    </style>
+    <script src="bolsite.js" defer></script>
+    <script src="boldata.js" defer></script>
+    <script src="calendar.js" defer></script>
 </head>
-<body>
-
-    <header>
-        <div class="logo">
-            BEACON OF LIGHT
-            <span>YOUTH & CHURCH COMMUNITY</span>
-        </div>
-        <nav>
+<body data-theme="midnight">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <a class="logo" href="index.html" aria-label="Beacon of Light home">
+            <img src="images/logo.png" alt="">
+            <span class="logo-name">BEACON OF LIGHT<span>CHRISTIAN FELLOWSHIP CENTER · VIENNA</span></span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
-            <a href="calendar.html" class="active">Calendar</a>
-            <a href="celebrations.html">Celebrations</a>
-            <a href="daily-quotes.html">Daily Quotes</a>
-            <a href="sermons.html">Sermons</a>
-            <a href="chess.html">Chess</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="contact.html">Contact</a>
+            <a href="calendar.html">Calendar</a>
+            <a href="bible-study.html">Bible Study</a>
+            <a href="hour-of-power.html">Hour of Power</a>
+            <details class="nav-more"><summary>More</summary><div class="nav-more-menu">
+                <a href="daily-quotes.html">Daily Quotes</a>
+                <a href="sermons.html">Sermons</a><a href="chess.html">Chess</a>
+                <a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+            </div></details>
         </nav>
+        <div class="theme-switch" role="group" aria-label="Choose a color theme">
+            <span class="theme-switch-label">Theme</span>
+            <button class="theme-btn" type="button" data-theme-choice="midnight" aria-pressed="true">Midnight &amp; Gold</button>
+            <button class="theme-btn" type="button" data-theme-choice="olive" aria-pressed="false">Olive &amp; Clay</button>
+        </div>
     </header>
-    <link rel="icon" href="images/logo.png" type="image/png">
-        <div class="container">
-        <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <main class="container" id="main">
+        <section class="page-hero">
+            <span class="eyebrow">Gather · grow · celebrate</span>
+            <h1>A shared rhythm of faith.</h1>
+            <p>Plan ahead with a paired two-month view or open the full-year overview. Select a marked date for details, then browse birthdays and church celebrations for the period below.</p>
+        </section>
+
+        <section class="calendar-toolbar" aria-label="Calendar controls">
+            <div class="calendar-controls">
+                <button type="button" id="period-back" aria-label="Show previous two months">←</button>
+                <button type="button" id="period-forward" aria-label="Show next two months">→</button>
+                <select id="calendar-year" aria-label="Calendar year">
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                </select>
+            </div>
+            <div class="calendar-views" role="group" aria-label="Calendar view">
+                <button type="button" data-calendar-view="paired" aria-pressed="true">Two months</button>
+                <button type="button" data-calendar-view="annual" aria-pressed="false">Annual overview</button>
+            </div>
+        </section>
+
+        <section class="calendar-detail" aria-live="polite" aria-atomic="true">
             <div>
-                <h1>Beacon of Light Calendar</h1>
-                <p>Click any dark date for details, or check each month's flexible schedule below.</p>
+                <h2 id="event-date">Your church calendar</h2>
+                <p id="event-description">Choose a date to see a gathering, celebration or church milestone.</p>
             </div>
-            <!-- Year Switcher -->
-            <div style="display: flex; align-items: center; gap: 12px; background: #fff; padding: 8px 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                <button class="btn" style="padding: 6px 12px;" onclick="changeYear(-1)">&lt;</button>
-                <strong id="year-label" style="font-size: 1.1rem; min-width: 95px; text-align: center;">2026 CYCLE</strong>
-                <button class="btn" style="padding: 6px 12px;" onclick="changeYear(1)">&gt;</button>
+            <div class="calendar-legend" aria-label="Calendar legend">
+                <span><i class="legend-dot" aria-hidden="true"></i>Church gathering or event</span>
+                <span>Birthdays and milestones</span>
             </div>
-        </div>
+        </section>
 
-        <div class="event-banner" id="event-display">
-            <div>
-                <strong id="selected-date">Selected Date: </strong>
-                <span id="selected-info">Click any highlighted date below to view the event!</span>
+        <section id="calendar-grid" class="calendar-grid" aria-live="polite" aria-label="Calendar dates"></section>
+        <section class="integrated-celebrations" id="celebrations" aria-labelledby="period-celebrations-title">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">Birthdays · milestones · church life</span>
+                    <h2 id="period-celebrations-title">Celebrations in this period</h2>
+                </div>
+                <p id="period-celebrations-summary">The list follows the calendar view above.</p>
             </div>
-        </div>
-
-        <div class="calendar-grid" id="year-calendar"></div>
-    </div>
-
-    <footer>
-        &copy; <span id="footer-year">2026</span> Beacon of Light (BOL). All rights reserved.
-    </footer>
-            <script src="boldata.js"></script>
-    <script>
-        let currentYear = new Date().getFullYear();
-
-        const months = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-
-        const allMonthIndexes = Array.from({ length: 12 }, (_, i) => i);
-
-        function getNthWeekdayOfMonth(year, month, weekday, nth) {
-            if (nth > 0) {
-                const firstDayOfMonth = new Date(year, month, 1).getDay();
-                let diff = weekday - firstDayOfMonth;
-                if (diff < 0) diff += 7;
-                return 1 + diff + (nth - 1) * 7;
-            } else {
-                const lastDate = new Date(year, month + 1, 0);
-                const lastDayOfWeek = lastDate.getDay();
-                let diff = lastDayOfWeek - weekday;
-                if (diff < 0) diff += 7;
-                return lastDate.getDate() - diff;
-            }
-        }
-
-        function renderCalendar(year) {
-            try {
-                document.getElementById("year-label").textContent = `${year} CYCLE`;
-                document.getElementById("footer-year").textContent = year;
-                const calendarContainer = document.getElementById("year-calendar");
-                calendarContainer.innerHTML = "";
-
-                // 1. Load fixed & rule-based church events safely from boldata.js
-                const yearEventMap = typeof bolFixedEvents !== "undefined" ? { ...bolFixedEvents } : {};
-
-                if (typeof bolRuleEvents !== "undefined") {
-                    bolRuleEvents.forEach(rule => {
-                        const targetMonths = rule.month === "all" ? allMonthIndexes : [rule.month];
-                        targetMonths.forEach(m => {
-                            const dayNum = getNthWeekdayOfMonth(year, m, rule.weekday, rule.nth);
-                            const key = `${m}-${dayNum}`;
-                            yearEventMap[key] = yearEventMap[key]
-                                ? `${yearEventMap[key]} + ${rule.title}`
-                                : rule.title;
-                        });
-                    });
-                }
-
-                // 2. Map birthdays safely from boldata.js
-                const birthdayMap = {};
-                if (typeof bolBirthdays !== "undefined") {
-                    bolBirthdays.forEach(b => {
-                        const key = `${b.month}-${b.day}`;
-                        if (!birthdayMap[key]) birthdayMap[key] = [];
-                        birthdayMap[key].push(`${b.name}'s ${b.type}`);
-                    });
-                }
-
-                const weeklyEnabled = typeof bolWeeklyService !== "undefined" && bolWeeklyService.enabled;
-                const weeklyTitle = typeof bolWeeklyService !== "undefined"
-                    ? bolWeeklyService.title
-                    : "Sunday Service & Hour of Power (Youth Sunday School after service)";
-
-                months.forEach((monthName, monthIndex) => {
-                    const card = document.createElement("div");
-                    card.className = "month-card";
-
-                    const firstDay = new Date(year, monthIndex, 1).getDay();
-                    const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-
-                    let html = `<h3>${monthName}</h3>
-                        <div class="days-header">
-                            <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-                        </div>
-                        <div class="days-grid">`;
-
-                    for (let empty = 0; empty < firstDay; empty++) {
-                        html += `<div class="day"></div>`;
-                    }
-
-                    for (let day = 1; day <= daysInMonth; day++) {
-                        const key = `${monthIndex}-${day}`;
-                        const dayOfWeek = new Date(year, monthIndex, day).getDay();
-                        const hasChurchEvent = Boolean(yearEventMap[key]);
-                        const hasBirthday = Boolean(birthdayMap[key]);
-                        const isWeeklySunday = dayOfWeek === 0 && weeklyEnabled;
-
-                        let details = [];
-                        if (hasChurchEvent) details.push(yearEventMap[key]);
-                        else if (isWeeklySunday) details.push(weeklyTitle);
-                        if (hasBirthday) details.push("🎂 " + birthdayMap[key].join(", "));
-
-                        const safeDetails = details.join(" | ").replace(/'/g, "\\'");
-
-                        if (hasChurchEvent) {
-                            const ringClass = hasBirthday ? " has-birthday-ring" : "";
-                            html += `<div class="day event${ringClass}" onclick="showEvent('${monthName} ${day}, ${year}', '${safeDetails}')">${day}</div>`;
-                        } else if (isWeeklySunday) {
-                            const ringClass = hasBirthday ? " has-birthday-ring" : "";
-                            html += `<div class="day sunday${ringClass}" onclick="showEvent('${monthName} ${day}, ${year}', '${safeDetails}')">${day}</div>`;
-                        } else if (hasBirthday) {
-                            html += `<div class="day birthday" onclick="showEvent('${monthName} ${day}, ${year}', '${safeDetails}')">${day}</div>`;
-                        } else {
-                            html += `<div class="day">${day}</div>`;
-                        }
-                    }
-
-                    html += `</div>`;
-
-                    if (typeof bolFlexibleMonthlyEvents !== "undefined" && bolFlexibleMonthlyEvents[monthIndex]) {
-                        html += `<div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed #d5e3dd; font-size: 0.78rem; color: #1f6f54; font-weight: 600;">`;
-                        bolFlexibleMonthlyEvents[monthIndex].forEach(item => {
-                            html += `<div style="margin-bottom: 3px;">• ${item}</div>`;
-                        });
-                        html += `</div>`;
-                    }
-
-                    card.innerHTML = html;
-                    calendarContainer.appendChild(card);
-                });
-            } catch (err) {
-                document.getElementById("selected-date").textContent = "Calendar Error: ";
-                document.getElementById("selected-info").textContent = err.message;
-            }
-        }
-
-        function showEvent(dateText, eventText) {
-            document.getElementById("selected-date").textContent = dateText + ": ";
-            document.getElementById("selected-info").textContent = eventText;
-        }
-
-        function changeYear(step) {
-            currentYear += step;
-            renderCalendar(currentYear);
-        }
-
-        renderCalendar(currentYear);
-    </script>
+            <div class="celebration-week" aria-live="polite">
+                <div>
+                    <span class="eyebrow">This week at BOL</span>
+                    <h3 id="week-title">Upcoming celebrations</h3>
+                </div>
+                <ul class="week-list" id="week-list"></ul>
+            </div>
+            <div class="celebration-grid" id="celebration-list" aria-live="polite"></div>
+        </section>
+        <p class="calendar-note">Bible study and revival prayer times shown here follow the supplied Youth Space draft. Please confirm these times with ministry leaders before publishing.</p>
+    </main>
+    <footer>© <span class="current-year">2026</span> Beacon of Light Christian Fellowship Center Vienna</footer>
 </body>
 </html>

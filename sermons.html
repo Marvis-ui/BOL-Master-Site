@@ -108,33 +108,45 @@
         .watch-link:hover {
             text-decoration: underline;
         }
+        .featured-summary { color: #e2eee9; max-width: 720px; line-height: 1.65; }
+        .sermon-title { font-size: 1.2rem; color: #13241e; margin: 0 0 .3rem; }
+        .sermon-card-meta { font-size: .85rem; color: #1f6f54; font-weight: 700; margin-bottom: .75rem; }
+        .sermon-summary { color: #4a5d55; font-size: .94rem; }
+        .sermon-speaker { margin-top: 1rem; font-size: .85rem; color: #5c7068; font-weight: 600; }
+        .sermon-full-text { margin-top: 1rem; border-top: 1px solid #e3ebe7; padding-top: .75rem; }
+        .sermon-full-text summary { color: #1f6f54; font-weight: 700; cursor: pointer; }
+        .sermon-body { margin-top: .8rem; color: #34483f; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .sermon-text-note { margin-top: .9rem; color: #74837c; font-size: .85rem; font-style: italic; }
+        .sermon-editor-link { margin-top: .6rem; font-size: .84rem; }
+        .sermon-editor-link a { color: #687a71; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="images/logo.png" alt="BOL Logo">
-            <div>
-                BEACON OF LIGHT
-                <span>YOUTH & CHURCH COMMUNITY</span>
-            </div>
-        </div>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="calendar.html">Calendar</a>
-            <a href="celebrations.html">Celebrations</a>
+    <a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+    <a class="logo" href="index.html" aria-label="Beacon of Light home">
+        <img src="images/logo.png" alt="">
+        <span class="logo-name">BEACON OF LIGHT<span>CHRISTIAN FELLOWSHIP CENTER · VIENNA</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="calendar.html">Calendar</a>
+        <a href="bible-study.html">Bible Study</a><a href="hour-of-power.html">Hour of Power</a>
+        <details class="nav-more"><summary>More</summary><div class="nav-more-menu">
             <a href="daily-quotes.html">Daily Quotes</a>
-            <a href="sermons.html" class="active">Sermons</a>
-            <a href="chess.html">Chess</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
+            <a href="sermons.html">Sermons</a><a href="chess.html">Chess</a>
+            <a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+        </div></details>
+    </nav>
+    <div class="theme-switch" role="group" aria-label="Choose a color theme">
+        <span class="theme-switch-label">Theme</span>
+        <button class="theme-btn" type="button" data-theme-choice="midnight" aria-pressed="true">Midnight &amp; Gold</button>
+        <button class="theme-btn" type="button" data-theme-choice="olive" aria-pressed="false">Olive &amp; Clay</button>
+    </div>
+</header>
     <link rel="icon" href="images/logo.png" type="image/png">
     
-    <div class="container">
+    <div class="container" id="main">
         <div class="page-header">
             <h1>Sermons & Message Notes</h1>
             <p>Catch up on Sunday teachings, Hour of Power discussions, and key scripture takeaways.</p>
@@ -160,117 +172,93 @@
     </div>
 
     <footer>
-        &copy; 2026 Beacon of Light (BOL). All rights reserved.
+        &copy; 2026 Beacon of Light (BOL). All rights reserved.<p class="sermon-editor-link"><a href="admin/sermons.html">Church editor sign in</a></p>
     </footer>
 
+    <script src="sermons-data.js"></script>
     <script>
-        // EDIT OR ADD NEW SERMONS HERE (Always put the newest message at the top!)
-        const bolSermons = [
-            {
-                title: "Walking as Children of Light",
-                speaker: "Pastor David",
-                date: "November 8, 2026",
-                category: "Sunday Service",
-                scripture: "Ephesians 5:8–14",
-                summary: "How to reflect Christ's character in our daily choices, school, and workplaces even when the world around us feels dark.",
-                videoUrl: "" // Optional: paste a YouTube link here if you record messages
-            },
-            {
-                title: "Standing Firm Under Pressure",
-                speaker: "BOL Youth Team",
-                date: "November 8, 2026",
-                category: "Hour of Power",
-                scripture: "Daniel 3:16–18",
-                summary: "Lessons from Shadrach, Meshach, and Abednego on staying bold in your faith when facing peer pressure.",
-                videoUrl: ""
-            },
-            {
-                title: "A Heart of Gratitude",
-                speaker: "Pastor David",
-                date: "November 1, 2026",
-                category: "Thanksgiving",
-                scripture: "Psalm 100:1–5",
-                summary: "First Sunday Thanksgiving message on why remembering God's past faithfulness builds confidence for what's ahead.",
-                videoUrl: ""
-            },
-            {
-                title: "Guarding Your Mind & Purpose",
-                speaker: "BOL Youth Team",
-                date: "October 25, 2026",
-                category: "Hour of Power",
-                scripture: "Romans 12:1–2",
-                summary: "Practical steps for renewing your mind through daily scripture and surrounding yourself with godly community.",
-                videoUrl: ""
-            }
-        ];
-
+        let bolSermons = Array.isArray(window.BOL_SERMONS) ? window.BOL_SERMONS.slice() : [];
         let activeCategory = "All";
 
+        function escapeHTML(value) {
+            return String(value || "").replace(/[&<>\"']/g, function (character) {
+                return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[character];
+            });
+        }
+
+        function formatSermonDate(value) {
+            const date = new Date(value + "T12:00:00");
+            return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(undefined, {
+                year: "numeric", month: "long", day: "numeric"
+            });
+        }
+
+        function newestFirst() {
+            return bolSermons.slice().sort(function (a, b) {
+                return String(b.date).localeCompare(String(a.date));
+            });
+        }
+
         function renderFeatured() {
-            const latest = bolSermons[0];
-            if (!latest) return;
-
-            const linkHtml = latest.videoUrl
-                ? `<a href="${latest.videoUrl}" target="_blank" style="display:inline-block; margin-top:1rem; background:#ffffff; color:#13241e; padding:10px 18px; border-radius:10px; text-decoration:none; font-weight:700; font-size:0.9rem;">▶ Watch / Listen</a>`
-                : "";
-
-            document.getElementById("featured-sermon").innerHTML = `
-                <span class="sermon-pill">Latest Message • ${latest.category}</span>
-                <h2>${latest.title}</h2>
-                <div class="sermon-meta">${latest.speaker} • ${latest.date} • ${latest.scripture}</div>
-                <p style="color: #e2eee9; max-width: 720px; line-height: 1.65;">${latest.summary}</p>
-                ${linkHtml}
+            const latest = newestFirst()[0];
+            const featured = document.getElementById("featured-sermon");
+            if (!latest) {
+                featured.innerHTML = "<p>There are no published sermons yet.</p>";
+                return;
+            }
+            featured.innerHTML = `
+                <span class="sermon-pill">Latest Message • ${escapeHTML(latest.category)}</span>
+                <h2>${escapeHTML(latest.title)}</h2>
+                <div class="sermon-meta">${escapeHTML(latest.speaker)} • ${escapeHTML(formatSermonDate(latest.date))} • ${escapeHTML(latest.scripture)}</div>
+                <p class="featured-summary">${escapeHTML(latest.summary)}</p>
             `;
         }
 
         function setCategory(category, btn) {
             activeCategory = category;
-            document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".filter-btn").forEach(function (button) { button.classList.remove("active"); });
             btn.classList.add("active");
             renderSermons();
         }
 
         function renderSermons() {
-            const query = document.getElementById("sermon-search").value.toLowerCase();
+            const query = document.getElementById("sermon-search").value.trim().toLowerCase();
             const container = document.getElementById("sermon-list");
-
-            const filtered = bolSermons.filter(s => {
-                const matchesCat = activeCategory === "All" || s.category === activeCategory;
-                const matchesSearch =
-                    s.title.toLowerCase().includes(query) ||
-                    s.scripture.toLowerCase().includes(query) ||
-                    s.summary.toLowerCase().includes(query) ||
-                    s.speaker.toLowerCase().includes(query);
-                return matchesCat && matchesSearch;
+            const filtered = newestFirst().filter(function (sermon) {
+                const matchesCategory = activeCategory === "All" || sermon.category === activeCategory;
+                const searchable = [sermon.title, sermon.scripture, sermon.summary, sermon.speaker, sermon.body]
+                    .map(function (value) { return String(value || "").toLowerCase(); }).join(" ");
+                return matchesCategory && searchable.includes(query);
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="card"><p>No sermon notes matched your search.</p></div>`;
+                container.innerHTML = '<div class="card"><p>No sermon notes matched your search.</p></div>';
                 return;
             }
 
-            container.innerHTML = filtered.map(s => `
-                <div class="sermon-card">
-                    <div>
-                        <span class="cat-tag">${s.category}</span>
-                        <h3 style="font-size: 1.2rem; color: #13241e; margin-bottom: 0.3rem;">${s.title}</h3>
-                        <div style="font-size: 0.85rem; color: #1f6f54; font-weight: 700; margin-bottom: 0.75rem;">
-                            ${s.scripture} • ${s.date}
+            container.innerHTML = filtered.map(function (sermon) {
+                const fullText = String(sermon.body || "").trim();
+                const readText = fullText
+                    ? '<details class="sermon-full-text"><summary>Read full sermon</summary><div class="sermon-body">' + escapeHTML(fullText) + '</div></details>'
+                    : '<p class="sermon-text-note">Full sermon text has not been added for this message.</p>';
+                return `
+                    <article class="sermon-card">
+                        <div>
+                            <span class="cat-tag">${escapeHTML(sermon.category)}</span>
+                            <h3 class="sermon-title">${escapeHTML(sermon.title)}</h3>
+                            <div class="sermon-card-meta">${escapeHTML(sermon.scripture)} • ${escapeHTML(formatSermonDate(sermon.date))}</div>
+                            <p class="sermon-summary">${escapeHTML(sermon.summary)}</p>
+                            ${readText}
                         </div>
-                        <p style="color: #4a5d55; font-size: 0.94rem;">${s.summary}</p>
-                    </div>
-                                        <div>
-                        <div style="margin-top: 1rem; font-size: 0.85rem; color: #5c7068; font-weight: 600;">
-                            Speaker: ${s.speaker}
-                        </div>
-                        ${s.videoUrl ? `<a href="${s.videoUrl}" target="_blank" class="watch-link">▶ Watch / Listen &rarr;</a>` : ""}
-                    </div>
-                </div>
-            `).join("");
+                        <div class="sermon-speaker">Speaker: ${escapeHTML(sermon.speaker)}</div>
+                    </article>
+                `;
+            }).join("");
         }
 
         renderFeatured();
         renderSermons();
     </script>
+    <script src="bolsite.js"></script>
 </body>
 </html>
