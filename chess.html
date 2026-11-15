@@ -248,8 +248,6 @@
                     <button type="submit" class="btn">Join 2027 Roster</button>
                 </form>
 
-                <p id="roster-status" aria-live="polite" style="font-size:0.86rem; color:#5c7068; margin-top:0.75rem;">Loading shared roster…</p>
-                <p style="font-size:0.8rem; color:#5c7068; margin-top:0.35rem;">Sign-ups are saved centrally. Names and statuses are visible to visitors of this public website.</p>
                 <ul class="player-list" id="roster-list"></ul>
             </div>
         </section>
@@ -279,6 +277,7 @@
 
         function setRosterStatus(message, isError) {
             const status = document.getElementById("roster-status");
+            if (!status) return;
             status.textContent = message;
             status.style.color = isError ? "#a12622" : "#5c7068";
         }
