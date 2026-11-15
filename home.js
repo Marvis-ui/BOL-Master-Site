@@ -1,22 +1,14 @@
 (function () {
     "use strict";
 
-    var verses = [
-        { text: "Your word is a lamp for my feet, a light on my path.", ref: "Psalm 119:105" },
-        { text: "Be joyful in hope, patient in affliction, faithful in prayer.", ref: "Romans 12:12" },
-        { text: "For we live by faith, not by sight.", ref: "2 Corinthians 5:7" },
-        { text: "The Lord is my shepherd, I lack nothing.", ref: "Psalm 23:1" },
-        { text: "This is the day the Lord has made; let us rejoice and be glad in it.", ref: "Psalm 118:24" },
-        { text: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7" },
-        { text: "I can do all this through him who gives me strength.", ref: "Philippians 4:13" }
-    ];
+    var verses = window.BOL_DAILY_VERSES;
 
     var now = new Date();
     var dateKey = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
     var dayIndex = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
     var verse = verses[dayIndex % verses.length];
     document.getElementById("daily-quote-text").textContent = "“" + verse.text + "”";
-    document.getElementById("daily-quote-ref").textContent = verse.ref;
+    document.getElementById("daily-quote-ref").textContent = verse.ref + " · WEB";
 
     document.querySelectorAll("[data-reaction]").forEach(function (button) {
         var name = button.getAttribute("data-reaction");
