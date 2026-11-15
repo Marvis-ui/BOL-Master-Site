@@ -8,7 +8,7 @@
     var dayIndex = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
     var verse = verses[dayIndex % verses.length];
     document.getElementById("daily-quote-text").textContent = "“" + verse.text + "”";
-    document.getElementById("daily-quote-ref").textContent = verse.ref + " · WEB";
+    document.getElementById("daily-quote-ref").textContent = verse.ref;
 
     document.querySelectorAll("[data-reaction]").forEach(function (button) {
         var name = button.getAttribute("data-reaction");
