@@ -100,7 +100,7 @@
     <div class="container" id="main">
         <div class="page-header">
             <h1>Daily Verses</h1>
-            <p>A new Bible verse each day, synced with the homepage. The World English Bible (WEB) is public domain. <a href="https://ebible.org/engwebp/copyright.htm" target="_blank" rel="noopener">About this translation</a></p>
+            
         </div>
 
         <!-- Featured Today's Quote (Auto-populated) -->
@@ -177,7 +177,7 @@
         document.getElementById("featured-quote-box").innerHTML = `
             <span class="tag">✨ Today's Word • ${formattedToday}</span>
             <p class="quote-text">"${todaysVerse.text}"</p>
-            <p class="quote-author">— ${todaysVerse.ref} · WEB</p>
+            <p class="quote-author">— ${todaysVerse.ref}</p>
             <div class="reactions">
                 ${buildReactionButtons(todayKey, todaysVerse)}
             </div>
@@ -204,7 +204,7 @@
                 <div class="card archive-card">
                     <small style="color: #1f6f54; font-weight: 700; text-transform: uppercase;">${label}</small>
                     <p style="font-size: 1.15rem; font-weight: 600; margin: 0.5rem 0; color: #13241e;">"${verse.text}"</p>
-                    <p style="color: #5c7068; font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">— ${verse.ref} · WEB</p>
+                    <p style="color: #5c7068; font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">— ${verse.ref}</p>
                     <div class="reactions">
                         ${buildReactionButtons(pastKey, verse)}
                     </div>
