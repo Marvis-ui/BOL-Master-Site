@@ -126,6 +126,13 @@
         .sermon-date{font-size:.9rem;color: var(--muted);margin:.5rem 0}
         .sermon-card .watch-link{margin-top:1.2rem;text-decoration:underline;text-underline-offset:3px}
         @media(prefers-reduced-motion:reduce){.sermon-pdf-card{transition:none}}
+        .sermon-date-filters { align-items: center; gap: .75rem; }
+        .sermon-date-filters label { display: flex; align-items: center; gap: .4rem; font-size: .9rem; color: var(--ink); }
+        .sermon-date-filters select { padding: .55rem .65rem; font: inherit; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--surface-raised); }
+        @media (max-width: 600px) {
+            .sermon-controls .search-box { width: 100%; min-width: 0; }
+            .sermon-date-filters { width: 100%; }
+        }
     </style>
     <link rel="stylesheet" href="page-banners.css">
 </head>
@@ -165,14 +172,17 @@
 
         <!-- Filter & Search Bar -->
         <div class="sermon-controls">
-            <div class="filter-group" id="category-filters">
-                <button type="button" class="filter-btn active" onclick="setCategory('All', this)">All Messages</button>
-                <button type="button" class="filter-btn" onclick="setCategory('Sunday Service', this)">Sunday Service</button>
-                <button type="button" class="filter-btn" onclick="setCategory('Hour of Power', this)">Hour of Power</button>
-                <button type="button" class="filter-btn" onclick="setCategory('Thanksgiving', this)">Thanksgiving</button>
+            <div class="filter-group sermon-date-filters">
+                <button type="button" class="filter-btn active" id="all-sermons" onclick="resetSermonFilters()" aria-pressed="true">All Messages</button>
+                <label for="sermon-year">Year
+                    <select id="sermon-year" onchange="renderSermons()"><option value="all">All years</option></select>
+                </label>
+                <label for="sermon-month">Month
+                    <select id="sermon-month" onchange="renderSermons()"><option value="all">All months</option></select>
+                </label>
             </div>
 
-            <input type="text" class="search-box" id="sermon-search" placeholder="Search topic or scripture..." oninput="renderSermons()">
+            <input type="text" class="search-box" id="sermon-search" aria-label="Search sermon title, Scripture or preacher" placeholder="Search topic, Scripture or preacher..." oninput="renderSermons()">
         </div>
 
         <!-- Archive Grid -->
@@ -186,7 +196,7 @@
     <script src="sermons-data.js"></script>
     <script>
         let bolSermons = Array.isArray(window.BOL_SERMONS) ? window.BOL_SERMONS.slice() : [];
-        let activeCategory = "All";
+
 
         function escapeHTML(value) {
             return String(value || "").replace(/[&<>\"']/g, function (character) {
@@ -222,25 +232,49 @@
             `;
         }
 
-        function setCategory(category, btn) {
-            activeCategory = category;
-            document.querySelectorAll(".filter-btn").forEach(function (button) { button.classList.remove("active"); });
-            btn.classList.add("active");
+        function populateSermonDateFilters() {
+            const yearPicker = document.getElementById("sermon-year");
+            const monthPicker = document.getElementById("sermon-month");
+            const years = [...new Set(bolSermons.map(function (sermon) {
+                return String(sermon.date || "").match(/^\d{4}-\d{2}-\d{2}$/) ? String(sermon.date).slice(0, 4) : "";
+            }).filter(Boolean))].sort().reverse();
+            years.forEach(function (year) {
+                const option = document.createElement("option");
+                option.value = year; option.textContent = year; yearPicker.append(option);
+            });
+            ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].forEach(function (month, index) {
+                const option = document.createElement("option");
+                option.value = String(index + 1).padStart(2, "0"); option.textContent = month; monthPicker.append(option);
+            });
+        }
+
+        function resetSermonFilters() {
+            document.getElementById("sermon-year").value = "all";
+            document.getElementById("sermon-month").value = "all";
+            document.getElementById("sermon-search").value = "";
             renderSermons();
         }
 
         function renderSermons() {
             const query = document.getElementById("sermon-search").value.trim().toLowerCase();
             const container = document.getElementById("sermon-list");
+            const year = document.getElementById("sermon-year").value;
+            const month = document.getElementById("sermon-month").value;
+            const allActive = year === "all" && month === "all" && !query;
+            const allButton = document.getElementById("all-sermons");
+            allButton.classList.toggle("active", allActive);
+            allButton.setAttribute("aria-pressed", String(allActive));
             const filtered = newestFirst().filter(function (sermon) {
-                const matchesCategory = activeCategory === "All" || sermon.category === activeCategory;
+                const date = String(sermon.date || "");
+                const matchesDate = (year === "all" || date.slice(0, 4) === year) &&
+                    (month === "all" || date.slice(5, 7) === month);
                 const searchable = [sermon.title, sermon.scripture, sermon.summary, sermon.speaker, sermon.body]
                     .map(function (value) { return String(value || "").toLowerCase(); }).join(" ");
-                return matchesCategory && searchable.includes(query);
+                return matchesDate && searchable.includes(query);
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = '<div class="card"><p>No sermon notes matched your search.</p></div>';
+                container.innerHTML = '<div class="card"><p>No messages found for these filters. Try another month or year, or choose All Messages.</p></div>';
                 return;
             }
 
@@ -267,6 +301,7 @@
             }).join("");
         }
 
+        populateSermonDateFilters();
         renderFeatured();
         renderSermons();
     </script>
