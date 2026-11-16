@@ -154,6 +154,7 @@ function validateSermons(value) {
       category: String(item.category || "").trim(),
       scripture: String(item.scripture || "").trim(),
       summary: String(item.summary || "").trim(),
+      pdfUrl: String(item.pdfUrl || "").trim(),
       body: String(item.body || "").trim()
     };
     if (!sermon.id || sermon.id.length > 120 || ids.has(sermon.id)) throw new Error("Each sermon needs a unique ID.");
@@ -165,7 +166,13 @@ function validateSermons(value) {
     }
     if (!ALLOWED_CATEGORIES.has(sermon.category)) throw new Error("Choose a listed service type.");
     if (!sermon.scripture || sermon.scripture.length > 180) throw new Error("Enter a Scripture reference.");
-    if (!sermon.summary || sermon.summary.length > 5000) throw new Error("Enter a summary of up to 5,000 characters.");
+    if (sermon.summary.length > 5000) throw new Error("Keep the summary under 5,000 characters.");
+    if (sermon.pdfUrl) {
+      let url;
+      try { url = new URL(sermon.pdfUrl); } catch { throw new Error("Enter a valid Google Drive PDF URL."); }
+      if (url.protocol !== "https:" || !["drive.google.com", "docs.google.com"].includes(url.hostname)) throw new Error("Only Google Drive document links are supported.");
+      if (sermon.pdfUrl.length > 2000) throw new Error("The PDF URL is too long.");
+    }
     if (sermon.body.length > 100000) throw new Error("The sermon text must be under 100,000 characters.");
     return sermon;
   });

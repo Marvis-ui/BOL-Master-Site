@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Explore the Beacon of Light church calendar in two-month or annual view.">
+    <meta name="description" content="See upcoming weekly, monthly and special church activities.">
     <title>Church Calendar | Beacon of Light Vienna</title>
     <link rel="icon" href="images/logo.png" type="image/png">
     <link rel="stylesheet" href="bolwebstyle.css">
     <script src="bolsite.js" defer></script>
     <script src="boldata.js" defer></script>
-    <script src="calendar.js" defer></script>
+    <script src="church-schedule.js" defer></script>
 </head>
 <body data-theme="midnight">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -21,7 +21,7 @@
         <nav class="site-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
-            <a href="calendar.html">Calendar</a>
+            <a href="calendar.html">Activities</a>
             <a href="bible-study.html">Bible Study</a>
             <a href="hour-of-power.html">Hour of Power</a>
             <details class="nav-more"><summary>More</summary><div class="nav-more-menu">
@@ -39,55 +39,18 @@
     <main class="container" id="main">
         <section class="page-hero">
             <span class="eyebrow">Gather · grow · celebrate</span>
-            <h1>A shared rhythm of faith.</h1>
-            <p>Plan ahead with a paired two-month view or open the full-year overview. Select a marked date for details, then browse birthdays and church celebrations for the period below.</p>
+            <h1>Our Church Activities</h1>
+            <p>Find our weekly services, monthly prayer meetings and special gatherings in one place.</p>
         </section>
 
-        <section class="calendar-toolbar" aria-label="Calendar controls">
-            <div class="calendar-controls">
-                <button type="button" id="period-back" aria-label="Show previous two months">←</button>
-                <button type="button" id="period-forward" aria-label="Show next two months">→</button>
-                <select id="calendar-year" aria-label="Calendar year">
-                    <option value="2026">2026</option>
-                    <option value="2027">2027</option>
-                </select>
-            </div>
-            <div class="calendar-views" role="group" aria-label="Calendar view">
-                <button type="button" data-calendar-view="paired" aria-pressed="true">Two months</button>
-                <button type="button" data-calendar-view="annual" aria-pressed="false">Annual overview</button>
-            </div>
+        <section class="schedule-toolbar" aria-label="Activity schedule controls">
+            <label for="calendar-year">Year</label>
+            <select id="calendar-year"><option value="2026">2026</option><option value="2027">2027</option></select>
+            <label for="calendar-month">Month</label>
+            <select id="calendar-month"><option value="all">Full year</option></select>
         </section>
+        <section class="calendar-agenda" aria-labelledby="calendar-agenda-title"><div class="section-heading"><div><span class="eyebrow">At a glance</span><h2 id="calendar-agenda-title">Scheduled activities</h2></div><p>Choose a month or see the full year of church activities.</p></div><div id="calendar-agenda-list" class="calendar-agenda-grid"></div></section>
 
-        <section class="calendar-detail" aria-live="polite" aria-atomic="true">
-            <div>
-                <h2 id="event-date">Your church calendar</h2>
-                <p id="event-description">Choose a date to see a gathering, celebration or church milestone.</p>
-            </div>
-            <div class="calendar-legend" aria-label="Calendar legend">
-                <span><i class="legend-dot" aria-hidden="true"></i>Church gathering or event</span>
-                <span>Birthdays and milestones</span>
-            </div>
-        </section>
-
-        <section id="calendar-grid" class="calendar-grid" aria-live="polite" aria-label="Calendar dates"></section>
-        <section class="calendar-agenda" aria-labelledby="calendar-agenda-title"><div class="section-heading"><div><span class="eyebrow">At a glance</span><h2 id="calendar-agenda-title">Scheduled activities</h2></div><p>Browse the activities in the selected months.</p></div><div id="calendar-agenda-list" class="calendar-agenda-grid"></div></section>
-        <section class="integrated-celebrations" id="celebrations" aria-labelledby="period-celebrations-title">
-            <div class="section-heading">
-                <div>
-                    <span class="eyebrow">Birthdays · milestones · church life</span>
-                    <h2 id="period-celebrations-title">Celebrations in this period</h2>
-                </div>
-                <p id="period-celebrations-summary">The list follows the calendar view above.</p>
-            </div>
-            <div class="celebration-week" aria-live="polite">
-                <div>
-                    <span class="eyebrow">This week at BOL</span>
-                    <h3 id="week-title">Upcoming celebrations</h3>
-                </div>
-                <ul class="week-list" id="week-list"></ul>
-            </div>
-            <div class="celebration-grid" id="celebration-list" aria-live="polite"></div>
-        </section>
 
     </main>
     <footer>© <span class="current-year">2026</span> Beacon of Light Christian Fellowship Center Vienna</footer>

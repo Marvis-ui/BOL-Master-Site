@@ -75,7 +75,7 @@
             <div class="editor-toolbar">
                 <div>
                     <h1 id="form-heading">Add a sermon</h1>
-                    <p class="editor-intro">Fill in the message details and choose Save &amp; Publish.</p>
+                    <p class="editor-intro">Enter the message details and its Google Drive PDF link, then save.</p>
                 </div>
                 <button class="editor-button secondary" id="logout-button" type="button">Sign out</button>
             </div>
@@ -107,12 +107,17 @@
                         <input id="sermon-scripture" maxlength="180" placeholder="For example, John 15:1–8" required>
                     </div>
                     <div class="editor-field full">
-                        <label for="sermon-summary">Short summary</label>
-                        <textarea id="sermon-summary" maxlength="5000" required></textarea>
+                        <label for="sermon-summary">Short summary (optional)</label>
+                        <textarea id="sermon-summary" maxlength="5000"></textarea>
                     </div>
                     <div class="editor-field full">
-                        <label for="sermon-body">Full sermon text</label>
-                        <textarea class="sermon-textarea" id="sermon-body" maxlength="100000" required placeholder="Type or paste the sermon text here. Line breaks are preserved on the public page."></textarea>
+                        <label for="sermon-pdf-url">Google Drive sermon PDF link</label>
+                        <input id="sermon-pdf-url" type="url" placeholder="https://drive.google.com/file/d/..." aria-describedby="pdf-guidance">
+                        <small id="pdf-guidance">Share the PDF as Viewer with anyone who has the link. No public link is shown until one is entered.</small>
+                    </div>
+                    <div class="editor-field full">
+                        <label for="sermon-body">Full sermon text (legacy, optional)</label>
+                        <textarea class="sermon-textarea" id="sermon-body" maxlength="100000" placeholder="Type or paste the sermon text here. Line breaks are preserved on the public page."></textarea>
                     </div>
                 </div>
                 <div class="editor-actions">
@@ -218,7 +223,8 @@
             document.getElementById("sermon-speaker").value = sermon.speaker;
             document.getElementById("sermon-category").value = sermon.category;
             document.getElementById("sermon-scripture").value = sermon.scripture;
-            document.getElementById("sermon-summary").value = sermon.summary;
+            document.getElementById("sermon-summary").value = sermon.summary || "";
+            document.getElementById("sermon-pdf-url").value = sermon.pdfUrl || "";
             document.getElementById("sermon-body").value = sermon.body || "";
             document.getElementById("form-heading").textContent = "Edit sermon";
             setStatus(saveStatus, "", false);
@@ -284,6 +290,7 @@
                 category: document.getElementById("sermon-category").value,
                 scripture: document.getElementById("sermon-scripture").value.trim(),
                 summary: document.getElementById("sermon-summary").value.trim(),
+                pdfUrl: document.getElementById("sermon-pdf-url").value.trim(),
                 body: document.getElementById("sermon-body").value.trim()
             };
             const nextSermons = sermons.filter(function (item) { return item.id !== id; });
