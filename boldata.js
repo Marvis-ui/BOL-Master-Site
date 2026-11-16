@@ -29,7 +29,7 @@ const bolFixedEvents = {
 };
 
 const bolRuleEvents = [
-    { month: "all", nth: 1, weekday: 0, title: "Monthly Thanksgiving & Communion Sunday (+ Hour of Power Youth Sunday School)" },
+    { month: "all", nth: 1, weekday: 0, title: "Monthly Thanksgiving & Communion Sunday" },
     { month: 7, nth: 1, weekday: 0, title: "BOL Church Anniversary" },
     { month: 5, nth: 2, weekday: 0, title: "Children's Day" }
 ];
