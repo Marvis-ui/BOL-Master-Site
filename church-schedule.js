@@ -39,7 +39,15 @@
   }
   monthPicker.innerHTML='<option value="all">Full year</option>';
   names.forEach((name,i)=>{const opt=document.createElement("option");opt.value=String(i);opt.textContent=name;monthPicker.append(opt);});
-  yearPicker.value=String(now.getFullYear()===2027?2027:2026);
+  const currentYear = now.getFullYear();
+  yearPicker.replaceChildren();
+  for (let year = Math.min(2026, currentYear); year <= currentYear + 10; year++) {
+    const option = document.createElement("option");
+    option.value = String(year);
+    option.textContent = String(year);
+    yearPicker.append(option);
+  }
+  yearPicker.value=String(currentYear);
   monthPicker.value=String(now.getFullYear()===Number(yearPicker.value)?now.getMonth():"all");
   function render(){
     host.replaceChildren();
