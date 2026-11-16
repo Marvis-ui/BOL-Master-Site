@@ -119,6 +119,11 @@
         .sermon-text-note { margin-top: .9rem; color: #74837c; font-size: .85rem; font-style: italic; }
         .sermon-editor-link { margin-top: .6rem; font-size: .84rem; }
         .sermon-editor-link a { color: #687a71; }
+        .sermon-pdf-card{display:flex;text-decoration:none;cursor:pointer;color:inherit;transition:transform .2s,box-shadow .2s}
+        .sermon-pdf-card:hover,.sermon-pdf-card:focus-visible{transform:translateY(-4px);box-shadow:0 18px 30px rgba(19,36,30,.16);outline-offset:3px}
+        .sermon-date{font-size:.9rem;color:#526b61;margin:.5rem 0}
+        .sermon-card .watch-link{margin-top:1.2rem;text-decoration:underline;text-underline-offset:3px}
+        @media(prefers-reduced-motion:reduce){.sermon-pdf-card{transition:none}}
     </style>
 </head>
 <body>
@@ -149,7 +154,7 @@
     <div class="container" id="main">
         <div class="page-header">
             <h1>Sermons & Message Notes</h1>
-            <p>Catch up on Sunday teachings, Hour of Power discussions, and key scripture takeaways.</p>
+            <p>Find a message by title, Scripture or preacher. Select a card to open its sermon PDF in Google Drive.</p>
         </div>
 
         <!-- Featured Latest Sermon (Auto-loads the first item in bolSermons below) -->
@@ -189,7 +194,7 @@
         function formatSermonDate(value) {
             const date = new Date(value + "T12:00:00");
             return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(undefined, {
-                year: "numeric", month: "long", day: "numeric"
+                weekday: "long", year: "numeric", month: "long", day: "numeric"
             });
         }
 
@@ -236,23 +241,26 @@
                 return;
             }
 
+            function safePdfUrl(raw) {
+                try {
+                    const u = new URL(String(raw || ""));
+                    if(u.protocol !== "https:" || !["drive.google.com","docs.google.com"].includes(u.hostname)) return "";
+                    return u.href;
+                } catch { return ""; }
+            }
             container.innerHTML = filtered.map(function (sermon) {
-                const fullText = String(sermon.body || "").trim();
-                const readText = fullText
-                    ? '<details class="sermon-full-text"><summary>Read full sermon</summary><div class="sermon-body">' + escapeHTML(fullText) + '</div></details>'
-                    : '<p class="sermon-text-note">Full sermon text has not been added for this message.</p>';
-                return `
-                    <article class="sermon-card">
-                        <div>
-                            <span class="cat-tag">${escapeHTML(sermon.category)}</span>
-                            <h3 class="sermon-title">${escapeHTML(sermon.title)}</h3>
-                            <div class="sermon-card-meta">${escapeHTML(sermon.scripture)} • ${escapeHTML(formatSermonDate(sermon.date))}</div>
-                            <p class="sermon-summary">${escapeHTML(sermon.summary)}</p>
-                            ${readText}
-                        </div>
-                        <div class="sermon-speaker">Speaker: ${escapeHTML(sermon.speaker)}</div>
-                    </article>
+                const url = safePdfUrl(sermon.pdfUrl);
+                const content = `
+                    <span class="cat-tag">${escapeHTML(sermon.category)}</span>
+                    <h3 class="sermon-title">${escapeHTML(sermon.title)}</h3>
+                    <p class="sermon-card-meta">${escapeHTML(sermon.scripture)}</p>
+                    <p class="sermon-date">${escapeHTML(formatSermonDate(sermon.date))}</p>
+                    <p class="sermon-speaker">Preacher: ${escapeHTML(sermon.speaker)}</p>
+                    ${url ? '<span class="watch-link">Open sermon PDF ↗</span>' : '<span class="sermon-text-note">PDF will be added soon</span>'}
                 `;
+                return url
+                    ? '<a class="sermon-card sermon-pdf-card" href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer" aria-label="Open sermon PDF: '+escapeHTML(sermon.title)+'">'+content+'</a>'
+                    : '<article class="sermon-card">'+content+'</article>';
             }).join("");
         }
 
