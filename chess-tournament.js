@@ -53,7 +53,7 @@
     if (champions.length) {
       $('champion-spotlight').replaceChildren(el('div', 'Reigning ' + champions[0].year + ' Champion', 'eyebrow'), el('h2', champions[0].name));
       $('champion-history').replaceChildren();
-      champions.forEach((c, index) => { const row = el('div', undefined, 'champion-row'); row.append(el('span', c.year, 'year-tag' + (index ? '' : ' current')), el('strong', c.name), el('small', index ? 'August ' + c.year : 'Current Champ')); $('champion-history').append(row); });
+      champions.forEach((c, index) => { const row = el('div', undefined, 'champion-row'); row.append(el('span', c.year, 'year-tag' + (index ? '' : ' current')), el('strong', c.name), el('small', Number(c.year) === 2024 ? 'Inaugural Champ' : index ? 'August ' + c.year : 'Current Champ')); $('champion-history').append(row); });
     }
   }
   function disable(value) {
