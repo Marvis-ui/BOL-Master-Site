@@ -2,6 +2,7 @@
  "use strict";
  const host = document.getElementById("home-upcoming-events");
  if (!host) return;
+ const onlineMeetingUrl = "https://us06web.zoom.us/j/2225208451?pwd=bgraf5GVpnO0inLLzGMVKh9ebstXHW.1";
  const now = new Date(); now.setHours(0,0,0,0);
  const entries = [];
  const add = (date,title,time,place) => { if(date >= now) entries.push({date,title,time,place}); };
@@ -27,10 +28,17 @@
  const selected=entries.slice(0,4);
  if(!selected.length){host.textContent="Check the full calendar for our gatherings.";return;}
  selected.forEach(item=>{
-   const article=document.createElement("article");article.className="upcoming-card";
+   const article=document.createElement("a");article.className="upcoming-card upcoming-event-link";
+   const online=item.place==="Online";
+   const onsite=item.place==="Onsite";
+   article.href=online ? onlineMeetingUrl : onsite ? "contact.html#church-location" : "calendar.html";
+   if(online){article.target="_blank";article.rel="noopener noreferrer";}
+   const action=online ? "Join on Zoom" : onsite ? "View church location" : "View activity details";
+   article.setAttribute("aria-label",item.title+", "+fmt.format(item.date)+", "+item.time+". "+action+(online ? " (opens in a new tab)" : ""));
    const date=document.createElement("span");date.className="upcoming-date";date.textContent=fmt.format(item.date);
    const h=document.createElement("h3");h.textContent=item.title;
    const info=document.createElement("p");info.textContent=item.time+" · "+item.place;
-   article.append(date,h,info);host.appendChild(article);
+   const cue=document.createElement("span");cue.className="upcoming-action";cue.textContent=action+(online ? " ↗" : " →");
+   article.append(date,h,info,cue);host.appendChild(article);
  });
 }());
