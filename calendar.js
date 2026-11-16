@@ -62,6 +62,27 @@
                 if (new Date(year, month, day).getDay() === 4) addEvent(map, day, "Weekly Bible Study · 8:00 PM · Online");
             }
             addEvent(map, nthWeekday(year, month, 6, -1), "Revival Prayer · 6:30 PM · Online");
+            addEvent(map, nthWeekday(year, month, 5, 1), "Night Vigil · 10:30 PM · Online");
+            for (var worshipDay = 1; worshipDay <= 3; worshipDay += 1) {
+                addEvent(map, worshipDay, "Monthly Worship · 8:00 PM · Online");
+            }
+            if (year === 2026) {
+                for (var prayerDay = 1; prayerDay <= daysInMonth; prayerDay += 1) {
+                    var prayerDate = new Date(year, month, prayerDay);
+                    var dow = prayerDate.getDay();
+                    if (prayerDate >= new Date(2026, 1, 9) &&
+                        prayerDate <= new Date(2026, 3, 3) && dow >= 1 && dow <= 5) {
+                        addEvent(map, prayerDay, "40 Days Prayer · Daily focus · Yearly");
+                    }
+                }
+            }
+            if(year === 2026 && month === 3) {
+                addEvent(map,3,"Good Friday");
+                addEvent(map,5,"Easter Sunday");
+            }
+            if(month===11) {
+                for(var endDay=26;endDay<=30;endDay+=1) addEvent(map,endDay,"End-of-Year Prayers · 8:30 PM · Online");
+            }
         }
 
         return map;
@@ -257,6 +278,28 @@
         return card;
     }
 
+    function renderAgenda() {
+        var area = document.getElementById("calendar-agenda-list");
+        if (!area) return;
+        area.replaceChildren();
+        var months = currentView === "annual" ? monthNames.map(function (_, i) { return i; }) : [selectedMonth, (selectedMonth+1)%12];
+        months.forEach(function (month, i) {
+            var year = currentView === "paired" && i === 1 && month === 0 ? selectedYear+1 : selectedYear;
+            var card = document.createElement("article"); card.className = "calendar-agenda-month";
+            var heading = document.createElement("h3");heading.textContent = monthNames[month]+" "+year;card.appendChild(heading);
+            var eventMap=eventsForMonth(year,month), days=Object.keys(eventMap).map(Number).sort(function(a,b){return a-b;});
+            if(!days.length){var empty=document.createElement("p");empty.textContent="No activities listed.";card.appendChild(empty);}
+            days.forEach(function(day){
+                var row=document.createElement("div");row.className="calendar-agenda-row";
+                var label=document.createElement("strong");label.textContent=monthNames[month].slice(0,3)+" "+day;
+                var list=document.createElement("div");
+                eventMap[day].forEach(function(name){var title=document.createElement("p");title.textContent=name;list.appendChild(title);});
+                row.append(label,list);card.appendChild(row);
+            });
+            area.appendChild(card);
+        });
+    }
+
     function render() {
         calendarGrid.replaceChildren();
         calendarGrid.classList.toggle("annual-view", currentView === "annual");
@@ -272,6 +315,7 @@
             for (var month = 0; month < 12; month += 1) calendarGrid.appendChild(renderMonth(selectedYear, month, true));
         }
         renderCelebrations();
+        renderAgenda();
     }
 
     function setView(view) {

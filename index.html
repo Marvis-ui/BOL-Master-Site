@@ -11,7 +11,9 @@
     <script src="bolsite.js" defer></script>
     <script src="bible-questions.js" defer></script>
     <script src="daily-verses.js" defer></script>
+    <script src="boldata.js" defer></script>
     <script src="home.js" defer></script>
+    <script src="home-calendar.js" defer></script>
 </head>
 <body data-theme="midnight">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -33,7 +35,7 @@
                     <a href="daily-quotes.html">Daily Quotes</a>
                     <a href="sermons.html">Sermons</a>
                     <a href="chess.html">Chess</a>
-                    <a href="gallery.html">Gallery</a>
+                    <a href="gallery.html">Events &amp; Gallery</a><a href="archive.html">Archive</a><a href="beacon-of-hope.html">Beacon of Hope</a>
                     <a href="contact.html">Contact</a>
                 </div>
             </details>
@@ -67,58 +69,42 @@
             <div class="section-heading">
                 <div>
                     <span class="eyebrow">Find your place</span>
-                    <h2 id="pathways-title">Faith grows together.</h2>
+                    <h2 id="pathways-title">Growing together in faith.</h2>
                 </div>
                 <p>Gather in worship, grow through Scripture, and share life as one church family.</p>
             </div>
             <div class="pathway-grid">
                 <a class="pathway-card" href="calendar.html">
-                    <span class="pathway-icon" aria-hidden="true">☼</span>
                     <h3>Worship &amp; fellowship</h3>
-                    <p>Join our Sunday gathering and find upcoming moments to share.</p>
+                    <p>Join our Sunday gathering and find upcoming moments to share.</p><span class="pathway-cta">Explore page <span aria-hidden="true">↗</span></span>
                 </a>
                 <a class="pathway-card" href="bible-study.html">
-                    <span class="pathway-icon" aria-hidden="true">⌑</span>
                     <h3>Bible Study</h3>
-                    <p>Explore the 2026–2027 curriculum and grow deeper in the Word.</p>
+                    <p>See what we’re studying together in 2026 and 2027.</p><span class="pathway-cta">Explore page <span aria-hidden="true">↗</span></span>
                 </a>
                 <a class="pathway-card" href="hour-of-power.html">
-                    <span class="pathway-icon" aria-hidden="true">✧</span>
                     <h3>Hour of Power</h3>
-                    <p>A youth space for faith, honest questions and God-given purpose.</p>
+                    <p>A youth space for faith, honest questions and God-given purpose.</p><span class="pathway-cta">Explore page <span aria-hidden="true">↗</span></span>
                 </a>
                 <a class="pathway-card" href="gallery.html">
-                    <span class="pathway-icon" aria-hidden="true">♡</span>
-                    <h3>Life together</h3>
-                    <p>See the celebrations and shared memories of our community.</p>
+                    <h3>Our Community</h3>
+                    <p>See church events, photos and moments we’ve shared.</p><span class="pathway-cta">Explore page <span aria-hidden="true">↗</span></span>
                 </a>
             </div>
         </section>
 
-        <section aria-labelledby="pillars-title">
+        <section class="upcoming-section" aria-labelledby="upcoming-title">
             <div class="section-heading">
-                <div>
-                    <span class="eyebrow">Our heart</span>
-                    <h2 id="pillars-title">A light we carry together.</h2>
-                </div>
+                <div><span class="eyebrow">Church calendar</span><h2 id="upcoming-title">Coming up at Beacon of Light</h2></div>
+                <p>Join us for worship, prayer and time together.</p>
             </div>
-            <div class="pillars-grid">
-                <article class="pillar-card">
-                    <span class="eyebrow">01 · Rooted</span>
-                    <h3>Grounded in the Word</h3>
-                    <p>Building steady faith through Scripture, prayer and the hope of Christ.</p>
-                </article>
-                <article class="pillar-card">
-                    <span class="eyebrow">02 · Together</span>
-                    <h3>Real fellowship</h3>
-                    <p>Making room for every generation, every milestone and every season.</p>
-                </article>
-                <article class="pillar-card">
-                    <span class="eyebrow">03 · Sent</span>
-                    <h3>Purpose for every age</h3>
-                    <p>Encouraging each person to serve, lead and shine with confidence.</p>
-                </article>
-            </div>
+            <div class="upcoming-grid" id="home-upcoming-events" aria-live="polite"><p>Loading upcoming activities…</p></div>
+            <a class="button-secondary upcoming-more" href="calendar.html">View the full calendar ↗</a>
+        </section>
+
+        <section class="heritage-strip" aria-labelledby="heritage-title">
+            <div><span class="eyebrow">Our story continues</span><h2 id="heritage-title">Faith, memories and the people behind them.</h2><p>Look back on church milestones, find past events and learn about the work of Beacon of Hope.</p></div>
+            <div class="heritage-actions"><a class="button-secondary" href="archive.html">Explore our archive ↗</a><a class="button-secondary" href="beacon-of-hope.html">Beacon of Hope ↗</a></div>
         </section>
 
         <section class="home-feature-grid" aria-label="Bible trivia and daily encouragement">
