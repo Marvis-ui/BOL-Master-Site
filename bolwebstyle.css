@@ -637,6 +637,20 @@ button.day.today { border-color: var(--green); font-weight: 850; }
 .calendar-agenda-row p {font-size:.86rem;line-height:1.55;margin-bottom:.2rem;}
 @media(max-width:700px){.calendar-agenda-grid{grid-template-columns:1fr;}}
 
+/* Shared chess tournament controls. */
+[hidden] { display: none !important; }
+.chess-table-wrap { overflow-x: auto; }
+.chess-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.chess-table th, .chess-table td { padding: .65rem; text-align: left; border-bottom: 1px solid var(--line); }
+.chess-table th { background: var(--green-soft); }
+.chess-match { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; padding: .9rem 0; border-bottom: 1px solid var(--line); }
+.chess-match > span { flex: 1 1 240px; }
+.chess-match select { max-width: 100%; padding: .65rem; font: inherit; border: 1px solid var(--line); border-radius: 8px; }
+.chess-organizer { margin-top: 1.5rem; }
+.chess-organizer summary { cursor: pointer; font-weight: 700; padding: .75rem 0; }
+.chess-organizer .signup-form { max-width: 420px; }
+.tournament-panel button:disabled, .tournament-panel select:disabled { opacity: .6; cursor: wait; }
+@media (max-width: 600px) { .chess-match { align-items: stretch; flex-direction: column; } .chess-table th, .chess-table td { padding: .5rem; } }
 /* Activities schedule: restore full-width reading and avoid nested scrollbars. */
 .calendar-agenda-grid:has(> .calendar-agenda-month:only-child) {
   grid-template-columns: minmax(0, 1fr);

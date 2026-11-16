@@ -163,7 +163,7 @@
                 </p>
             </div>
 
-            <div class="champ-spotlight">
+            <div class="champ-spotlight" id="champion-spotlight">
                 <div style="font-size: 0.75rem; color: var(--hero-highlight); font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;">
                     🏆 Reigning 2026 Champion
                 </div>
@@ -205,7 +205,7 @@
                     BOL Chess Cup title holders since our inaugural 2024 tournament:
                 </p>
 
-                <div class="champion-row">
+                <div id="champion-history">                <div class="champion-row">
                     <div>
                         <span class="year-tag current">2026</span>
                         <strong style="margin-left: 8px; color: var(--ink);">Marvelous</strong>
@@ -228,16 +228,17 @@
                     </div>
                     <small style="color: var(--muted);">Inaugural Champ</small>
                 </div>
+</div>
             </div>
 
             <!-- Card 3: Interactive 2027 Player Sign-Up Roster -->
             <div class="card" style="border-top: 5px solid var(--line);">
-                <h2 style="font-size: 1.3rem; color: var(--ink);">August 2027 Player Sign-Up</h2>
+                <h2 style="font-size: 1.3rem; color: var(--ink);"><span id="chess-year">Annual</span> Player Sign-Up</h2>
                 <p style="color: var(--muted); font-size: 0.9rem; margin-top: 0.35rem;">
-                    Put your name on the roster for next August's round-robin league:
+                    Registration closes July 31st.
                 </p>
 
-                <form class="signup-form" onsubmit="registerPlayer(event)">
+                <form class="signup-form" id="chess-signup">
                     <input type="text" id="player-name" placeholder="Enter your name or nickname" maxlength="80" autocomplete="name" required>
                     <select id="player-level">
                         <option value="Title Challenger">Status: Title Challenger</option>
@@ -245,13 +246,26 @@
                         <option value="Returning Player">Status: Returning Player</option>
                         <option value="First-Time Player">Status: First-Time Player</option>
                     </select>
-                    <button type="submit" class="btn">Join 2027 Roster</button>
+                    <button type="submit" class="btn">Join Roster</button>
                 </form>
 
-                <ul class="player-list" id="roster-list"></ul>
+                <p id="registration-state" role="status">Loading registration…</p><ul class="player-list" id="roster-list"></ul>
             </div>
         </section>
 
+        <section class="card tournament-panel" aria-labelledby="tournament-heading">
+            <h2 id="tournament-heading">Tournament leaderboard</h2>
+            <p id="tournament-state" class="muted" role="status">Loading tournament…</p>
+            <p id="tournament-message" role="status" aria-live="polite"></p>
+            <div class="chess-table-wrap"><table class="chess-table"><thead><tr><th scope="col">Player</th><th scope="col">Played</th><th scope="col">Wins</th><th scope="col">Draws</th><th scope="col">Losses</th><th scope="col">Points</th></tr></thead><tbody id="chess-leaderboard"></tbody></table></div>
+            <h3 style="margin-top:1.5rem">Matchups &amp; results</h3>
+            <p class="muted">Tied leaders play head-to-head or a mini-league. Further games continue until there is one winner.</p>
+            <div id="chess-matches"></div>
+            <details class="chess-organizer"><summary>Organizer access</summary>
+                <form id="chess-login" class="signup-form"><label for="chess-password">Church editor password</label><input id="chess-password" type="password" autocomplete="current-password" required><button class="btn" type="submit">Sign in</button></form>
+                <div id="chess-controls" hidden><p>Choose a match result below. Points update automatically.</p><button id="chess-finish" class="btn" type="button" hidden>Finish tournament &amp; crown winner</button> <button id="chess-logout" class="btn" type="button">Sign out</button></div>
+            </details>
+        </section>
         <!-- 3. Interactive Chess Tip Strip -->
         <section class="tip-strip">
             <div style="max-width: 720px;">
@@ -271,97 +285,7 @@
     </footer>
 
     <script>
-                // Shared 2027 roster: sign-ups are stored centrally and read by every visitor.
-        let roster = [];
-        let rosterBusy = false;
-
-        function setRosterStatus(message, isError) {
-            const status = document.getElementById("roster-status");
-            if (!status) return;
-            status.textContent = message;
-            status.style.color = isError ? "var(--danger)" : "var(--muted)";
-        }
-
-        function renderRoster() {
-            const list = document.getElementById("roster-list");
-            list.replaceChildren();
-            if (!roster.length) {
-                const empty = document.createElement("li");
-                empty.style.justifyContent = "center";
-                empty.style.color = "var(--muted)";
-                empty.style.fontStyle = "italic";
-                empty.textContent = "No players signed up yet—be the first to join!";
-                list.appendChild(empty);
-                return;
-            }
-            roster.forEach(function (player) {
-                const row = document.createElement("li");
-                const name = document.createElement("strong");
-                const status = document.createElement("span");
-                name.textContent = player.name;
-                status.textContent = player.status;
-                status.style.color = "var(--green)";
-                status.style.fontWeight = "600";
-                status.style.fontSize = "0.8rem";
-                row.append(name, status);
-                list.appendChild(row);
-            });
-        }
-
-        async function loadRoster(announce) {
-            try {
-                const response = await fetch("/api/chess-roster", { cache: "no-store" });
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.error || "The shared roster could not be loaded.");
-                roster = Array.isArray(data.players) ? data.players : [];
-                renderRoster();
-                if (announce) setRosterStatus(roster.length + (roster.length === 1 ? " player" : " players") + " on the shared roster.", false);
-            } catch (error) {
-                if (announce) setRosterStatus(error.message || "Could not load the shared roster. Please refresh and try again.", true);
-            }
-        }
-
-        async function registerPlayer(event) {
-            event.preventDefault();
-            if (rosterBusy) return;
-            const form = event.currentTarget;
-            const nameInput = document.getElementById("player-name");
-            const statusInput = document.getElementById("player-level");
-            const submitButton = form.querySelector("button[type=submit]");
-            const name = nameInput.value.trim().replace(/\s+/g, " ");
-            if (!name) {
-                setRosterStatus("Enter your name or nickname to sign up.", true);
-                return;
-            }
-            rosterBusy = true;
-            submitButton.disabled = true;
-            setRosterStatus("Saving your sign-up…", false);
-            try {
-                const response = await fetch("/api/chess-roster", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name: name, status: statusInput.value })
-                });
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.error || "Your sign-up could not be saved.");
-                roster = Array.isArray(data.players) ? data.players : roster;
-                renderRoster();
-                form.reset();
-                setRosterStatus("Your sign-up is saved and shared with everyone.", false);
-            } catch (error) {
-                setRosterStatus(error.message || "Your sign-up could not be saved. Please try again.", true);
-            } finally {
-                rosterBusy = false;
-                submitButton.disabled = false;
-            }
-        }
-
-        // Open pages refresh the shared roster once a minute.
-        window.setInterval(function () {
-            if (document.visibilityState === "visible") loadRoster(false);
-        }, 60000);
-
-// 2. Interactive Chess Strategy Tips
+        // 2. Interactive Chess Strategy Tips
             const chessTips = [
             "Control the center squares (e4, d4, e5, d5) early—pieces in the center reach twice as many squares as pieces on the edge.",
             "Castle early to tuck your King safely behind a shield of pawns and bring your Rook into the game.",
@@ -422,8 +346,9 @@
             document.getElementById("chess-tip-text").textContent = chessTips[tipIndex];
         }
 
-        loadRoster(true);
+
     </script>
     <script src="bolsite.js"></script>
+    <script src="chess-tournament.js"></script>
 </body>
 </html>
