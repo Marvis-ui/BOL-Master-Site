@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" id="theme-color-meta">
     <meta http-equiv="refresh" content="0;url=calendar.html#celebrations">
     <title>Celebrations moved to Calendar | Beacon of Light Vienna</title>
+    <link rel="stylesheet" href="bolwebstyle.css">
 </head>
 <body>
-    <main>
+    <main class="container">
+        <div class="theme-switch" role="group" aria-label="Choose a color theme">
+            <span class="theme-switch-label">Theme</span>
+            <button class="theme-btn" type="button" data-theme-choice="midnight" aria-pressed="true">Midnight &amp; Gold</button>
+            <button class="theme-btn" type="button" data-theme-choice="olive" aria-pressed="false">Olive &amp; Clay</button>
+        </div>
+        <section class="card">
         <h1>Celebrations are now part of the church calendar</h1>
         <p>Open the <a href="calendar.html#celebrations">Calendar and Celebrations page</a> to see birthdays and church milestones alongside the dates.</p>
+        </section>
     </main>
+    <script src="bolsite.js"></script>
 </body>
 </html>

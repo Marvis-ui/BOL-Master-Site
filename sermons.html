@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="bolwebstyle.css">
     <style>
         .latest-sermon {
-            background: linear-gradient(135deg, #13241e 0%, #1f4e3d 65%, #2a634d 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 65%, var(--hero-c) 100%);
+            color: var(--on-hero);
             border-radius: 20px;
             padding: 2.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 25px rgba(19, 36, 30, 0.12);
+            box-shadow: 0 10px 25px color-mix(in srgb, var(--ink) 12%, transparent);
         }
         .sermon-pill {
             display: inline-block;
-            background: #f4b41a;
-            color: #13241e;
+            background: var(--accent);
+            color: var(--accent-ink);
             font-size: 0.75rem;
             font-weight: 800;
             padding: 4px 12px;
@@ -31,7 +31,7 @@
             margin-bottom: 0.4rem;
         }
         .sermon-meta {
-            color: #a7f3d0;
+            color: var(--hero-highlight);
             font-size: 0.92rem;
             font-weight: 600;
             margin-bottom: 1rem;
@@ -50,26 +50,28 @@
             flex-wrap: wrap;
         }
         .filter-btn {
-            background: #ffffff;
-            border: 1px solid #d5e3dd;
+            background: var(--surface-raised);
+            border: 1px solid var(--line);
             padding: 7px 14px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             font-size: 0.85rem;
-            color: #3a4d45;
+            color: var(--ink);
         }
         .filter-btn.active {
-            background: #13241e;
-            color: #ffffff;
-            border-color: #13241e;
+            background: var(--hero-a);
+            color: var(--on-hero);
+            border-color: var(--hero-a);
         }
         .search-box {
             padding: 8px 14px;
-            border: 1px solid #d5e3dd;
+            border: 1px solid var(--hero-muted);
             border-radius: 8px;
             font-size: 0.9rem;
             min-width: 240px;
+            background: var(--surface-raised);
+            color: var(--ink);
         }
         .sermon-grid {
             display: grid;
@@ -77,19 +79,19 @@
             gap: 1.5rem;
         }
         .sermon-card {
-            background: #ffffff;
+            background: var(--surface-raised);
             border-radius: 16px;
             padding: 1.75rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            border-top: 5px solid #1f6f54;
+            box-shadow: 0 4px 15px color-mix(in srgb, var(--ink) 3%, transparent);
+            border-top: 5px solid var(--green);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .cat-tag {
             display: inline-block;
-            background: #eef4f1;
-            color: #1f6f54;
+            background: var(--green-soft);
+            color: var(--green);
             font-size: 0.72rem;
             font-weight: 800;
             padding: 3px 10px;
@@ -100,7 +102,7 @@
         .watch-link {
             display: inline-block;
             margin-top: 1rem;
-            color: #1f6f54;
+            color: var(--green);
             font-weight: 700;
             text-decoration: none;
             font-size: 0.9rem;
@@ -108,20 +110,20 @@
         .watch-link:hover {
             text-decoration: underline;
         }
-        .featured-summary { color: #e2eee9; max-width: 720px; line-height: 1.65; }
-        .sermon-title { font-size: 1.2rem; color: #13241e; margin: 0 0 .3rem; }
-        .sermon-card-meta { font-size: .85rem; color: #1f6f54; font-weight: 700; margin-bottom: .75rem; }
-        .sermon-summary { color: #4a5d55; font-size: .94rem; }
-        .sermon-speaker { margin-top: 1rem; font-size: .85rem; color: #5c7068; font-weight: 600; }
-        .sermon-full-text { margin-top: 1rem; border-top: 1px solid #e3ebe7; padding-top: .75rem; }
-        .sermon-full-text summary { color: #1f6f54; font-weight: 700; cursor: pointer; }
-        .sermon-body { margin-top: .8rem; color: #34483f; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
-        .sermon-text-note { margin-top: .9rem; color: #74837c; font-size: .85rem; font-style: italic; }
+        .featured-summary { color: var(--hero-muted); max-width: 720px; line-height: 1.65; }
+        .sermon-title { font-size: 1.2rem; color: var(--ink); margin: 0 0 .3rem; }
+        .sermon-card-meta { font-size: .85rem; color: var(--green); font-weight: 700; margin-bottom: .75rem; }
+        .sermon-summary { color: var(--muted); font-size: .94rem; }
+        .sermon-speaker { margin-top: 1rem; font-size: .85rem; color: var(--muted); font-weight: 600; }
+        .sermon-full-text { margin-top: 1rem; border-top: 1px solid var(--line); padding-top: .75rem; }
+        .sermon-full-text summary { color: var(--green); font-weight: 700; cursor: pointer; }
+        .sermon-body { margin-top: .8rem; color: var(--ink); line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .sermon-text-note { margin-top: .9rem; color: var(--muted); font-size: .85rem; font-style: italic; }
         .sermon-editor-link { margin-top: .6rem; font-size: .84rem; }
-        .sermon-editor-link a { color: #687a71; }
-        .sermon-pdf-card{display:flex;text-decoration:none;cursor:pointer;color:inherit;transition:transform .2s,box-shadow .2s}
-        .sermon-pdf-card:hover,.sermon-pdf-card:focus-visible{transform:translateY(-4px);box-shadow:0 18px 30px rgba(19,36,30,.16);outline-offset:3px}
-        .sermon-date{font-size:.9rem;color:#526b61;margin:.5rem 0}
+        .sermon-editor-link a { color: var(--muted); }
+        .sermon-pdf-card{display:flex;text-decoration:none;cursor:pointer;color: inherit;transition:transform .2s,box-shadow .2s}
+        .sermon-pdf-card:hover,.sermon-pdf-card:focus-visible{transform:translateY(-4px);box-shadow: 0 18px 30px color-mix(in srgb, var(--ink) 16%, transparent);outline-offset: 3px}
+        .sermon-date{font-size:.9rem;color: var(--muted);margin:.5rem 0}
         .sermon-card .watch-link{margin-top:1.2rem;text-decoration:underline;text-underline-offset:3px}
         @media(prefers-reduced-motion:reduce){.sermon-pdf-card{transition:none}}
     </style>

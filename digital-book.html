@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" id="theme-color-meta">
     <meta http-equiv="refresh" content="0;url=hour-of-power.html#books-we-read">
     <title>Books We Read | Hour of Power</title>
+    <link rel="stylesheet" href="bolwebstyle.css">
 </head>
 <body>
-    <main>
+    <main class="container">
+        <div class="theme-switch" role="group" aria-label="Choose a color theme">
+            <span class="theme-switch-label">Theme</span>
+            <button class="theme-btn" type="button" data-theme-choice="midnight" aria-pressed="true">Midnight &amp; Gold</button>
+            <button class="theme-btn" type="button" data-theme-choice="olive" aria-pressed="false">Olive &amp; Clay</button>
+        </div>
+        <section class="card">
         <h1>The digital book is now part of Hour of Power</h1>
         <p>Open the <a href="hour-of-power.html#books-we-read">Books We Read section</a> to access the embedded reading.</p>
+        </section>
     </main>
+    <script src="bolsite.js"></script>
 </body>
 </html>

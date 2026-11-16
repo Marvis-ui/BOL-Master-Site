@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="bolwebstyle.css">
     <style>
         .quote-featured {
-            background: linear-gradient(135deg, #13241e 0%, #1f4e3d 65%, #2a634d 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 65%, var(--hero-c) 100%);
+            color: var(--on-hero);
             border-radius: 20px;
             padding: 2.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 25px rgba(19, 36, 30, 0.12);
+            box-shadow: 0 10px 25px color-mix(in srgb, var(--ink) 12%, transparent);
         }
         .quote-featured .tag {
             display: inline-block;
-            background: #f4b41a;
-            color: #13241e;
+            background: var(--accent);
+            color: var(--ink);
             font-size: 0.75rem;
             font-weight: 800;
             padding: 4px 12px;
@@ -32,7 +32,7 @@
             margin: 1rem 0 0.5rem;
         }
         .quote-author {
-            color: #a7f3d0;
+            color: var(--hero-highlight);
             font-size: 0.98rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
@@ -43,9 +43,9 @@
             flex-wrap: wrap;
         }
         .react-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #ffffff;
+            background: color-mix(in srgb, var(--on-hero) 12%, transparent);
+            border: 1px solid color-mix(in srgb, var(--on-hero) 25%, transparent);
+            color: var(--on-hero);
             padding: 8px 15px;
             border-radius: 20px;
             cursor: pointer;
@@ -55,20 +55,20 @@
             transition: all 0.15s ease;
         }
         .card .react-btn {
-            background: #f1f6f4;
-            border: 1px solid #d5e3dd;
-            color: #1a2b25;
+            background: var(--green-soft);
+            border: 1px solid var(--line);
+            color: var(--ink);
         }
         .react-btn:hover {
             transform: translateY(-2px);
         }
         .react-btn.voted {
-            background: #63c78d;
-            color: #0e291d;
-            border-color: #1f6f54;
+            background: var(--accent);
+            color: var(--accent-ink);
+            border-color: var(--accent);
         }
         .archive-card {
-            border-left: 5px solid #1f6f54;
+            border-left: 5px solid var(--green);
         }
     </style>
 </head>
@@ -107,7 +107,7 @@
         <div class="quote-featured" id="featured-quote-box"></div>
 
         <!-- Previous 6 Days Archive (Auto-populated) -->
-        <h2 style="margin-bottom: 1rem; font-size: 1.3rem; color: #13241e;">Recent Daily Reflections</h2>
+        <h2 style="margin-bottom: 1rem; font-size: 1.3rem; color: var(--ink);">Recent Daily Reflections</h2>
         <div id="archive-quotes-list"></div>
     </div>
 
@@ -202,9 +202,9 @@
 
             archiveHtml += `
                 <div class="card archive-card">
-                    <small style="color: #1f6f54; font-weight: 700; text-transform: uppercase;">${label}</small>
-                    <p style="font-size: 1.15rem; font-weight: 600; margin: 0.5rem 0; color: #13241e;">"${verse.text}"</p>
-                    <p style="color: #5c7068; font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">— ${verse.ref}</p>
+                    <small style="color: var(--green); font-weight: 700; text-transform: uppercase;">${label}</small>
+                    <p style="font-size: 1.15rem; font-weight: 600; margin: 0.5rem 0; color: var(--ink);">"${verse.text}"</p>
+                    <p style="color: var(--muted); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">— ${verse.ref}</p>
                     <div class="reactions">
                         ${buildReactionButtons(pastKey, verse)}
                     </div>

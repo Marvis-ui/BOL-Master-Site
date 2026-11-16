@@ -16,6 +16,11 @@
     function chooseTheme(value) {
         if (allowedThemes.indexOf(value) === -1) return;
         document.body.setAttribute("data-theme", value);
+        var themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) {
+            var themeColor = window.getComputedStyle(document.body).getPropertyValue("--theme-color").trim();
+            if (themeColor) themeMeta.setAttribute("content", themeColor);
+        }
         themeButtons.forEach(function (button) {
             button.setAttribute("aria-pressed", button.getAttribute("data-theme-choice") === value ? "true" : "false");
         });
@@ -42,11 +47,17 @@
             link.classList.add("active");
             link.setAttribute("aria-current", "page");
             if (link.closest(".nav-more")) {
-                link.closest(".nav-more").open = true;
                 var summary = link.closest(".nav-more").querySelector("summary");
                 if (summary) summary.classList.add("active");
             }
         }
+    });
+
+    moreLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+            var menu = link.closest(".nav-more");
+            if (menu) menu.open = false;
+        });
     });
 
     document.querySelectorAll(".current-year").forEach(function (year) {

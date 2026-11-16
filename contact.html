@@ -13,20 +13,20 @@
             align-items: start;
         }
         .info-card {
-            background: linear-gradient(135deg, #13241e 0%, #1f4e3d 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 100%);
+            color: var(--on-hero);
             border-radius: 18px;
             padding: 2.25rem;
-            box-shadow: 0 10px 25px rgba(19, 36, 30, 0.12);
+            box-shadow: 0 10px 25px color-mix(in srgb, var(--ink) 12%, transparent);
         }
         .info-card h2 {
-            color: #f4b41a;
+            color: var(--accent);
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
         .info-row {
             padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            border-bottom: 1px solid color-mix(in srgb, var(--on-hero) 12%, transparent);
         }
         .info-row:last-child {
             border-bottom: none;
@@ -37,15 +37,15 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.6px;
-            color: #a7f3d0;
+            color: var(--hero-highlight);
             display: block;
             margin-bottom: 4px;
         }
         .form-card {
-            background: #ffffff;
+            background: var(--surface-raised);
             border-radius: 18px;
             padding: 2.25rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 15px color-mix(in srgb, var(--ink) 3%, transparent);
         }
         .form-group {
             margin-bottom: 1.15rem;
@@ -54,7 +54,7 @@
             display: block;
             font-weight: 700;
             font-size: 0.88rem;
-            color: #13241e;
+            color: var(--ink);
             margin-bottom: 6px;
         }
         .form-group input,
@@ -62,24 +62,24 @@
         .form-group textarea {
             width: 100%;
             padding: 11px 14px;
-            border: 1px solid #d5e3dd;
+            border: 1px solid var(--line);
             border-radius: 10px;
             font-size: 0.95rem;
-            color: #1a2b25;
-            background: #f9fbfa;
+            color: var(--ink);
+            background: var(--green-soft);
             font-family: inherit;
         }
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #1f6f54;
-            background: #ffffff;
+            border-color: var(--green);
+            background: var(--surface-raised);
         }
         .submit-btn {
             width: 100%;
-            background-color: #13241e;
-            color: #ffffff;
+            background-color: var(--hero-a);
+            color: var(--on-hero);
             padding: 13px;
             border: none;
             border-radius: 10px;
@@ -89,13 +89,13 @@
             transition: background 0.15s ease;
         }
         .submit-btn:hover {
-            background-color: #1f6f54;
+            background-color: var(--green);
         }
         .success-box {
             display: none;
-            background: #d9efe4;
-            border-left: 5px solid #1f6f54;
-            color: #0e291d;
+            background: var(--success-soft);
+            border-left: 5px solid var(--green);
+            color: var(--ink);
             padding: 1.25rem;
             border-radius: 12px;
             margin-top: 1rem;
@@ -137,21 +137,21 @@
             <!-- Left Card: Church Info & Worship Schedule -->
             <div class="info-card">
                 <h2>Visit & Worship With Us</h2>
-                <p style="color: #d5e3dd; font-size: 0.95rem; margin-bottom: 1.25rem;">
+                <p style="color: var(--hero-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">
                     Whether you're new to the area or looking for a home church, our doors are open every Sunday.
                 </p>
 
                 <div class="info-row">
                     <span class="info-label">📍 Church Location</span>
                     <strong>[Insert Your Church Street Address]</strong><br>
-                    <span style="color: #d5e3dd; font-size: 0.9rem;">[WIEN, 1030]</span>
+                    <span style="color: var(--hero-muted); font-size: 0.9rem;">[WIEN, 1030]</span>
                 </div>
 
                 <div class="info-row">
                     <span class="info-label">⏰ Weekly Gatherings</span>
-                    <strong>Every Sunday Service:</strong> <span style="color: #d5e3dd;">[10:00 AM]</span><br>
-                    <strong>Hour of Power (Youth):</strong> <span style="color: #d5e3dd;">Right after Sunday Service</span><br>
-                    <strong>1st Sunday Thanksgiving:</strong> <span style="color: #d5e3dd;">First Sunday of every month</span>
+                    <strong>Every Sunday Service:</strong> <span style="color: var(--hero-muted);">[10:00 AM]</span><br>
+                    <strong>Hour of Power (Youth):</strong> <span style="color: var(--hero-muted);">Right after Sunday Service</span><br>
+                    <strong>1st Sunday Thanksgiving:</strong> <span style="color: var(--hero-muted);">First Sunday of every month</span>
                 </div>
 
                 <div class="info-row">
@@ -163,8 +163,8 @@
 
             <!-- Right Card: Interactive Message & Prayer Request Form -->
             <div class="form-card">
-                <h2 style="font-size: 1.4rem; color: #13241e; margin-bottom: 0.35rem;">Send a Message or Prayer Request</h2>
-                <p style="color: #5c7068; font-size: 0.92rem; margin-bottom: 1.4rem;">
+                <h2 style="font-size: 1.4rem; color: var(--ink); margin-bottom: 0.35rem;">Send a Message or Prayer Request</h2>
+                <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.4rem;">
                     Fill out the form below and our team will follow up with you soon.
                 </p>
 

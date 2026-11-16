@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="bolwebstyle.css">
     <style>
         .about-hero {
-            background: linear-gradient(135deg, #13241e 0%, #1f4e3d 65%, #2a634d 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 65%, var(--hero-c) 100%);
+            color: var(--on-hero);
             border-radius: 20px;
             padding: 2.75rem 2.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 25px rgba(19, 36, 30, 0.12);
+            box-shadow: 0 10px 25px color-mix(in srgb, var(--ink) 12%, transparent);
         }
         .about-pill {
             display: inline-block;
-            background: #f4b41a;
-            color: #13241e;
+            background: var(--accent);
+            color: var(--ink);
             font-size: 0.75rem;
             font-weight: 800;
             padding: 4px 12px;
@@ -33,24 +33,24 @@
             margin-bottom: 1.75rem;
         }
         .about-card {
-            background: #ffffff;
+            background: var(--surface-raised);
             border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            border-top: 5px solid #1f6f54;
+            box-shadow: 0 4px 15px color-mix(in srgb, var(--ink) 3%, transparent);
+            border-top: 5px solid var(--green);
         }
         .about-card h2 {
             font-size: 1.3rem;
-            color: #13241e;
+            color: var(--ink);
             margin-bottom: 0.65rem;
         }
         .about-card p {
-            color: #4a5d55;
+            color: var(--muted);
             font-size: 0.96rem;
         }
         .rhythm-box {
-            background: #183329;
-            color: #ffffff;
+            background: var(--hero-a);
+            color: var(--on-hero);
             border-radius: 18px;
             padding: 2.25rem;
             display: grid;
@@ -58,12 +58,12 @@
             gap: 1.5rem;
         }
         .rhythm-item h3 {
-            color: #f4b41a;
+            color: var(--accent);
             font-size: 1.1rem;
             margin-bottom: 0.35rem;
         }
         .rhythm-item p {
-            color: #d5e3dd;
+            color: var(--hero-muted);
             font-size: 0.92rem;
         }
     </style>
@@ -96,7 +96,7 @@
         <section class="about-hero">
             <span class="about-pill">Our Story & Mission</span>
             <h1 style="font-size: 2.3rem; margin-bottom: 0.6rem;">About Beacon of Light (BOL)</h1>
-            <p style="color: #e2eee9; max-width: 720px; font-size: 1.05rem;">
+            <p style="color: var(--hero-muted); max-width: 720px; font-size: 1.05rem;">
                 Beacon of Light is a Christ-centered church and youth community in Vienna. Dedicated to shining hope, building genuine relationships, and growing together in faith.
             </p>
         </section>

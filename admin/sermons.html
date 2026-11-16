@@ -4,36 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" id="theme-color-meta">
     <title>Sermon Editor | Beacon of Light</title>
     <link rel="stylesheet" href="../bolwebstyle.css">
     <link rel="icon" href="../images/logo.png" type="image/png">
     <style>
         .editor-wrap { max-width: 980px; margin: 2rem auto 4rem; padding: 0 1rem; }
-        .editor-card { background: #fff; border: 1px solid #e3ebe7; border-radius: 18px; padding: clamp(1.1rem, 3vw, 2rem); box-shadow: 0 8px 24px rgba(19, 36, 30, .06); }
+        .editor-card { background: var(--surface-raised); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.1rem, 3vw, 2rem); box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 6%, transparent); }
         .editor-card + .editor-card { margin-top: 1.5rem; }
-        .editor-card h1, .editor-card h2 { color: #13241e; }
-        .editor-intro { color: #566960; line-height: 1.6; }
+        .editor-card h1, .editor-card h2 { color: var(--ink); }
+        .editor-intro { color: var(--muted); line-height: 1.6; }
         .editor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
         .editor-field { display: flex; flex-direction: column; gap: .4rem; }
         .editor-field.full { grid-column: 1 / -1; }
-        .editor-field label { color: #253b32; font-weight: 700; font-size: .92rem; }
-        .editor-field input, .editor-field select, .editor-field textarea { width: 100%; border: 1px solid #cfdcd5; border-radius: 9px; padding: .75rem .85rem; font: inherit; color: #13241e; background: #fff; }
+        .editor-field label { color: var(--ink); font-weight: 700; font-size: .92rem; }
+        .editor-field input, .editor-field select, .editor-field textarea { width: 100%; border: 1px solid var(--line); border-radius: 9px; padding: .75rem .85rem; font: inherit; color: var(--ink); background: var(--surface-raised); }
         .editor-field textarea { min-height: 110px; resize: vertical; line-height: 1.55; }
         .editor-field .sermon-textarea { min-height: 300px; }
         .editor-actions { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.2rem; }
-        .editor-button { border: 0; border-radius: 9px; padding: .75rem 1rem; background: #1f6f54; color: white; font: inherit; font-weight: 700; cursor: pointer; }
-        .editor-button.secondary { background: #edf3ef; color: #1e4435; }
-        .editor-button.danger { background: #8d3030; }
-        .editor-status { min-height: 1.5rem; margin: .9rem 0 0; color: #315c47; font-weight: 600; }
-        .editor-status.error { color: #9a2e2e; }
+        .editor-button { border: 0; border-radius: 9px; padding: .75rem 1rem; background: var(--green); color: var(--on-hero); font: inherit; font-weight: 700; cursor: pointer; }
+        .editor-button.secondary { background: var(--green-soft); color: var(--ink); }
+        .editor-button.danger { background: var(--danger); }
+        .editor-status { min-height: 1.5rem; margin: .9rem 0 0; color: var(--success); font-weight: 600; }
+        .editor-status.error { color: var(--danger); }
         .editor-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
         .record-list { display: grid; gap: .8rem; margin-top: 1rem; }
-        .record-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid #e3ebe7; border-radius: 12px; padding: 1rem; }
-        .record-row h3 { margin: 0 0 .3rem; color: #13241e; font-size: 1.05rem; }
-        .record-meta { margin: 0; color: #667970; font-size: .88rem; }
+        .record-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid var(--line); border-radius: 12px; padding: 1rem; }
+        .record-row h3 { margin: 0 0 .3rem; color: var(--ink); font-size: 1.05rem; }
+        .record-meta { margin: 0; color: var(--muted); font-size: .88rem; }
         .record-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
         .hidden { display: none !important; }
-        .editor-note { background: #f5f8f6; border-left: 4px solid #1f6f54; border-radius: 7px; padding: .8rem 1rem; color: #53665d; line-height: 1.5; margin-top: 1rem; }
+        .editor-note { background: var(--green-soft); border-left: 4px solid var(--green); border-radius: 7px; padding: .8rem 1rem; color: var(--muted); line-height: 1.5; margin-top: 1rem; }
         @media (max-width: 650px) {
             .editor-grid { grid-template-columns: 1fr; }
             .editor-field.full { grid-column: auto; }
@@ -52,6 +53,11 @@
             <a href="../index.html">Home</a>
             <a href="../sermons.html">View Sermons</a>
         </nav>
+        <div class="theme-switch" role="group" aria-label="Choose a color theme">
+            <span class="theme-switch-label">Theme</span>
+            <button class="theme-btn" type="button" data-theme-choice="midnight" aria-pressed="true">Midnight &amp; Gold</button>
+            <button class="theme-btn" type="button" data-theme-choice="olive" aria-pressed="false">Olive &amp; Clay</button>
+        </div>
     </header>
 
     <main class="editor-wrap" id="main">
@@ -323,5 +329,6 @@
             }
         })();
     </script>
+    <script src="../bolsite.js"></script>
 </body>
 </html>
