@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beacon of Light | Gallery</title>
+    <title>Events &amp; Gallery | Beacon of Light Vienna</title>
     <link rel="stylesheet" href="bolwebstyle.css">
     <style>
         .gallery-toolbar {
@@ -204,7 +204,7 @@
         <details class="nav-more"><summary>More</summary><div class="nav-more-menu">
             <a href="daily-quotes.html">Daily Quotes</a>
             <a href="sermons.html">Sermons</a><a href="chess.html">Chess</a>
-            <a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+            <a href="gallery.html">Events &amp; Gallery</a><a href="archive.html">Archive</a><a href="beacon-of-hope.html">Beacon of Hope</a><a href="contact.html">Contact</a>
         </div></details>
     </nav>
     <div class="theme-switch" role="group" aria-label="Choose a color theme">
@@ -216,10 +216,16 @@
 
     <div class="container" id="main">
         <div class="page-header">
-            <h1>BOL Photo Gallery</h1>
-            <p>Memories from Sunday services, Hour of Power, Special Events, and our Chess Classic. Have photos? Upload them directly!</p>
+            <h1>Events &amp; Gallery</h1>
+            <p>Gatherings, celebrations and memories from our church family.</p>
         </div>
 
+        <section class="events-table-section" aria-labelledby="special-events-title">
+            <div class="section-heading"><div><span class="eyebrow">Church life</span><h2 id="special-events-title">Special events</h2></div><p>Find an event and open its approved photo album.</p></div>
+            <div class="events-table-wrap"><table class="events-table"><thead><tr><th>Date</th><th>Event</th><th>Photographs</th></tr></thead><tbody id="church-event-rows"></tbody></table></div>
+            <p class="muted">Photo albums will open in Google Photos once their links are approved and supplied.</p>
+        </section>
+        <h2 class="gallery-subtitle">Photo Gallery</h2>
         <div class="gallery-toolbar">
             <div class="gallery-tabs">
                 <button type="button" class="gal-tab active" onclick="filterGallery('All', this)">All Moments</button>
