@@ -605,3 +605,27 @@ button.day.today { border-color: var(--green); font-weight: 850; }
 .calendar-agenda-row strong {font-size:.8rem;color:var(--green);white-space:nowrap;}
 .calendar-agenda-row p {font-size:.86rem;line-height:1.55;margin-bottom:.2rem;}
 @media(max-width:700px){.calendar-agenda-grid{grid-template-columns:1fr;}}
+
+/* Activities schedule: restore full-width reading and avoid nested scrollbars. */
+.calendar-agenda-grid:has(> .calendar-agenda-month:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.calendar-agenda-month {
+  min-width: 0;
+  max-height: none;
+  overflow: visible;
+}
+.schedule-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .65rem;
+}
+.schedule-toolbar select {
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: .45rem .7rem;
+}
