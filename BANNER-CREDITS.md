@@ -10,7 +10,7 @@ Decorative stock photos, not documentary photographs of Beacon of Light members,
 | bible-study.html | Open Bible | Humble Lamb | [Unsplash](https://unsplash.com/photos/open-bible-on-wooden-desk-HujL5cnFHws) |
 | calendar.html | Congregation in worship | Drew Walker | [Unsplash](https://unsplash.com/photos/a-group-of-people-standing-in-a-room-with-their-hands-up-vNk2b1rkly0) |
 | contact.html | Vienna cityscape | Vladyslav Vedernikov | [Unsplash](https://unsplash.com/photos/architectural-photography-of-white-and-brown-houses-Ix3mf0Efwus) |
-| daily-quotes.html | Mountain sunrise | Sora Sagano | [Unsplash](https://unsplash.com/photos/sunrise-over-the-mountain-mJl8Kik2QJM) |
+| daily-quotes.html | Golden sunrise behind today's verse | Hilbert Simonse | [Unsplash](https://unsplash.com/photos/the-sun-shines-brightly-through-the-clouds-in-the-mountains-NjhQbGfDlTM) |
 | gallery.html | Photography and memories | Micheile Henderson | [Unsplash](https://unsplash.com/photos/black-and-silver-camera-on-white-wooden-table-YCUR2iuuo5I) |
 | hour-of-power.html | Shared learning | Jay Turner | [Unsplash](https://unsplash.com/photos/a-table-topped-with-two-open-notebooks-on-top-of-a-wooden-table-4OPb72stApI) |
 | sermons.html | Open Bible | Humble Lamb | [Unsplash](https://unsplash.com/photos/open-bible-on-wooden-desk-HujL5cnFHws) |

@@ -6,18 +6,55 @@
     <title>Beacon of Light | Daily Verses</title>
     <link rel="stylesheet" href="bolwebstyle.css">
     <style>
+        .daily-page-heading { margin-bottom: 1.1rem; }
+        .daily-page-heading h1 { font-size: 1.65rem; color: var(--ink); }
         .quote-featured {
-            background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 65%, var(--hero-c) 100%);
+            background-color: var(--hero-a);
+            background-image: linear-gradient(90deg, rgb(0 0 0 / 74%), rgb(0 0 0 / 42%)), url("https://images.unsplash.com/photo-1672947149598-cf3bb112d06b?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center 60%;
             color: var(--on-hero);
-            border-radius: 20px;
-            padding: 2.5rem;
+            border-radius: 24px;
+            padding: clamp(1.5rem, 4vw, 3.5rem);
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 25px color-mix(in srgb, var(--ink) 12%, transparent);
+            box-shadow: var(--shadow);
+        }
+        .quote-featured .quote-text {
+            max-width: 38ch;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.5rem, 3vw, 2.3rem);
+            font-weight: 400;
+            line-height: 1.5;
+            margin: 1.5rem 0 1rem;
+            text-shadow: 0 2px 6px rgb(0 0 0 / 35%);
+        }
+        .quote-featured .quote-author {
+            color: var(--on-hero);
+            margin-bottom: 1.75rem;
+        }
+        .quote-featured .react-btn:not(.voted) {
+            background: rgb(0 0 0 / 45%);
+            border-color: color-mix(in srgb, var(--on-hero) 55%, transparent);
+        }
+        @media (max-width: 650px) {
+            .quote-featured {
+                min-height: 340px;
+                background-image: linear-gradient(rgb(0 0 0 / 62%), rgb(0 0 0 / 62%)), url("https://images.unsplash.com/photo-1672947149598-cf3bb112d06b?auto=format&fit=crop&w=900&q=75");
+                background-position: center;
+                border-radius: 20px;
+            }
+            .quote-featured .tag { line-height: 1.6; }
+            .quote-featured .react-btn { padding: .65rem .85rem; }
         }
         .quote-featured .tag {
             display: inline-block;
             background: var(--accent);
-            color: var(--ink);
+            color: var(--accent-ink);
             font-size: 0.75rem;
             font-weight: 800;
             padding: 4px 12px;
@@ -71,7 +108,6 @@
             border-left: 5px solid var(--green);
         }
     </style>
-    <link rel="stylesheet" href="page-banners.css">
 </head>
 <body>
 
@@ -99,7 +135,7 @@
     <link rel="icon" href="images/bol-logo.jpg" type="image/jpeg">
 
     <div class="container" id="main">
-        <div class="page-header photo-banner banner-dawn">
+        <div class="daily-page-heading">
             <h1>Daily Verses</h1>
         </div>
 
