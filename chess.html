@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="bolwebstyle.css">
     <style>
         .chess-hero {
-            background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 65%, var(--hero-c) 100%);
+            --chess-banner: url("images/chess-banner-dark.jpg");
+            background-color: var(--hero-a);
+            background-image: linear-gradient(90deg, rgb(0 0 0 / 82%), rgb(0 0 0 / 22%) 58%, rgb(0 0 0 / 62%)), var(--chess-banner);
+            background-size: cover;
+            background-position: center 45%;
+            min-height: 360px;
             color: var(--on-hero);
             border-radius: 20px;
             padding: 2.5rem;
@@ -18,6 +23,27 @@
             flex-wrap: wrap;
             gap: 1.5rem;
             box-shadow: 0 10px 25px color-mix(in srgb, var(--ink) 12%, transparent);
+        }
+        body[data-theme="olive"] .chess-hero {
+            --chess-banner: url("images/chess-banner-warm.jpg");
+        }
+        .chess-hero > div:first-child { flex: 1 1 380px; max-width: 540px; }
+        .chess-hero .champ-spotlight {
+            --accent: var(--hero-highlight);
+            background: rgb(0 0 0 / 60%);
+            max-width: 100%;
+            min-width: 0;
+            flex: 0 1 270px;
+        }
+        @media (max-width: 700px) {
+            .chess-hero {
+                padding: 1.5rem;
+                min-height: 400px;
+                background-position: center;
+                background-image: linear-gradient(rgb(0 0 0 / 65%), rgb(0 0 0 / 65%)), var(--chess-banner);
+            }
+            .chess-hero > div:first-child { flex-basis: 100%; }
+            .chess-hero .champ-spotlight { flex-basis: 100%; }
         }
         .badge-gold {
             display: inline-block;
