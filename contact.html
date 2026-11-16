@@ -156,7 +156,7 @@
 
                 <div class="info-row">
                     <span class="info-label">📞 Direct Contact</span>
-                    <div>Email: <strong>[hello@bolchurch.org]</strong></div>
+                    <div>Email: <a href="mailto:bol.viennacfc@gmail.com" style="color: var(--hero-highlight); overflow-wrap: anywhere;"><strong>bol.viennacfc@gmail.com</strong></a></div>
                     <div>Phone / WhatsApp: <strong>[+43 XXX XXXXXXX]</strong></div>
                 </div>
             </div>
@@ -165,7 +165,7 @@
             <div class="form-card">
                 <h2 style="font-size: 1.4rem; color: var(--ink); margin-bottom: 0.35rem;">Send a Message or Prayer Request</h2>
                 <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 1.4rem;">
-                    Fill out the form below and our team will follow up with you soon.
+                    Fill out the form below to prepare an email to our church team. Your email app will open so you can review and send it.
                 </p>
 
                 <form id="bol-contact-form" onsubmit="submitContactForm(event)">
@@ -196,10 +196,10 @@
                         <textarea id="sender-message" rows="4" placeholder="Write your message or prayer request here..." required></textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn">Send Message to BOL &rarr;</button>
+                    <button type="submit" class="submit-btn">Open Email to BOL &rarr;</button>
                 </form>
 
-                <div class="success-box" id="contact-success"></div>
+                <div class="success-box" id="contact-success" role="status" aria-live="polite"></div>
             </div>
         </div>
     </div>
@@ -212,13 +212,17 @@
         function submitContactForm(event) {
             event.preventDefault();
             const name = document.getElementById("sender-name").value.trim();
+            const replyTo = document.getElementById("sender-email").value.trim();
             const topic = document.getElementById("topic").value;
+            const message = document.getElementById("sender-message").value.trim();
+            const body = "Name: " + name + "\nReply to: " + replyTo + "\n\n" + message;
+            const emailUrl = "mailto:bol.viennacfc@gmail.com?subject=" +
+                encodeURIComponent("BOL enquiry: " + topic) + "&body=" + encodeURIComponent(body);
 
-            const successBox = document.getElementById("contact-success");
-            successBox.innerHTML = `✅ Thank you, <strong>${name}</strong>! Your message regarding <strong>${topic}</strong> has been received. God bless you!`;
-            successBox.style.display = "block";
-
-            document.getElementById("bol-contact-form").reset();
+            const statusBox = document.getElementById("contact-success");
+            statusBox.textContent = "Please review and send the message in your email app. If no app opens, email bol.viennacfc@gmail.com directly. Your message has not been sent by this website.";
+            statusBox.style.display = "block";
+            window.location.href = emailUrl;
         }
     </script>
     <script src="bolsite.js"></script>
