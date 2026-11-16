@@ -62,6 +62,27 @@
                 if (new Date(year, month, day).getDay() === 4) addEvent(map, day, "Weekly Bible Study · 8:00 PM · Online");
             }
             addEvent(map, nthWeekday(year, month, 6, -1), "Revival Prayer · 6:30 PM · Online");
+            addEvent(map, nthWeekday(year, month, 5, 1), "Night Vigil · 10:30 PM · Online");
+            for (var worshipDay = 1; worshipDay <= 3; worshipDay += 1) {
+                addEvent(map, worshipDay, "Monthly Worship · 8:00 PM · Online");
+            }
+            if (year === 2026) {
+                for (var prayerDay = 1; prayerDay <= daysInMonth; prayerDay += 1) {
+                    var prayerDate = new Date(year, month, prayerDay);
+                    var dow = prayerDate.getDay();
+                    if (prayerDate >= new Date(2026, 1, 9) &&
+                        prayerDate <= new Date(2026, 3, 3) && dow >= 1 && dow <= 5) {
+                        addEvent(map, prayerDay, "40 Days Prayer · Daily focus · Yearly");
+                    }
+                }
+            }
+            if(year === 2026 && month === 3) {
+                addEvent(map,3,"Good Friday");
+                addEvent(map,5,"Easter Sunday");
+            }
+            if(month===11) {
+                for(var endDay=26;endDay<=30;endDay+=1) addEvent(map,endDay,"End-of-Year Prayers · 8:30 PM · Online");
+            }
         }
 
         return map;
