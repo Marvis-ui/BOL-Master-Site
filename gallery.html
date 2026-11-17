@@ -99,6 +99,29 @@
         .gallery-subtitle { margin-bottom: 1rem; }
         @media (max-width: 360px) { .gallery-grid { grid-template-columns: minmax(0, 1fr); } }
         @media (prefers-reduced-motion: reduce) { .photo-card { transition: none; } }
+        .photo-frame.album-preview {
+            background: radial-gradient(circle at 80% 10%, var(--accent-soft), transparent 65%), var(--green-soft);
+            color: var(--green);
+            gap: .85rem;
+        }
+        .album-preview-symbol {
+            display: grid;
+            place-items: center;
+            width: 92px;
+            height: 92px;
+            border: 1px solid color-mix(in srgb, var(--green) 25%, transparent);
+            border-radius: 50%;
+            background: color-mix(in srgb, var(--surface) 70%, transparent);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 3.2rem;
+            line-height: 1;
+        }
+        .album-preview-caption {
+            font-size: .72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+        }
     </style>
     <link rel="stylesheet" href="page-banners.css">
 </head>

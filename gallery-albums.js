@@ -2,9 +2,9 @@
    Keep access Restricted in Google Drive; this website does not grant access.
    Use decorative/public covers only, not private album photographs. */
 window.BOL_GALLERY_ALBUMS = [
-    { title: "BOL Church Anniversary", category: "Special Events", cover: "images/anniversary1.jpg", description: "Celebrating God's faithfulness together on the first Sunday of August.", driveUrl: "" },
-    { title: "Annual Summer Picnic", category: "Annual Picnic", cover: "images/picnic1.jpg", description: "Food, games, and outdoor fellowship with the entire church family.", driveUrl: "" },
-    { title: "BOL Chess Championship", category: "Chess Championship", cover: "images/chess1.jpg", description: "Memories from our annual August chess championship.", driveUrl: "" }
+    { title: "BOL Church Anniversary", category: "Special Events", cover: "", symbol: "✦", description: "Celebrating God's faithfulness together on the first Sunday of August.", driveUrl: "" },
+    { title: "Annual Summer Picnic", category: "Annual Picnic", cover: "", symbol: "☀", description: "Food, games, and outdoor fellowship with the entire church family.", driveUrl: "" },
+    { title: "BOL Chess Championship", category: "Chess Championship", cover: "", symbol: "♞", description: "Memories from our annual August chess championship.", driveUrl: "" }
 ];
 
 (function () {
@@ -32,8 +32,16 @@ window.BOL_GALLERY_ALBUMS = [
                 card.setAttribute("aria-label", "Open " + album.title + " in Google Drive (opens in a new tab)");
             }
             const frame = document.createElement("div"); frame.className = "photo-frame";
-            const image = document.createElement("img"); image.src = album.cover; image.alt = ""; image.loading = "lazy";
-            frame.append(image);
+            if (album.cover) {
+                const image = document.createElement("img"); image.src = album.cover; image.alt = ""; image.loading = "lazy";
+                frame.append(image);
+            } else {
+                frame.classList.add("album-preview");
+                frame.setAttribute("aria-hidden", "true");
+                const symbol = document.createElement("span"); symbol.className = "album-preview-symbol"; symbol.textContent = album.symbol || "✦";
+                const caption = document.createElement("span"); caption.className = "album-preview-caption"; caption.textContent = album.category;
+                frame.append(symbol, caption);
+            }
             const info = document.createElement("div"); info.className = "photo-info";
             const label = document.createElement("span"); label.className = "photo-cat"; label.textContent = album.category;
             const title = document.createElement("h3"); title.textContent = album.title;
