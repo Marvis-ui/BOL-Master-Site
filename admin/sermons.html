@@ -81,11 +81,19 @@
             <div class="editor-toolbar">
                 <div>
                     <h1 id="form-heading">Add a sermon</h1>
-                    <p class="editor-intro">Enter the message details and its Google Drive PDF link, then save.</p>
+                    <p class="editor-intro">Upload your prepared Word template or enter a message below. Preview it before publishing.</p>
                 </div>
                 <button class="editor-button secondary" id="logout-button" type="button">Sign out</button>
             </div>
-            <form id="sermon-form">
+            <div class="editor-note">
+<h2>Prepare once in Word</h2>
+<p><a href="../templates/BOL-Sermon-Template.docx" download>Download the sermon Word template (.docx)</a></p>
+<label for="sermon-word"><strong>Import your completed Word document</strong></label>
+<input id="sermon-word" type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+<p>Keep the template headings. Import fills your draft; nothing is published until you review and confirm. Maximum 10 MB.</p>
+<p id="import-status" role="status" aria-live="polite"></p>
+</div>
+<form id="sermon-form">
                 <input id="sermon-id" type="hidden">
                 <div class="editor-grid">
                     <div class="editor-field">
@@ -122,16 +130,25 @@
                         <small id="pdf-guidance">Share the PDF as Viewer with anyone who has the link. No public link is shown until one is entered.</small>
                     </div>
                     <div class="editor-field full">
-                        <label for="sermon-body">Full sermon text (legacy, optional)</label>
+                        <label for="sermon-body">Full sermon text (optional)</label>
                         <textarea class="sermon-textarea" id="sermon-body" maxlength="100000" placeholder="Type or paste the sermon text here. Line breaks are preserved on the public page."></textarea>
                     </div>
                 </div>
                 <div class="editor-actions">
-                    <button class="editor-button" type="submit">Save &amp; Publish</button>
+                    <button class="editor-button" type="submit">Preview sermon</button>
                     <button class="editor-button secondary" id="new-sermon-button" type="button">Clear form</button>
                 </div>
             </form>
-            <p class="editor-status" id="save-status" role="status" aria-live="polite"></p>
+            <section id="sermon-preview" class="editor-note hidden" aria-labelledby="preview-heading" tabindex="-1">
+<h2 id="preview-heading">Preview before publishing</h2>
+<p>Check the details and message below. This is a draft, not a published sermon.</p>
+<div id="preview-content" style="overflow-wrap:anywhere"></div>
+<div class="editor-actions">
+<button type="button" class="editor-button" id="confirm-publish">Confirm &amp; Publish</button>
+<button type="button" class="editor-button secondary" id="back-to-edit">Back to editing</button>
+</div>
+</section>
+<p class="editor-status" id="save-status" role="status" aria-live="polite"></p>
             <p class="editor-note">Saving adds a change to GitHub. Vercel then publishes the updated Sermons page. It may take a short time for the new message to appear on the live site.</p>
         </section>
 
@@ -149,6 +166,9 @@
         const saveStatus = document.getElementById("save-status");
         const sermonForm = document.getElementById("sermon-form");
         let sermons = [];
+        let pendingRecord = null;
+        let publishing = false;
+        function invalidatePreview() { pendingRecord = null; document.getElementById("sermon-preview").classList.add("hidden"); }
 
         async function api(action, extra) {
             const response = await fetch("/api/sermons", {
@@ -223,6 +243,7 @@
         }
 
         function fillForm(sermon) {
+            invalidatePreview();
             document.getElementById("sermon-id").value = sermon.id;
             document.getElementById("sermon-title").value = sermon.title;
             document.getElementById("sermon-date").value = sermon.date;
@@ -238,6 +259,7 @@
         }
 
         function clearForm() {
+            invalidatePreview();
             sermonForm.reset();
             document.getElementById("sermon-id").value = "";
             document.getElementById("sermon-date").value = new Date().toISOString().slice(0, 10);
@@ -299,13 +321,51 @@
                 pdfUrl: document.getElementById("sermon-pdf-url").value.trim(),
                 body: document.getElementById("sermon-body").value.trim()
             };
-            const nextSermons = sermons.filter(function (item) { return item.id !== id; });
-            nextSermons.push(record);
-            if (await persistSermons(nextSermons)) clearForm();
+            if (record.pdfUrl) {
+                try {
+                    const url = new URL(record.pdfUrl);
+                    if (url.protocol !== "https:" || !["drive.google.com","docs.google.com"].includes(url.hostname)) throw new Error();
+                } catch { setStatus(saveStatus, "Use an HTTPS Google Drive PDF link, or leave it blank.", true); return; }
+            }
+            if (!record.title || !record.speaker || !record.scripture) {
+                setStatus(saveStatus, "Complete the title, speaker and Bible passage.", true); return;
+            }
+            pendingRecord = record;
+            const content = document.getElementById("preview-content");
+            content.replaceChildren();
+            function add(tag, text) { const el=document.createElement(tag); el.textContent=text; content.append(el); return el; }
+            add("h3", record.title);
+            add("p", record.category + " · " + formatDate(record.date) + " · " + record.speaker);
+            add("p", record.scripture);
+            if(record.summary) add("p", record.summary).style.whiteSpace="pre-wrap";
+            if(record.body) { add("h3", "Full message"); add("div", record.body).style.whiteSpace="pre-wrap"; }
+            if(record.pdfUrl) { const a=add("a", "Open sermon PDF to check access ↗"); a.href=record.pdfUrl; a.target="_blank"; a.rel="noopener noreferrer"; }
+            else add("p", "No PDF link added.");
+            const preview=document.getElementById("sermon-preview");
+            preview.classList.remove("hidden"); preview.focus(); preview.scrollIntoView({behavior:"smooth",block:"start"});
+            setStatus(saveStatus, "Preview ready. Nothing has been published.", false);
         });
 
+        sermonForm.addEventListener("input", invalidatePreview);
+        sermonForm.addEventListener("change", invalidatePreview);
+        document.getElementById("back-to-edit").addEventListener("click", function() { invalidatePreview(); document.getElementById("sermon-title").focus(); });
+        document.getElementById("confirm-publish").addEventListener("click", async function() {
+            if (!pendingRecord || publishing) return;
+            publishing=true;
+            const record=pendingRecord;
+            const button=this; button.disabled=true;
+            try {
+                const next=sermons.filter(item=>item.id!==record.id);
+                next.push(record);
+                if(await persistSermons(next)) {
+                    const message=saveStatus.textContent;
+                    clearForm(); setStatus(saveStatus,message,false);
+                }
+            } finally { publishing=false; button.disabled=false; }
+        });
         document.getElementById("new-sermon-button").addEventListener("click", clearForm);
         document.getElementById("logout-button").addEventListener("click", async function () {
+            invalidatePreview();
             try { await api("logout"); } catch (error) {}
             editorPanel.classList.add("hidden");
             recordsPanel.classList.add("hidden");
@@ -330,5 +390,7 @@
         })();
     </script>
     <script src="../bolsite.js"></script>
+    <script src="../vendor/jszip-3.10.1.min.js"></script>
+    <script src="sermon-import.js"></script>
 </body>
 </html>

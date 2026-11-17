@@ -164,7 +164,7 @@
     <div class="container" id="main">
         <div class="page-header photo-banner banner-scripture">
             <h1>Sermons & Message Notes</h1>
-            <p>Find a message by title, Scripture or preacher. Select a card to open its sermon PDF in Google Drive.</p>
+            <p>Find a message by title, Scripture or preacher. Read the message below or open its sermon PDF in Google Drive.</p>
         </div>
 
         <!-- Featured Latest Sermon (Auto-loads the first item in bolSermons below) -->
@@ -295,6 +295,13 @@
                     <p class="sermon-speaker">Preacher: ${escapeHTML(sermon.speaker)}</p>
                     ${url ? '<span class="watch-link">Open sermon PDF ↗</span>' : '<span class="sermon-text-note">PDF will be added soon</span>'}
                 `;
+                if (sermon.body) {
+                    const summary = sermon.summary ? '<p class="sermon-summary">'+escapeHTML(sermon.summary)+'</p>' : '';
+                    const message = '<details class="sermon-full-text"><summary>Read message</summary><div class="sermon-body">'+escapeHTML(sermon.body)+'</div></details>';
+                    const cardContent = content.replace(url ? '<span class="watch-link">Open sermon PDF ↗</span>' : '<span class="sermon-text-note">PDF will be added soon</span>', '');
+                    const pdf = url ? '<a class="watch-link" href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer">Open sermon PDF ↗</a>' : '';
+                    return '<article class="sermon-card">'+cardContent+summary+message+pdf+'</article>';
+                }
                 return url
                     ? '<a class="sermon-card sermon-pdf-card" href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer" aria-label="Open sermon PDF: '+escapeHTML(sermon.title)+'">'+content+'</a>'
                     : '<article class="sermon-card">'+content+'</article>';
