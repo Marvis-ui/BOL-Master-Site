@@ -35,25 +35,6 @@
             color: var(--on-hero);
             border-color: var(--line);
         }
-        .upload-trigger-btn {
-            background: var(--green);
-            color: var(--on-hero);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px color-mix(in srgb, var(--green) 20%, transparent);
-            transition: transform 0.15s ease, background 0.15s ease;
-        }
-        .upload-trigger-btn:hover {
-            background: var(--hero-a);
-            transform: translateY(-2px);
-        }
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -90,18 +71,7 @@
             position: absolute;
             inset: 0;
         }
-        .count-pill {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            z-index: 2;
-            background: color-mix(in srgb, var(--ink) 85%, transparent);
-            color: var(--accent);
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 12px;
-        }
+
         .photo-info {
             padding: 1.2rem 1.4rem;
         }
@@ -121,74 +91,14 @@
             font-size: 0.88rem;
             color: var(--muted);
         }
-        .modal-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: color-mix(in srgb, var(--ink) 88%, transparent);
-            z-index: 999;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-        .modal-backdrop.open {
-            display: flex;
-        }
-        .modal-box {
-            background: var(--surface-raised);
-            border-radius: 18px;
-            max-width: 720px;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            max-height: 92vh;
-            overflow-y: auto;
-        }
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--hero-a);
-            color: var(--on-hero);
-            border: none;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            z-index: 4;
-        }
-        .up-field {
-            margin-bottom: 1rem;
-        }
-        .up-field label {
-            display: block;
-            font-weight: 700;
-            font-size: 0.86rem;
-            color: var(--ink);
-            margin-bottom: 5px;
-        }
-        .up-field input, .up-field select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            font-size: 0.92rem;
-            font-family: inherit;
-        }
-        .preview-strip {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 0.75rem;
-        }
-        .preview-strip img {
-            width: 68px;
-            height: 68px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid var(--success-line);
-        }
+        .photo-card { display: block; color: inherit; text-decoration: none; }
+        .photo-card.album-pending { cursor: default; }
+        .photo-card.album-pending:hover { transform: none; }
+        .photo-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+        .album-status { display: block; margin-top: 1rem; color: var(--green); font-size: .85rem; font-weight: 700; }
+        .gallery-subtitle { margin-bottom: 1rem; }
+        @media (max-width: 360px) { .gallery-grid { grid-template-columns: minmax(0, 1fr); } }
+        @media (prefers-reduced-motion: reduce) { .photo-card { transition: none; } }
     </style>
     <link rel="stylesheet" href="page-banners.css">
 </head>
@@ -221,372 +131,22 @@
             <p>Gatherings, celebrations and memories from our church family.</p>
         </div>
 
-        <section class="events-table-section" aria-labelledby="special-events-title">
-            <div class="section-heading"><div><span class="eyebrow">Church life</span><h2 id="special-events-title">Special events</h2></div><p>Find an event and open its approved photo album.</p></div>
-            <div class="events-table-wrap"><table class="events-table"><thead><tr><th>Date</th><th>Event</th><th>Photographs</th></tr></thead><tbody id="church-event-rows"></tbody></table></div>
-            <p class="muted">Photo albums will open in Google Photos once their links are approved and supplied.</p>
-        </section>
-        <h2 class="gallery-subtitle">Photo Gallery</h2>
+        <h2 class="gallery-subtitle">Photo Albums</h2>
         <div class="gallery-toolbar">
-            <div class="gallery-tabs">
-                <button type="button" class="gal-tab active" onclick="filterGallery('All', this)">All Moments</button>
-                <button type="button" class="gal-tab" onclick="filterGallery('Sunday & Youth', this)">Sunday & Hour of Power</button>
-                <button type="button" class="gal-tab" onclick="filterGallery('Special Events', this)">Special Events</button>
-                <button type="button" class="gal-tab" onclick="filterGallery('Chess Classic', this)">Chess Classic</button>
+            <div class="gallery-tabs" role="group" aria-label="Filter photo albums">
+                <button type="button" class="gal-tab active" data-album-filter="All" aria-pressed="true">All Moments</button>
+                <button type="button" class="gal-tab" data-album-filter="Special Events" aria-pressed="false">Special Events</button>
+                <button type="button" class="gal-tab" data-album-filter="Chess Championship" aria-pressed="false">Chess Championship</button>
+                <button type="button" class="gal-tab" data-album-filter="Annual Picnic" aria-pressed="false">Annual Picnic</button>
             </div>
-
-            <button type="button" class="upload-trigger-btn" onclick="openUploadModal()">
-                📸 + Upload Photos
-            </button>
         </div>
-
-        <div class="gallery-grid" id="gallery-grid"></div>
+        <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
+        <noscript><p>Enable JavaScript to browse the photo albums.</p></noscript>
     </div>
-
-    <div class="modal-backdrop" id="lightbox" onclick="if(event.target.id==='lightbox') closeLightbox()">
-        <div class="modal-box">
-            <button type="button" class="modal-close" onclick="closeLightbox()">&times;</button>
-
-            <div style="position: relative; width: 100%; height: 380px; background: var(--hero-a); display: flex; align-items: center; justify-content: center; color: var(--on-hero);">
-                <button type="button" onclick="changeAlbumPhoto(-1)" style="position: absolute; left: 14px; z-index: 3; background: color-mix(in srgb, var(--ink) 80%, transparent); color: var(--on-hero); border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1.2rem; cursor: pointer;">&#10094;</button>
-                <div id="lightbox-visual" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative;">
-                    <div style="text-align:center; padding:1rem;">
-                        <div style="font-size:2rem; margin-bottom:8px;">📸</div>
-                        <div>No photo uploaded for this slot yet</div>
-                    </div>
-                    <img id="lightbox-img" src="" alt="Album Photo"
-                         title="Click to view full screen"
-                         onclick="openFullPhoto()"
-                         style="width:100%; height:100%; object-fit:contain; background: var(--hero-a); position:absolute; inset:0; cursor:zoom-in;"
-                         onerror="this.style.display='none'">
-                </div>
-                <button type="button" onclick="changeAlbumPhoto(1)" style="position: absolute; right: 14px; z-index: 3; background: color-mix(in srgb, var(--ink) 80%, transparent); color: var(--on-hero); border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1.2rem; cursor: pointer;">&#10095;</button>
-                <span id="lb-counter" style="position: absolute; bottom: 12px; right: 14px; z-index: 3; background: color-mix(in srgb, var(--ink) 80%, transparent); color: var(--accent); font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 12px;">1 / 1</span>
-            </div>
-
-            <div style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
-                <div>
-                    <span class="photo-cat" id="lb-cat"></span>
-                    <h2 id="lb-title" style="margin: 0.3rem 0; color: var(--ink);"></h2>
-                    <p id="lb-desc" style="color: var(--muted);"></p>
-                </div>
-                <button type="button" onclick="deleteCurrentAlbumPhoto()"
-                        style="background: var(--danger-soft); color: var(--danger-ink); border: 1px solid var(--danger-line); padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">
-                    🗑️ Delete Photo
-                </button>
-            </div>
-
-        </div>
-    </div>
-
-    <div id="full-photo-screen" onclick="this.style.display='none'"
-         style="display:none; position:fixed; inset:0; background: color-mix(in srgb, var(--ink) 95%, transparent); z-index:2000; align-items:center; justify-content:center; cursor:zoom-out; padding:1.5rem;">
-        <img id="full-photo-img" src="" alt="Full Screen Photo" style="max-width:95vw; max-height:95vh; object-fit:contain; border-radius: 10px;">
-    </div>
-
-    <div class="modal-backdrop" id="upload-modal" onclick="if(event.target.id==='upload-modal') closeUploadModal()">
-        <div class="modal-box" style="max-width: 520px; padding: 2rem;">
-            <button type="button" class="modal-close" onclick="closeUploadModal()">&times;</button>
-            <h2 style="color: var(--ink); margin-bottom: 0.3rem;">Upload Photos to BOL Gallery</h2>
-            <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-                Select photos directly from your phone or computer to add them to an album.
-            </p>
-
-            <form onsubmit="handlePhotoUpload(event)">
-                <div class="up-field">
-                    <label for="album-select">Choose Album</label>
-                    <select id="album-select" onchange="toggleNewAlbumFields()"></select>
-                </div>
-
-                <div id="new-album-fields" style="display: none; background: var(--green-soft); padding: 1rem; border-radius: 12px; margin-bottom: 1rem;">
-                    <div class="up-field">
-                        <label for="new-album-title">New Album Name</label>
-                        <input type="text" id="new-album-title" placeholder="e.g., Youth Movie Night 2026">
-                    </div>
-                    <div class="up-field" style="margin-bottom: 0;">
-                        <label for="new-album-cat">Category</label>
-                        <select id="new-album-cat">
-                            <option value="Sunday & Youth">Sunday & Hour of Power</option>
-                            <option value="Special Events">Special Events</option>
-                            <option value="Chess Classic">Chess Classic</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="up-field">
-                    <label for="photo-files">Select Photos (Phone Gallery or Computer)</label>
-                    <input type="file" id="photo-files" accept="image/*" multiple required onchange="previewSelectedFiles(event)">
-                    <div class="preview-strip" id="upload-preview-strip"></div>
-                </div>
-
-                <button type="submit" class="btn" style="width: 100%; padding: 12px; font-size: 0.95rem;">
-                    Add Photos to Gallery &rarr;
-                </button>
-            </form>
-        </div>
-    </div>
-
     <footer>
         &copy; 2026 Beacon of Light (BOL). All rights reserved.
     </footer>
-
-    <script>
-        const defaultAlbums = [
-            {
-                cover: "images/anniversary1.jpg",
-                photos: ["images/anniversary1.jpg", "images/anniversary2.jpg", "images/anniversary3.jpg"],
-                category: "Special Events",
-                title: "BOL Church Anniversary",
-                desc: "Celebrating God's faithfulness together on the first Sunday of August."
-            },
-            {
-                cover: "images/picnic1.jpg",
-                photos: ["images/picnic1.jpg", "images/picnic2.jpg", "images/picnic3.jpg"],
-                category: "Special Events",
-                title: "Annual Summer Picnic",
-                desc: "Food, games, and outdoor fellowship with the entire church family."
-            },
-            {
-                cover: "images/chess1.jpg",
-                photos: ["images/chess1.jpg", "images/chess2.jpg"],
-                category: "Chess Classic",
-                title: "BOL Chess Championship",
-                desc: "Intense focus during the annual August round-robin matches."
-            },
-            {
-                cover: "images/youth1.jpg",
-                photos: ["images/youth1.jpg", "images/youth2.jpg"],
-                category: "Sunday & Youth",
-                title: "Hour of Power Youth Session",
-                desc: "Interactive Bible discussion and prayer right after Sunday service."
-            },
-            {
-                cover: "images/thanksgiving1.jpg",
-                photos: ["images/thanksgiving1.jpg", "images/thanksgiving2.jpg"],
-                category: "Sunday & Youth",
-                title: "1st Sunday Thanksgiving",
-                desc: "Monthly praise, communion, and gratitude service."
-            },
-            {
-                cover: "images/brunch1.jpg",
-                photos: ["images/brunch1.jpg", "images/brunch2.jpg"],
-                category: "Special Events",
-                title: "December Fellowship Brunch",
-                desc: "Closing out the year together in joy and thanksgiving."
-            }
-        ];
-
-        let bolAlbums = JSON.parse(localStorage.getItem("bol_gallery_albums")) || defaultAlbums;
-        let currentFilter = "All";
-        let activeAlbum = null;
-        let activePhotoIndex = 0;
-
-        function filterGallery(category, btn) {
-            currentFilter = category;
-            document.querySelectorAll(".gal-tab").forEach(function(t) {
-                t.classList.remove("active");
-            });
-            btn.classList.add("active");
-            renderGallery();
-        }
-
-                function deleteCurrentAlbumPhoto() {
-            if (!activeAlbum || activeAlbum.photos.length === 0) return;
-            if (!confirm("Remove this photo from the album?")) return;
-
-            activeAlbum.photos.splice(activePhotoIndex, 1);
-
-            if (activeAlbum.photos.length === 0) {
-                activeAlbum.cover = "";
-                try { localStorage.setItem("bol_gallery_albums", JSON.stringify(bolAlbums)); } catch (e) {}
-                renderGallery();
-                closeLightbox();
-                return;
-            }
-
-            if (activePhotoIndex >= activeAlbum.photos.length) {
-                activePhotoIndex = activeAlbum.photos.length - 1;
-            }
-            activeAlbum.cover = activeAlbum.photos[0];
-
-            try {
-                localStorage.setItem("bol_gallery_albums", JSON.stringify(bolAlbums));
-            } catch (err) {
-            }
-
-            updateAlbumSlide();
-            renderGallery();
-        }
-
-        function renderGallery() {
-            const grid = document.getElementById("gallery-grid");
-            grid.innerHTML = "";
-
-            const filtered = bolAlbums.filter(function(a) {
-                return currentFilter === "All" || a.category === currentFilter;
-            });
-
-                filtered.forEach(function(album, idx) {
-                const card = document.createElement("div");
-                card.className = "photo-card";
-                card.onclick = function() { openAlbum(idx); };
-                const frame = document.createElement("div");
-                frame.className = "photo-frame";
-                const pill = document.createElement("span");
-                pill.className = "count-pill";
-                pill.textContent = album.photos.length + " Photos";
-                const icon = document.createElement("span");
-                icon.style.fontSize = "1.6rem";
-                icon.style.marginBottom = "6px";
-                icon.textContent = "📸";
-                const frameTitle = document.createElement("strong");
-                frameTitle.style.fontSize = "0.85rem";
-                frameTitle.textContent = album.title;
-                const frameSub = document.createElement("small");
-                frameSub.style.opacity = "0.75";
-                frameSub.style.fontSize = "0.75rem";
-                frameSub.textContent = "Click to view or upload";
-                const img = document.createElement("img");
-                img.src = album.cover;
-                img.alt = album.title;
-                img.onerror = function() { this.style.display = "none"; };
-                frame.appendChild(pill);
-                frame.appendChild(icon);
-                frame.appendChild(frameTitle);
-                frame.appendChild(frameSub);
-                frame.appendChild(img);
-                const info = document.createElement("div");
-                info.className = "photo-info";
-                const cat = document.createElement("span");
-                cat.className = "photo-cat";
-                cat.textContent = album.category;
-                const title = document.createElement("h3");
-                title.textContent = album.title;
-                const desc = document.createElement("p");
-                desc.textContent = album.desc;
-                info.appendChild(cat);
-                info.appendChild(title);
-                info.appendChild(desc);
-                card.appendChild(frame);
-                card.appendChild(info);
-                grid.appendChild(card);
-                });
-                }
-                function openAlbum(index) {
-                const filtered = bolAlbums.filter(function(a) {
-                return currentFilter === "All" || a.category === currentFilter;
-                });
-                activeAlbum = filtered[index];
-                if (!activeAlbum) return;
-                activePhotoIndex = 0;
-                document.getElementById("lb-cat").textContent = activeAlbum.category;
-                document.getElementById("lb-title").textContent = activeAlbum.title;
-                document.getElementById("lb-desc").textContent = activeAlbum.desc;
-                updateAlbumSlide();
-                document.getElementById("lightbox").classList.add("open");
-                }
-                function changeAlbumPhoto(step) {
-                if (!activeAlbum) return;
-                const total = activeAlbum.photos.length;
-                activePhotoIndex = (activePhotoIndex + step + total) % total;
-                updateAlbumSlide();
-                }
-                function updateAlbumSlide() {
-                const total = activeAlbum.photos.length;
-                const currentFile = activeAlbum.photos[activePhotoIndex];
-                document.getElementById("lb-counter").textContent = "Photo " + (activePhotoIndex + 1) + " of " + total;
-                const lbImg = document.getElementById("lightbox-img");
-                lbImg.style.display = "block";
-                lbImg.src = currentFile;
-                }
-                function openFullPhoto() {
-                const lbImg = document.getElementById("lightbox-img");
-                if (lbImg.style.display === "none") return;
-                document.getElementById("full-photo-img").src = lbImg.src;
-                document.getElementById("full-photo-screen").style.display = "flex";
-                }
-                function closeLightbox() {
-                document.getElementById("lightbox").classList.remove("open");
-                }
-                function openUploadModal() {
-                const select = document.getElementById("album-select");
-                select.innerHTML = "";
-                bolAlbums.forEach(function(a, i) {
-                const opt = document.createElement("option");
-                opt.value = String(i);
-                opt.textContent = a.title;
-                select.appendChild(opt);
-                });
-                const newOpt = document.createElement("option");
-                newOpt.value = "NEW";
-                newOpt.textContent = "+ Create a Brand-New Album";
-                select.appendChild(newOpt);
-                toggleNewAlbumFields();
-                document.getElementById("upload-preview-strip").innerHTML = "";
-                document.getElementById("upload-modal").classList.add("open");
-                }
-                function closeUploadModal() {
-                document.getElementById("upload-modal").classList.remove("open");
-                }
-                function toggleNewAlbumFields() {
-                const val = document.getElementById("album-select").value;
-                document.getElementById("new-album-fields").style.display = val === "NEW" ? "block" : "none";
-                }
-                function previewSelectedFiles(event) {
-                const strip = document.getElementById("upload-preview-strip");
-                strip.innerHTML = "";
-                Array.from(event.target.files).forEach(function(file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                const img = document.createElement("img");
-                img.src = e.target.result;
-                strip.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-                });
-                }
-                function handlePhotoUpload(event) {
-                event.preventDefault();
-                const files = Array.from(document.getElementById("photo-files").files);
-                if (files.length === 0) return;
-                const choice = document.getElementById("album-select").value;
-                const readers = files.map(function(file) {
-                return new Promise(function(resolve) {
-                const r = new FileReader();
-                r.onload = function(e) { resolve(e.target.result); };
-                r.readAsDataURL(file);
-                });
-                });
-                Promise.all(readers).then(function(dataUrls) {
-                if (choice === "NEW") {
-                const newTitle = document.getElementById("new-album-title").value.trim() || "New Church Event";
-                const newCat = document.getElementById("new-album-cat").value;
-                bolAlbums.unshift({
-                cover: dataUrls[0],
-                photos: dataUrls,
-                category: newCat,
-                title: newTitle,
-                desc: "Uploaded by BOL community members."
-                });
-                } else {
-                const targetAlbum = bolAlbums[parseInt(choice, 10)];
-                targetAlbum.photos.push.apply(targetAlbum.photos, dataUrls);
-                if (!targetAlbum.cover || targetAlbum.cover.indexOf("images/") === 0) {
-                targetAlbum.cover = dataUrls[0];
-                }
-                }
-                try {
-                localStorage.setItem("bol_gallery_albums", JSON.stringify(bolAlbums));
-                } catch (err) {
-                }
-                renderGallery();
-                closeUploadModal();
-                event.target.reset();
-                });
-                }
-                renderGallery();
-
-            </script>
+    <script src="gallery-albums.js"></script>
     <script src="bolsite.js"></script>
 </body>
 </html>
