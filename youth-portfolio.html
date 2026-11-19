@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Discover creative and digital projects from the Beacon of Light youth community."><title>Our Youth Projects Portfolio | Beacon of Light Vienna</title><link rel="icon" href="images/bol-logo.jpg" type="image/jpeg"><link rel="stylesheet" href="bolwebstyle.css"><script src="bolsite.js" defer></script>
+<style>
+.portfolio-hero{padding:clamp(1.8rem,5vw,4rem);border-radius:24px;background:linear-gradient(120deg,var(--hero-a),var(--hero-b));color:var(--on-hero);margin-bottom:2rem;position:relative;overflow:hidden}
+.portfolio-hero h1{color:var(--on-hero);margin:.6rem 0;font-size:clamp(2rem,4.5vw,3.6rem)}.portfolio-hero p{color:var(--on-hero);max-width:65ch}.portfolio-hero .eyebrow{color:var(--hero-highlight)}
+.vault-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1.2rem;margin:1.5rem 0 3rem}
+.vault{border:1px solid color-mix(in srgb,var(--hero-highlight) 45%,var(--hero-a));border-radius:20px;background:linear-gradient(155deg,var(--hero-b),var(--hero-a));color:var(--on-hero);padding:1.2rem;box-shadow:0 10px 22px #0002;position:relative;overflow:hidden}
+.vault summary{cursor:pointer;list-style:none;display:grid;gap:.8rem}.vault summary::-webkit-details-marker{display:none}.vault summary:focus-visible{outline:2px solid var(--hero-highlight);outline-offset:4px}
+.vault-door{height:142px;display:grid;place-items:center;background:linear-gradient(135deg,#ffffff13,#0003);border:1px solid #ffffff35;border-radius:12px;box-shadow:inset 0 0 0 6px #0002;position:relative;perspective:500px}
+.vault-door:before,.vault-door:after{content:"";position:absolute;right:5px;width:9px;height:23px;border-radius:3px;background:var(--hero-highlight);opacity:.8}.vault-door:before{top:15px}.vault-door:after{bottom:15px}
+.vault-wheel{width:74px;height:74px;border:2px solid var(--hero-highlight);border-radius:50%;display:grid;place-items:center;box-shadow:0 0 0 5px #ffffff14,inset 0 0 0 5px #ffffff14;transition:transform .45s ease;color:var(--hero-highlight)}
+.vault-wheel svg{width:43px;height:43px}.vault:hover .vault-wheel,.vault[open] .vault-wheel{transform:rotate(55deg)}
+.vault-name{font-family:Georgia,serif;font-size:1.35rem;font-weight:700;color:var(--on-hero)}.vault-kicker{color:var(--hero-highlight);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700}.vault-action{font-size:.87rem;color:var(--on-hero);text-decoration:underline;text-underline-offset:4px}
+.vault-body{border-top:1px solid #ffffff35;margin-top:1rem;padding-top:1rem}.vault-body p{color:var(--on-hero);margin:.4rem 0}.vault-body a{color:var(--hero-highlight);overflow-wrap:anywhere}
+@media(prefers-reduced-motion:reduce){.vault-wheel{transition:none}}
+</style></head><body data-theme="midnight"><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><a class="logo" href="index.html" aria-label="Beacon of Light home"><img src="images/bol-logo.jpg" alt=""><span class="logo-name">BEACON OF LIGHT<span>CHRISTIAN FELLOWSHIP CENTER · VIENNA</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="about.html">About</a><a href="hour-of-power.html">Hour of Power</a><a href="youth-portfolio.html">Our Youth Projects Portfolio</a><a href="contact.html">Contact</a></nav><div class="theme-switch" role="group" aria-label="Choose a color theme"><span class="theme-switch-label">Theme</span><button class="theme-btn" type="button" data-theme-choice="midnight" aria-pressed="true">Midnight &amp; Gold</button><button class="theme-btn" type="button" data-theme-choice="olive" aria-pressed="false">Olive &amp; Clay</button></div></header>
+<main class="container" id="main"><section class="portfolio-hero"><span class="eyebrow">Beacon of Light · Youth</span><h1>Our Youth Projects Portfolio</h1><p>A place to celebrate the ideas, creativity and talents of our young people. Explore projects they create themselves and projects developed with the support of our church community.</p></section><section aria-labelledby="vault-heading"><div class="section-heading"><div><span class="eyebrow">Coming soon</span><h2 id="vault-heading">The digital project vaults</h2></div><p>Each vault will hold a young person's projects, stories and links to their work.</p></div><div class="vault-grid" id="vaults">
+</div></section></main><footer>© <span class="current-year">2026</span> Beacon of Light Christian Fellowship Center Vienna</footer>
+<script>
+(function(){
+"use strict";
+// Add approved public display names and project records here. Do not include private youth information.
+// Example record: {name:"Approved display name",projects:[{title:"Project title",description:"About the project",url:"https://example.com"}]}
+const entries=[];
+const host=document.getElementById("vaults");
+const make=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value)n.textContent=value;return n;};
+const rows=entries.length?entries:[{name:"Project vault 01",projects:[]},{name:"Project vault 02",projects:[]},{name:"Project vault 03",projects:[]}];
+rows.forEach((entry)=>{
+const card=make("details","vault"),summary=make("summary"),door=make("div","vault-door"),wheel=make("span","vault-wheel");
+wheel.setAttribute("aria-hidden","true");wheel.innerHTML='<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="5"/><path d="M24 7v12m0 10v12M7 24h12m10 0h12M12 12l8 8m8 8 8 8m0-24-8 8m-8 8-8 8"/></svg>';
+door.append(wheel);summary.append(door,make("span","vault-kicker",entry.projects.length?entry.projects.length+" projects":"Coming soon"),make("span","vault-name",entry.name),make("span","vault-action","Open vault"));card.append(summary);
+const body=make("div","vault-body");if(!entry.projects.length)body.append(make("p","","Projects will be available here soon."));entry.projects.forEach(p=>{const article=make("article");article.append(make("h3","",p.title),make("p","",p.description));try{const url=new URL(p.url);if(url.protocol==="https:"){const link=make("a","","Visit project website");link.href=url.href;link.target="_blank";link.rel="noopener noreferrer";article.append(link);}}catch(e){}body.append(article);});card.append(body);host.append(card);
+});
+})();
+</script></body></html>
