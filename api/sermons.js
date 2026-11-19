@@ -264,6 +264,41 @@ module.exports = async function handler(req, res) {
     }catch(error){return send(res,error.status===409||error.status===422?409:400,{error:error.message||"Unable to save; no reset performed."});}
   }
 
+
+  if (action === "library-load" || action === "library-save") {
+    const target={...settings,file:"church-library.json"};
+    try {
+      const url=githubUrl(target);
+      const file=await githubCall(url+"?ref="+encodeURIComponent(target.branch),target,{});
+      const current=JSON.parse(Buffer.from(file.content,"base64").toString("utf8"));
+      if(!Array.isArray(current))throw Error("Invalid library; no reset performed.");
+      if(action==="library-load")return send(res,200,{records:current,revision:file.sha});
+      if(body.revision!==file.sha)return send(res,409,{error:"Reload records before publishing."});
+      const input=body.record;
+      if(!input||typeof input!=="object")throw Error("Missing record.");
+      const row={};
+      for(const k of ["id","kind","title","date","description","url","category","name","reference","visibility"]){
+        if(typeof (input[k]??"")!=="string")throw Error("Invalid field.");
+        row[k]=(input[k]||"").trim();
+        if(row[k].length>(k==="description"?10000:2000))throw Error("Field too long.");
+      }
+      if(!/^[a-zA-Z0-9_-]{1,120}$/.test(row.id)||!["quote","event","archive","hope","youth"].includes(row.kind)||!row.title||!["public","hidden"].includes(row.visibility))throw Error("Invalid record.");
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(row.date)||!Number.isFinite(Date.parse(row.date+"T12:00:00Z"))||new Date(row.date+"T12:00:00Z").toISOString().slice(0,10)!==row.date)throw Error("Valid date required.");
+      if(row.kind==="archive"&&Number(row.date.slice(0,4))<2012)throw Error("Archive starts in 2012.");
+      if(row.kind==="quote"&&(!row.description||!row.reference))throw Error("Verse text and reference required.");
+      if(row.kind==="youth"&&!row.name)throw Error("Approved public display name required.");
+      if(["archive","event"].includes(row.kind)&&!row.url)throw Error("Document or album URL required.");
+      if(row.url){const u=new URL(row.url);if(u.protocol!=="https:"||u.username||u.password)throw Error("Use HTTPS links.");
+        if(["archive","hope"].includes(row.kind)&&!["drive.google.com","docs.google.com"].includes(u.hostname))throw Error("Use Google Drive document links.");
+        if(row.kind==="event"&&!["photos.app.goo.gl","photos.google.com"].includes(u.hostname))throw Error("Use a Google Photos album link.");
+      }
+      if(body.approved!==true)throw Error("Confirm the record is safe for a public repository, including hidden records.");
+      const next=current.filter(r=>r.id!==row.id);next.push(row);
+      const saved=await githubCall(url,target,{method:"PUT",body:{message:"Update approved church library record",branch:target.branch,sha:file.sha,content:Buffer.from(JSON.stringify(next,null,2)+"\n").toString("base64")}});
+      return send(res,200,{records:next,revision:saved.content.sha,message:"Saved to GitHub; public changes follow deployment."});
+    }catch(error){return send(res,error.status===409||error.status===422?409:400,{error:error.message});}
+  }
+
   if (action === "hop-load" || action === "hop-save") {
     // Separate content file: never overwrite sermon data.
     const hop = { ...settings, file: "hour-of-power-data.js" };
