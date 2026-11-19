@@ -25,20 +25,24 @@
  const fmt = new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"});
  host.replaceChildren();
  entries.sort((a,b)=>a.date-b.date||a.title.localeCompare(b.title));
- const selected=entries.slice(0,4);
+ const selected=entries.slice(0,12);
  if(!selected.length){host.textContent="Check the full calendar for our gatherings.";return;}
  selected.forEach(item=>{
-   const article=document.createElement("a");article.className="upcoming-card upcoming-event-link";
+   const article=document.createElement("a");article.className="upcoming-card upcoming-event-link"; article.dataset.kind = /Sunday|Thanksgiving/.test(item.title) ? "sunday" : /Bible Study/.test(item.title) ? "study" : /Revival/.test(item.title) ? "revival" : /Monthly Worship/.test(item.title) ? "worship" : /Vigil/.test(item.title) ? "vigil" : "prayer";
    const online=item.place==="Online";
    const onsite=item.place==="Onsite";
    article.href=online ? onlineMeetingUrl : onsite ? "contact.html#church-location" : "calendar.html";
    if(online){article.target="_blank";article.rel="noopener noreferrer";}
    const action=online ? "Join on Zoom" : onsite ? "View church location" : "View activity details";
    article.setAttribute("aria-label",item.title+", "+fmt.format(item.date)+", "+item.time+". "+action+(online ? " (opens in a new tab)" : ""));
-   const date=document.createElement("span");date.className="upcoming-date";date.textContent=fmt.format(item.date);
+   const date=document.createElement("span");date.className="upcoming-date";const day=document.createElement("strong");day.textContent=String(item.date.getDate());const month=document.createElement("small");month.textContent=new Intl.DateTimeFormat("en-GB",{month:"short"}).format(item.date).toUpperCase();date.append(day,month);
    const h=document.createElement("h3");h.textContent=item.title;
    const info=document.createElement("p");info.textContent=item.time+" · "+item.place;
    const cue=document.createElement("span");cue.className="upcoming-action";cue.textContent=action+(online ? " ↗" : " →");
-   article.append(date,h,info,cue);host.appendChild(article);
+   const copy=document.createElement("div");copy.className="upcoming-copy";copy.append(h,info,cue);article.append(date,copy);host.appendChild(article);
  });
+ const prev=document.querySelector(".event-slide-prev"),next=document.querySelector(".event-slide-next");
+ const refresh=()=>{if(prev)prev.disabled=host.scrollLeft<2;if(next)next.disabled=host.scrollLeft+host.clientWidth>=host.scrollWidth-2;};
+ const move=direction=>host.scrollBy({left:direction*((host.querySelector(".upcoming-card")?.getBoundingClientRect().width||280)+12),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+ prev?.addEventListener("click",()=>move(-1));next?.addEventListener("click",()=>move(1));host.addEventListener("scroll",refresh,{passive:true});window.addEventListener("resize",refresh);refresh();
 }());
