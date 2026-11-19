@@ -43,7 +43,7 @@
     if (nav) {
         nav.innerHTML = '<a href="index.html">Home</a><a href="about.html">About</a>' +
         '<details class="nav-more"><summary>Messages</summary><div class="nav-more-menu"><a href="sermons.html">Sermons</a><a href="bible-study.html">Bible Study</a><a href="daily-quotes.html">Daily Quotes</a></div></details>' +
-        '<details class="nav-more"><summary>Youth</summary><div class="nav-more-menu"><a href="hour-of-power.html">Hour of Power</a><a href="chess.html">Champions League Chess</a></div></details>' +
+        '<details class="nav-more"><summary>Youth</summary><div class="nav-more-menu"><a href="hour-of-power.html">Hour of Power</a><a href="chess.html">Champions League Chess</a><a href="youth-portfolio.html">Our Youth Projects Portfolio</a></div></details>' +
         '<details class="nav-more"><summary>Community</summary><div class="nav-more-menu"><a href="calendar.html">Calendar</a><a href="gallery.html">Events</a><a href="archive.html">Archive</a></div></details>' +
         '<a href="beacon-of-hope.html">Beacon of Hope Charity</a><a href="contact.html">Contact</a>';
         nav.querySelectorAll("details").forEach(function(menu) {
