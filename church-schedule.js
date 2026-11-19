@@ -56,17 +56,17 @@
     const entries=new Map(eventsForMonth(y,m));
     tabs.querySelectorAll("button").forEach((b,i)=>b.setAttribute("aria-pressed",String(i===m)));
     host.replaceChildren();detail.textContent="Select an activity to see its details.";
-    const cover=make("div","planner-cover"),book=make("div","planner-book"),left=make("div","planner-page"),right=make("div","planner-page");
+    const cover=make("div","planner-cover"),book=make("div","planner-book");
     const title=make("h2","planner-month-title",names[m]+" "+y);cover.append(title);
     const spine=make("div","planner-spine");spine.setAttribute("aria-hidden","true");for(let i=0;i<6;i++)spine.append(make("i"));
     const days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun","Notes"];
     const rows=Math.ceil((offset+length)/7);
     // A shared grid keeps the two pages aligned even when a day contains multiple events.
-    for(let col=0;col<8;col++){const h=make("div","planner-weekday"+(col===6?" sunday":""),days[col]);h.style.gridColumn=String(col+1);h.style.gridRow="1";book.append(h);}
+    for(let col=0;col<8;col++){const h=make("div","planner-weekday"+(col===6?" sunday":""),days[col]);h.style.gridColumn=String(col<4?col+1:col+2);h.style.gridRow="1";book.append(h);}
     for(let w=0;w<rows;w++)for(let col=0;col<8;col++){
       const d=w*7+col-offset+1;
       const cell=make("div","planner-day"+(col===6?" sunday":"")+(col===7?" planner-notes":""));
-      cell.style.gridColumn=String(col+1);cell.style.gridRow=String(w+2);
+      cell.style.gridColumn=String(col<4?col+1:col+2);cell.style.gridRow=String(w+2);
       if(col===7){if(w===0){const pending=(typeof bolFlexibleMonthlyEvents!=="undefined"?bolFlexibleMonthlyEvents[m]:[])||[];pending.forEach(t=>cell.append(make("p","planner-event special",t)));}}
       else if(d>=1&&d<=length){
         const date=make("strong","planner-date",d);cell.append(date);
@@ -75,7 +75,7 @@
       }else cell.classList.add("planner-blank");
       book.append(cell);
     }
-    spine.style.gridColumn="4 / 5";spine.style.gridRow="1 / "+(rows+2);
+    spine.style.gridColumn="5 / 6";spine.style.gridRow="1 / "+(rows+2);
     book.append(spine);cover.append(book);host.append(cover);
     const legend=make("div","planner-legend");[["sunday","Sunday worship"],["study","Bible Study"],["worship","Monthly worship"],["vigil","Night vigil"],["revival","Revival prayer"],["prayer","Prayer"],["birthday","Birthdays"],["special","Special events"]].forEach(([c,t])=>legend.append(make("span","planner-event "+c,t)));host.append(legend);
   }
