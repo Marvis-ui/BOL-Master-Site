@@ -789,3 +789,28 @@ button.day.today { border-color: var(--green); font-weight: 850; }
 @media (prefers-reduced-motion: reduce) {
     .upcoming-event-link { transition: none; }
 }
+
+/* Bound planner and quarterly study book: scoped to their own containers. */
+.schedule-toolbar,.planner-toolbar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.7rem;margin:1.2rem 0;padding:1rem;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.schedule-toolbar select,.planner-control{font:inherit;font-size:.86rem;font-weight:650;padding:.5rem .8rem;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);cursor:pointer}
+.planner-control[aria-pressed=true]{background:var(--green);color:var(--on-hero)}.planner-control:disabled{opacity:.4;cursor:default}
+.planner-tabs,.planner-legend{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin:1rem 0}
+#calendar-agenda-list{display:block}.planner-cover{background:var(--hero-a);padding:14px;border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.planner-month-title{color:var(--on-hero);padding:.5rem .8rem 1rem;font-size:1.6rem}
+.planner-book{display:grid;position:relative;grid-template-columns:repeat(4,minmax(0,1fr)) 22px repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:7px solid var(--surface);border-radius:7px;overflow:hidden}
+.planner-book>*{min-width:0}.planner-weekday{padding:.6rem .15rem;text-align:center;background:var(--accent-soft);font-weight:700;font-size:.8rem}
+.planner-day{min-height:130px;padding:.45rem;background:var(--surface);display:flex;flex-direction:column;gap:.3rem}.planner-day.sunday,.planner-weekday.sunday{background:#e7f1e6}.planner-date{font-size:1rem;color:var(--ink)}.planner-today{box-shadow:inset 0 0 0 2px var(--accent)}.planner-blank{opacity:.75}
+.planner-notes{background:repeating-linear-gradient(var(--surface) 0 23px,var(--line) 24px,var(--surface) 25px)}
+.planner-spine,.study-book-binding{position:relative;z-index:2;background:linear-gradient(90deg,#a8a59d,#f4f1e7,#8d8a80);display:flex;flex-direction:column;justify-content:space-around;align-items:center}
+.planner-spine i,.study-book-binding i{display:block;width:34px;height:12px;border:3px solid #aaa99f;border-top-color:#f8f7f1;border-bottom-color:#77786e;border-radius:50%;box-shadow:0 2px 3px #0005;flex:none}
+.planner-event{display:block;border:0;border-radius:5px;padding:.27rem .32rem;text-align:left;font:inherit;font-size:.72rem;line-height:1.4;overflow-wrap:anywhere;color:#263b36;background:#e7e9e2}
+button.planner-event{cursor:pointer}button.planner-event:hover{outline:1px solid currentColor}
+.planner-event.sunday{background:#d6e9d9;color:#28573b}.planner-event.study{background:#dde8f5;color:#305784}.planner-event.worship{background:#f3e3bd;color:#77591c}.planner-event.vigil{background:#f1dcd2;color:#884c33}.planner-event.revival{background:#e9ddec;color:#72517d}.planner-event.prayer{background:#dae9e1;color:#285f51}.planner-event.birthday{background:#f6e0e7;color:#873c60}.planner-event.special{background:#f1e2d0;color:#714c26}
+.planner-detail{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-top:1rem;color:var(--ink)}
+.study-book{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);gap:0}
+.study-book-page{background:var(--surface);padding:clamp(1rem,3vw,2.5rem);min-width:0;min-height:440px;box-shadow:inset 0 0 16px #00000008}
+.study-book-page h2{margin:.6rem 0 1rem}.study-book-page h3{margin:1rem 0 .35rem}.study-scripture{background:var(--accent-soft);border-left:4px solid var(--accent);padding:1rem;border-radius:8px;font-size:1.15rem}
+.study-date-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}.study-date-card{padding:.7rem;border:1px solid transparent;border-radius:9px;font:inherit;font-size:.78rem;text-align:left;cursor:pointer;line-height:1.4;color:#23443c;background:#dcebe1}.study-date-card.tone-1{background:#e1eaf5;color:#304e70}.study-date-card.tone-2{background:#f3e4c7;color:#765321}.study-date-card[aria-pressed=true]{outline:2px solid var(--green);outline-offset:1px;font-weight:700}
+.planner-book,.study-book-page{animation:plannerTurn .35s ease-out}@keyframes plannerTurn{from{opacity:.65;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.planner-cover{padding:8px;overflow-x:auto}.planner-book{min-width:760px}.study-book{display:flex;flex-direction:column}.study-book-binding{display:none}.study-book-page{min-height:auto}.planner-day{min-height:120px}}
+@media(prefers-reduced-motion:reduce){.planner-book,.study-book-page{animation:none}}
