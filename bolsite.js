@@ -38,6 +38,23 @@
     });
     chooseTheme(theme);
 
+    // Shared public navigation, identical on all pages.
+    var nav = document.querySelector(".site-nav");
+    if (nav) {
+        nav.innerHTML = '<a href="index.html">Home</a><a href="about.html">About</a>' +
+        '<details class="nav-more"><summary>Messages</summary><div class="nav-more-menu"><a href="sermons.html">Sermons</a><a href="bible-study.html">Bible Study</a><a href="daily-quotes.html">Daily Quotes</a></div></details>' +
+        '<details class="nav-more"><summary>Youth</summary><div class="nav-more-menu"><a href="hour-of-power.html">Hour of Power</a><a href="chess.html">Champions League Chess</a></div></details>' +
+        '<details class="nav-more"><summary>Community</summary><div class="nav-more-menu"><a href="calendar.html">Calendar</a><a href="gallery.html">Events</a><a href="archive.html">Archive</a></div></details>' +
+        '<a href="beacon-of-hope.html">Beacon of Hope Charity</a><a href="contact.html">Contact</a>';
+        nav.querySelectorAll("details").forEach(function(menu) {
+            menu.addEventListener("toggle", function() {
+                if(menu.open) nav.querySelectorAll("details[open]").forEach(function(other){if(other!==menu) other.open=false;});
+            });
+        });
+        document.addEventListener("click", function(e){if(!nav.contains(e.target))nav.querySelectorAll("details[open]").forEach(function(menu){menu.open=false;});});
+        nav.addEventListener("keydown",function(e){if(e.key==="Escape"){var menu=nav.querySelector("details[open]");if(menu){menu.open=false;menu.querySelector("summary").focus();}}});
+    }
+
     var currentPage = window.location.pathname.split("/").pop() || "index.html";
     var primaryLinks = Array.prototype.slice.call(document.querySelectorAll(".site-nav > a"));
     var moreLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-more-menu a"));
