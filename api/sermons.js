@@ -293,6 +293,7 @@ module.exports = async function handler(req, res) {
         if(row.kind==="event"&&!["photos.app.goo.gl","photos.google.com"].includes(u.hostname))throw Error("Use a Google Photos album link.");
       }
       if(body.approved!==true)throw Error("Confirm the record is safe for a public repository, including hidden records.");
+      if(row.kind==="quote"&&row.visibility==="public"&&current.some(r=>r.id!==row.id&&r.kind==="quote"&&r.visibility==="public"&&r.date===row.date))throw Error("A published quote already exists for this date. Edit that record instead.");
       const next=current.filter(r=>r.id!==row.id);next.push(row);
       const saved=await githubCall(url,target,{method:"PUT",body:{message:"Update approved church library record",branch:target.branch,sha:file.sha,content:Buffer.from(JSON.stringify(next,null,2)+"\n").toString("base64")}});
       return send(res,200,{records:next,revision:saved.content.sha,message:"Saved to GitHub; public changes follow deployment."});
