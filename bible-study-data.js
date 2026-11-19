@@ -105,28 +105,34 @@ window.BOL_STUDY_AGENDA = `
  return {date,scriptures,theme,remark};
 });
 (function(){
- "use strict";
- const root=document.getElementById("bible-study-agenda");if(!root)return;
- const q=document.getElementById("bible-study-search");
- const fmt=new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"2-digit",month:"long",year:"numeric",timeZone:"UTC"});
- const render=()=>{
-  const term=(q?.value||"").toLowerCase().trim();root.replaceChildren();
-  for(const year of [2026,2027]){
-   const entries=window.BOL_STUDY_AGENDA.filter(x=>x.date.startsWith(year+"-")&&[x.date,x.scriptures,x.theme,x.remark].join(" ").toLowerCase().includes(term));
-   if(!entries.length)continue;
-   const section=document.createElement("section");section.className="study-year";
-   const heading=document.createElement("h2");heading.textContent=String(year);section.append(heading);
-   const wrap=document.createElement("div");wrap.className="study-table-wrap";
-   const table=document.createElement("table");table.className="study-table";
-   const thead=document.createElement("thead");thead.innerHTML="<tr><th>Date</th><th>Scriptures</th><th>Remark</th><th>Theme</th></tr>";table.append(thead);
-   const body=document.createElement("tbody");
-   entries.forEach(e=>{
-     const tr=document.createElement("tr");
-     [fmt.format(new Date(e.date+"T12:00:00Z")),e.scriptures,e.remark,e.theme].forEach(value=>{const td=document.createElement("td");td.textContent=value;tr.append(td)});
-     body.append(tr);
-   });table.append(body);wrap.append(table);section.append(wrap);root.append(section);
+  "use strict";
+  const root=document.getElementById("bible-study-agenda");if(!root)return;
+  const q=document.getElementById("bible-study-search");
+  const fmt=new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"2-digit",month:"long",year:"numeric",timeZone:"UTC"});
+  const entries=window.BOL_STUDY_AGENDA;
+  const quarter=e=>(Number(e.date.slice(0,4))-2026)*4+Math.floor((Number(e.date.slice(5,7))-1)/3);
+  const now=new Date();let page=Math.max(0,Math.min(7,(now.getFullYear()-2026)*4+Math.floor(now.getMonth()/3))),selected=null;
+  const make=(tag,cls,t)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(t!=null)e.textContent=t;return e;};
+  const monthNames=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  function render(){
+    const term=(q?.value||"").trim().toLowerCase();
+    const matches=entries.filter(e=>[e.date,fmt.format(new Date(e.date+"T12:00:00Z")),e.scriptures,e.theme,e.remark].join(" ").toLowerCase().includes(term));
+    const available=Array.from({length:8},(_,i)=>i).filter(i=>!term||matches.some(e=>quarter(e)===i));
+    if(available.length&&!available.includes(page)){page=available[0];selected=null;}
+    const list=matches.filter(e=>quarter(e)===page);
+    if(!list.some(e=>e.date===selected))selected=list[0]?.date;
+    root.replaceChildren();
+    const toolbar=make("div","planner-toolbar"),prev=make("button","planner-control","← Previous quarter"),next=make("button","planner-control","Next quarter →"),select=make("select","planner-control");
+    select.setAttribute("aria-label","Choose study quarter");prev.type=next.type="button";
+    for(const i of available){const opt=make("option","",String(2026+Math.floor(i/4))+" · Q"+(i%4+1));opt.value=String(i);select.append(opt);}
+    select.value=String(page);const pos=available.indexOf(page);prev.disabled=pos<=0;next.disabled=pos<0||pos>=available.length-1;
+    const change=i=>{page=i;selected=null;render();};prev.onclick=()=>change(available[pos-1]);next.onclick=()=>change(available[pos+1]);select.onchange=()=>change(Number(select.value));toolbar.append(prev,select,next);root.append(toolbar);
+    if(!list.length){root.append(make("p","","No studies match your search."));return;}
+    const book=make("div","study-book planner-cover"),left=make("section","study-book-page"),right=make("section","study-book-page"),spine=make("div","study-book-binding");spine.setAttribute("aria-hidden","true");for(let i=0;i<5;i++)spine.append(make("i"));
+    const e=list.find(x=>x.date===selected);left.append(make("p","eyebrow","Selected reading"),make("h2","",e.theme||"Revision"),make("p","",fmt.format(new Date(e.date+"T12:00:00Z"))),make("h3","","Scripture"),make("p","study-scripture",e.scriptures),make("h3","","Remark"),make("p","",e.remark||"—"));
+    right.append(make("h2","","Quarter "+(page%4+1)+" · "+(2026+Math.floor(page/4))));
+    for(let m=(page%4)*3;m<(page%4)*3+3;m++){const group=make("div","study-month");group.append(make("h3","",monthNames[m]));const cards=make("div","study-date-grid");list.filter(e=>Number(e.date.slice(5,7))===m+1).forEach(e=>{const b=make("button","study-date-card tone-"+(m%3),fmt.format(new Date(e.date+"T12:00:00Z")));b.type="button";b.setAttribute("aria-pressed",String(e.date===selected));b.onclick=()=>{selected=e.date;render();root.querySelector('[aria-pressed="true"]')?.focus();};cards.append(b);});group.append(cards);right.append(group);}
+    book.append(left,spine,right);root.append(book);
   }
-  if(!root.children.length){const p=document.createElement("p");p.textContent="No studies match your search.";root.append(p)}
- };
- q?.addEventListener("input",render);render();
+  q?.addEventListener("input",()=>{selected=null;render();});render();
 }());
