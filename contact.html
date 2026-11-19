@@ -101,6 +101,22 @@
             margin-top: 1rem;
             font-weight: 600;
         }
+     
+        .meeting-line {display:grid;gap:.1rem;margin:.65rem 0}
+        .meeting-line span,.info-card .online-note {color:var(--on-hero);font-size:.9rem}
+        .info-card .online-note {margin:.85rem 0 .3rem;opacity:.94}
+        .contact-channels {display:grid;gap:.8rem}
+        .channel {display:flex;align-items:flex-start;gap:.85rem;padding:1rem;border-radius:13px;min-width:0}
+        .channel > div {min-width:0}
+        .channel strong {display:block;margin-bottom:.3rem}
+        .info-card .channel p {color:inherit;font-size:.88rem;margin:.25rem 0}
+        .channel a {display:inline-block;color:inherit;font-weight:700;text-decoration:underline;overflow-wrap:anywhere}
+        .channel-icon {display:grid;place-items:center;width:42px;height:42px;border-radius:12px;flex:none}
+        .whatsapp-channel {background:#e5f7e9;color:#164b30}
+        .whatsapp-channel .channel-icon {background:#168447;color:white}
+        .email-channel {background:#e9eef8;color:#213f68}
+        .email-channel .channel-icon {background:#365a87;color:white}
+        @media(max-width:420px){.contact-grid{grid-template-columns:minmax(0,1fr)}.info-card,.form-card{padding:1.25rem}}
     </style>
     <link rel="stylesheet" href="page-banners.css">
 </head>
@@ -149,28 +165,24 @@
                 </div>
 
                 <div class="info-row">
-                    <span class="info-label">Weekly Gatherings</span>
+                    <span class="info-label">Meetings on site (in person)</span>
                     <strong>Every Sunday Service:</strong> <span style="color: var(--hero-muted);">10:00 AM (Vienna time)</span><br>
                     <strong>Hour of Power (Youth):</strong> <span style="color: var(--hero-muted);">Right after Sunday Service</span><br>
                     <strong>1st Sunday Thanksgiving:</strong> <span style="color: var(--hero-muted);">First Sunday of every month</span>
                 </div>
 
                 <div class="info-row" id="online-gatherings">
-                    <span class="info-label">Weekly Bible Study</span>
-                    <strong>Every Thursday · 8:00 PM (Vienna time)</strong><br>
-                    <span>Online via Zoom. Please request the private meeting invitation from our church team.</span><br>
-                    <a style="color:var(--hero-highlight)" href="mailto:bol.viennacfc@gmail.com?subject=Bible%20Study%20Access">Request meeting access</a>
+                    <span class="info-label">Online meetings</span>
+                    <div class="meeting-line"><strong>Bible Study</strong><span>Every Thursday · 8:00 PM</span></div>
+                    <div class="meeting-line"><strong>Night Vigil</strong><span>First Friday of every month · 10:30 PM</span></div>
+                    <div class="meeting-line"><strong>Revival Prayer</strong><span>Last Saturday of every month · 6:30 PM</span></div>
+                    <p class="online-note">All times are Vienna time. Meetings take place via Zoom. Please request an invitation from our church team.</p>
+                    <a style="color:var(--hero-highlight)" href="mailto:bol.viennacfc@gmail.com?subject=Online%20Meeting%20Access">Request meeting access</a>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Church WhatsApp Community</span>
-                    <p>Stay connected with church announcements, prayer requests and upcoming gatherings.</p>
-                    <a style="color:var(--hero-highlight)" href="mailto:bol.viennacfc@gmail.com?subject=WhatsApp%20Church%20Group%20Access">Request to join our WhatsApp group</a>
+                <div class="info-row contact-channels">
+                    <div class="channel whatsapp-channel"><span class="channel-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.3-4.8A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8 7.5c-.8 0-1.2.8-1 1.7.8 3.3 3.5 5.7 6.6 6.3.9.2 1.7-.4 1.9-1.2l-2.7-1.3-1 1c-1.7-.8-2.7-1.9-3.3-3.3l.9-.9L8 7.5Z"/></svg></span><div><strong>Church WhatsApp community</strong><p>Stay connected with church news, prayer requests and upcoming gatherings.</p><a href="mailto:bol.viennacfc@gmail.com?subject=WhatsApp%20Church%20Group%20Access">Request to join our WhatsApp group</a></div></div>
+                    <div class="channel email-channel"><span class="channel-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><strong>Email us</strong><a href="mailto:bol.viennacfc@gmail.com">bol.viennacfc@gmail.com</a></div></div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Direct Contact</span>
-                    <div>Email: <a href="mailto:bol.viennacfc@gmail.com" style="color: var(--hero-highlight); overflow-wrap: anywhere;"><strong>bol.viennacfc@gmail.com</strong></a></div>
-                </div>
-
                 <div class="info-row">
                     <span class="info-label">Facebook</span>
                     <a href="https://www.facebook.com/share/1HRLXTqRF5/" target="_blank" rel="noopener noreferrer" style="color: var(--hero-highlight); font-weight: 700;">Visit our official Facebook page ↗</a>
@@ -204,6 +216,8 @@
                             <option value="Birthday / Calendar Update">Add My Birthday to BOL Calendar</option>
                             <option value="Chess Tournament">August Chess Tournament</option>
                             <option value="Bible Study Access">Bible Study meeting access</option>
+                            <option value="Night Vigil Access">Night Vigil meeting access</option>
+                            <option value="Revival Prayer Access">Revival Prayer meeting access</option>
                             <option value="WhatsApp Church Group Access">Join the church WhatsApp group</option>
                             <option value="General Question">General Question</option>
                         </select>
