@@ -221,6 +221,49 @@ module.exports = async function handler(req, res) {
     return send(res, 503, { error: error.message });
   }
 
+
+  if (["study-load","study-save","calendar-load","calendar-save"].includes(action)) {
+    const study=action.startsWith("study-");
+    const target={...settings,file:study?"bible-study-data.js":"calendar-editor-data.js"};
+    const marker=study?"window.BOL_STUDY_AGENDA = ":"window.BOL_CALENDAR_EDITS = ";
+    try {
+      const url=githubUrl(target);
+      const file=await githubCall(url+"?ref="+encodeURIComponent(target.branch),target,{});
+      const raw=Buffer.from(file.content.replace(/\s/g,""),"base64").toString("utf8");
+      const start=raw.indexOf(marker);
+      const end=study?raw.indexOf("\n(function(){",start):raw.length;
+      if(start<0||end<0)throw new Error("Content format changed.");
+      const literal=raw.slice(start+marker.length,end).trim();
+      let current;
+      if(study&&literal.startsWith("\x60")){
+        const close=literal.indexOf("\x60",1);
+        if(close<0)throw new Error("Invalid curriculum.");
+        current=literal.slice(1,close).trim().split("\n").map(line=>{const [date,scriptures,theme,remark]=line.split("|");return {date,scriptures,theme,remark};});
+      }else current=JSON.parse(literal.replace(/;$/,""));
+      if(!Array.isArray(current))throw new Error("Invalid records.");
+      if(action.endsWith("-load"))return send(res,200,{records:current,revision:file.sha});
+      if(body.revision!==file.sha)return send(res,409,{error:"Content changed. Reload and preview again."});
+      if(!Array.isArray(body.records)||!body.records.length||body.records.length>1000)return send(res,400,{error:"Supply 1–1000 records."});
+      const keys=new Set();
+      const changes=body.records.map(item=>{
+        const fields=study?["date","scriptures","theme","remark"]:["id","date","title","time","place","mode","original"];
+        const row={};
+        for(const key of fields){if(item[key]!=null&&typeof item[key]!=="string")throw Error("Invalid field "+key);row[key]=(item[key]||"").trim();if(row[key].length>2000)throw Error("Field too long.");}
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(row.date)||!Number.isFinite(Date.parse(row.date+"T12:00:00Z"))||new Date(row.date+"T12:00:00Z").toISOString().slice(0,10)!==row.date)throw Error("Invalid date: "+row.date);
+        if(study&&!row.scriptures)throw Error("Scriptures required.");
+        if(!study&&(!/^[a-zA-Z0-9_-]{1,120}$/.test(row.id)||!["add","replace","cancel","birthday"].includes(row.mode)||(!row.title&&row.mode!=="cancel")||(["replace","cancel"].includes(row.mode)&&!row.original)))throw Error("Invalid calendar record.");
+        const key=study?row.date:row.id;if(keys.has(key))throw Error("Duplicate record: "+key);keys.add(key);return row;
+      });
+      const index=new Map(current.map(row=>[study?row.date:row.id,row]));
+      for(const row of changes){const key=study?row.date:row.id;if(study&&index.has(key)&&body.replaceExisting!==true)continue;index.set(key,row);}
+      const next=[...index.values()].sort((a,b)=>a.date.localeCompare(b.date));
+      const json=JSON.stringify(next,null,2).replace(/</g,"\\u003c");
+      const content=raw.slice(0,start)+marker+json+";\n"+(study?raw.slice(end):"");
+      const saved=await githubCall(url,target,{method:"PUT",body:{message:study?"Update Bible Study curriculum":"Update church calendar",branch:target.branch,sha:file.sha,content:Buffer.from(content).toString("base64")}});
+      return send(res,200,{records:next,revision:saved.content.sha,message:"Saved to GitHub. Public content updates after deployment."});
+    }catch(error){return send(res,error.status===409||error.status===422?409:400,{error:error.message||"Unable to save; no reset performed."});}
+  }
+
   if (action === "hop-load" || action === "hop-save") {
     // Separate content file: never overwrite sermon data.
     const hop = { ...settings, file: "hour-of-power-data.js" };

@@ -22,6 +22,18 @@
    if(day===0 && d===nth(y,m,0,1)) add(date,"Thanksgiving & Communion","10:00 AM","Onsite");
    if(y===2026 && date>=new Date(2026,1,9) && date<=new Date(2026,3,3) && day>0 && day<6) add(date,"40 Days Prayer","Daily focus","Location: see church notice");
  }
+ for(const e of window.BOL_CALENDAR_EDITS||[]){
+   const [y,m,d]=e.date.split("-").map(Number);
+   const dates=e.mode==="birthday"?[now.getFullYear(),now.getFullYear()+1].map(year=>new Date(year,m-1,d)):[new Date(y,m-1,d)];
+   for(const date of dates){
+     if(date<now||date>new Date(now.getFullYear(),now.getMonth(),now.getDate()+100))continue;
+     if(["replace","cancel"].includes(e.mode)){
+       const title=e.original.split(" · ")[0];
+       for(let i=entries.length-1;i>=0;i--)if(+entries[i].date===+date&&(entries[i].title===title||(title.startsWith("Sunday Service")&&entries[i].title.startsWith("Sunday Worship"))||(title.startsWith("Monthly Thanksgiving")&&entries[i].title.startsWith("Thanksgiving"))))entries.splice(i,1);
+     }
+     if(e.mode!=="cancel")add(date,e.mode==="birthday"?"🎂 "+e.title+" · Birthday":e.title,e.time||"All day",e.place||"");
+   }
+ }
  const fmt = new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"numeric"});
  host.replaceChildren();
  entries.sort((a,b)=>a.date-b.date||a.title.localeCompare(b.title));

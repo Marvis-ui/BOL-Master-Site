@@ -111,13 +111,13 @@ window.BOL_STUDY_AGENDA = `
   const fmt=new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"2-digit",month:"long",year:"numeric",timeZone:"UTC"});
   const entries=window.BOL_STUDY_AGENDA;
   const quarter=e=>(Number(e.date.slice(0,4))-2026)*4+Math.floor((Number(e.date.slice(5,7))-1)/3);
-  const now=new Date();const todayParts=new Intl.DateTimeFormat("en-GB",{year:"numeric",month:"2-digit",day:"2-digit",timeZone:"Europe/Vienna"}).formatToParts(now);const part=k=>todayParts.find(p=>p.type===k).value;const today=part("year")+"-"+part("month")+"-"+part("day");let page=Math.max(0,Math.min(7,(now.getFullYear()-2026)*4+Math.floor(now.getMonth()/3))),selected=null;
+  const now=new Date();const todayParts=new Intl.DateTimeFormat("en-GB",{year:"numeric",month:"2-digit",day:"2-digit",timeZone:"Europe/Vienna"}).formatToParts(now);const part=k=>todayParts.find(p=>p.type===k).value;const today=part("year")+"-"+part("month")+"-"+part("day");let page=Math.max(0,Math.min(Math.max(7,...entries.map(quarter)),(now.getFullYear()-2026)*4+Math.floor(now.getMonth()/3))),selected=null;
   const make=(tag,cls,t)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(t!=null)e.textContent=t;return e;};
   const monthNames=["January","February","March","April","May","June","July","August","September","October","November","December"];
   function render(){
     const term=(q?.value||"").trim().toLowerCase();
     const matches=entries.filter(e=>[e.date,fmt.format(new Date(e.date+"T12:00:00Z")),e.scriptures,e.theme,e.remark].join(" ").toLowerCase().includes(term));
-    const available=Array.from({length:8},(_,i)=>i).filter(i=>!term||matches.some(e=>quarter(e)===i));
+    const available=Array.from({length:Math.max(8,...entries.map(e=>quarter(e)+1))},(_,i)=>i).filter(i=>!term||matches.some(e=>quarter(e)===i));
     if(available.length&&!available.includes(page)){page=available[0];selected=null;}
     const list=matches.filter(e=>quarter(e)===page);
     if(!list.some(e=>e.date===selected))selected=(list.find(e=>e.date>=today)||list[0])?.date;
