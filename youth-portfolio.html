@@ -32,4 +32,4 @@ door.append(wheel);summary.append(door,make("span","vault-kicker",entry.projects
 const body=make("div","vault-body");if(!entry.projects.length)body.append(make("p","","Projects will be available here soon."));entry.projects.forEach(p=>{const article=make("article");article.append(make("h3","",p.title),make("p","",p.description));try{const url=new URL(p.url);if(url.protocol==="https:"){const link=make("a","","Visit project website");link.href=url.href;link.target="_blank";link.rel="noopener noreferrer";article.append(link);}}catch(e){}body.append(article);});card.append(body);host.append(card);
 });
 })();
-</script></body></html>
+</script><script src="church-library.js" defer></script></body></html>
