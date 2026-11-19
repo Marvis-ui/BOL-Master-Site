@@ -120,7 +120,7 @@ window.BOL_STUDY_AGENDA = `
     const available=Array.from({length:8},(_,i)=>i).filter(i=>!term||matches.some(e=>quarter(e)===i));
     if(available.length&&!available.includes(page)){page=available[0];selected=null;}
     const list=matches.filter(e=>quarter(e)===page);
-    if(!list.some(e=>e.date===selected))selected=list[0]?.date;
+    if(!list.some(e=>e.date===selected))selected=(list.find(e=>e.date>=new Intl.DateTimeFormat("en-CA",{year:"numeric",month:"2-digit",day:"2-digit",timeZone:"Europe/Vienna"}).format(now))||list[0])?.date;
     root.replaceChildren();
     const toolbar=make("div","planner-toolbar"),prev=make("button","planner-control","← Previous quarter"),next=make("button","planner-control","Next quarter →"),select=make("select","planner-control");
     select.setAttribute("aria-label","Choose study quarter");prev.type=next.type="button";
