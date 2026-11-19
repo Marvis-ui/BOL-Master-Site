@@ -221,6 +221,42 @@ module.exports = async function handler(req, res) {
     return send(res, 503, { error: error.message });
   }
 
+  if (action === "hop-load" || action === "hop-save") {
+    // Separate content file: never overwrite sermon data.
+    const hop = { ...settings, file: "hour-of-power-data.js" };
+    try {
+      const url = githubUrl(hop);
+      const file = await githubCall(url + "?ref=" + encodeURIComponent(hop.branch), hop, {});
+      const raw = Buffer.from(String(file.content || "").replace(/\s/g, ""), "base64").toString("utf8");
+      const marker = "window.BOL_HOUR_OF_POWER = ";
+      if (!raw.startsWith(marker) || !raw.trimEnd().endsWith(";")) throw new Error("Invalid devotional content file. No changes saved.");
+      const current = JSON.parse(raw.trimEnd().slice(marker.length, -1));
+      if (!Array.isArray(current)) throw new Error("Invalid devotional list.");
+      if (action === "hop-load") return send(res, 200, { records: current, revision: file.sha });
+      if (body.revision !== file.sha) return send(res, 409, { error: "Content changed. Reload before editing again." });
+      const input = body.record;
+      if (!input || typeof input !== "object") return send(res, 400, { error: "Missing record." });
+      const record = {};
+      for (const key of ["kind","id","title","date","scripture","quote","story","speaker","theme","referenceUrl","referenceTitle"]) {
+        if (input[key] != null && typeof input[key] !== "string") return send(res, 400, { error: "Invalid " + key });
+        record[key] = (input[key] || "").trim();
+      }
+      if (!["devotional","quote"].includes(record.kind) || !/^[a-zA-Z0-9_-]{1,120}$/.test(record.id) || !/^\d{4}-\d{2}-\d{2}$/.test(record.date) || Number.isNaN(Date.parse(record.date+"T12:00:00Z")) || new Date(record.date+"T12:00:00Z").toISOString().slice(0,10)!==record.date) return send(res,400,{error:"Invalid record type, ID or date."});
+      if (record.kind === "devotional" && (!record.title || !record.scripture) || record.kind === "quote" && !record.quote) return send(res,400,{error:"Enter the title and Scripture, or quote text."});
+      if (Object.entries(record).some(([k,v])=>v.length>(k==="story"?50000:k==="quote"?10000:k==="referenceUrl"?2000:300))) return send(res,400,{error:"A field exceeds its maximum length."});
+      if (!Array.isArray(input.lessons) || input.lessons.length>50 || input.lessons.some(t=>typeof t!=="string" || t.length>3000)) return send(res,400,{error:"Invalid lesson list."});
+      record.lessons=input.lessons.map(t=>t.trim()).filter(Boolean);
+      if(record.referenceUrl){try{const u=new URL(record.referenceUrl);if(u.protocol!=="https:")throw new Error();}catch{return send(res,400,{error:"Use a valid HTTPS reference URL."});}}
+      record.published=true;
+      const next=current.filter(r=>r.id!==record.id);next.push(record);
+      const content = marker + JSON.stringify(next,null,2) + ";\n";
+      const saved = await githubCall(url, hop, { method:"PUT", body:{message:"Publish Hour of Power content",branch:hop.branch,sha:file.sha,content:Buffer.from(content,"utf8").toString("base64")} });
+      return send(res,200,{records:next,revision:saved.content.sha,message:"Saved to GitHub. The public page updates after deployment."});
+    } catch(error) {
+      return send(res,error.status===409||error.status===422?409:502,{error:"Could not save or load devotional content. Reload and retry; no automatic reset was performed."});
+    }
+  }
+
   if (action === "load") {
     try {
       const content = await loadFromGitHub(settings);
