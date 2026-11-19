@@ -831,3 +831,30 @@ button.planner-event{cursor:pointer}button.planner-event:hover{outline:1px solid
 .leadership-section{margin:2rem 0}.leadership-section>h2{margin-bottom:1rem}.leadership-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.leadership-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.3rem;display:grid;grid-template-columns:110px 1fr;gap:1.2rem;align-items:center}.leader-photo{aspect-ratio:1;background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;display:grid;place-items:center;color:var(--green);font-size:2rem;font-weight:700}.leader-role{color:var(--green);font-weight:700;margin:.3rem 0}.leadership-card h3{font-size:1.2rem}
 @media(max-width:700px){.leadership-grid{grid-template-columns:1fr}.leadership-card{grid-template-columns:85px 1fr}}
 @media(prefers-reduced-motion:reduce){.hero-light-sweep:after,.home-photo-hero .home-welcome-copy{animation:none}}
+
+/* Home: cinematic banner and compact, colour-coded event strip */
+.home-photo-hero > img{animation:bolCoverFloat 9s ease-in-out infinite alternate;transform-origin:65% 50%}
+@keyframes bolCoverFloat{from{transform:scale(1)}to{transform:scale(1.055) translate(-.5%,.4%)}}
+.hero-rays,.hero-glow{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.hero-rays:before{content:"";position:absolute;width:180%;aspect-ratio:1;left:-70%;top:calc(32% - 90vw);background:conic-gradient(from 0deg,transparent 0deg,rgba(171,244,255,.36) 12deg,transparent 32deg,transparent 72deg,rgba(220,252,255,.24) 89deg,transparent 105deg,transparent 180deg,rgba(171,244,255,.28) 194deg,transparent 218deg,transparent 290deg,rgba(220,252,255,.2) 305deg,transparent 325deg);animation:bolRays 15s linear infinite;mix-blend-mode:screen}
+@keyframes bolRays{to{transform:rotate(360deg)}}
+.hero-glow{background:radial-gradient(ellipse at 20% 30%,rgba(132,236,255,.35),transparent 55%);animation:bolGlow 4s ease-in-out infinite alternate}
+@keyframes bolGlow{from{opacity:.25}to{opacity:1}}
+.hero-light-sweep:after{background:linear-gradient(110deg,transparent 39%,rgba(208,247,255,.32) 49%,transparent 59%);animation-duration:7s}
+.home-photo-hero .home-welcome-copy{animation:none}
+.home-photo-hero .home-welcome-copy h1,.home-photo-hero .home-welcome-copy p,.home-photo-hero .hero-actions{animation:bolWelcome .95s ease both}
+.home-photo-hero .home-welcome-copy p{animation-delay:.35s}.home-photo-hero .hero-actions{animation-delay:.7s}
+.home-welcome-message{max-width:850px;margin:2rem auto;text-align:center;padding:0 1rem}.home-welcome-message h2{font-size:clamp(1.45rem,2.5vw,2.1rem);margin-bottom:.65rem}.home-welcome-message p{color:var(--muted);line-height:1.75;margin:0}
+.upcoming-section{padding:1.2rem;background:var(--surface);border:1px solid var(--line);border-radius:20px}
+.upcoming-section .section-heading h2{font-size:1.55rem}
+.upcoming-slider{position:relative;padding:0 22px}
+.upcoming-section .upcoming-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px 2px 10px;scrollbar-width:thin}
+.upcoming-section .upcoming-card{flex:0 0 clamp(225px,29%,310px);display:flex;flex-direction:row;align-items:center;gap:.75rem;scroll-snap-align:start;min-width:0;padding:.75rem;border:1px solid var(--line);border-radius:12px;background:var(--surface-raised);box-shadow:none}
+.upcoming-section .upcoming-date{display:flex;flex:0 0 55px;flex-direction:column;align-items:center;justify-content:center;min-height:76px;border-radius:9px;color:white;background:#285e50;padding:.3rem;line-height:1.2;letter-spacing:0}
+.upcoming-date strong{font-size:1.6rem}.upcoming-date small{font-size:.72rem;margin-top:.2rem}
+.upcoming-card[data-kind=study] .upcoming-date{background:#315b83}.upcoming-card[data-kind=revival] .upcoming-date{background:#a35e40}.upcoming-card[data-kind=worship] .upcoming-date{background:#8a6d34}.upcoming-card[data-kind=vigil] .upcoming-date{background:#795580}.upcoming-card[data-kind=prayer] .upcoming-date{background:#24736e}
+.upcoming-copy{min-width:0}.upcoming-copy h3{font-family:inherit;font-size:1rem;margin:0 0 .3rem;line-height:1.3}.upcoming-copy p{font-size:.83rem;margin:0;line-height:1.4}.upcoming-copy .upcoming-action{padding-top:.35rem;font-size:.73rem}
+.event-slide-prev,.event-slide-next{position:absolute;top:50%;transform:translateY(-50%);z-index:2;border:1px solid var(--line);background:var(--surface-raised);color:var(--ink);border-radius:50%;width:34px;height:34px;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 2px 8px #0002}.event-slide-prev{left:-12px}.event-slide-next{right:-12px}.event-slide-prev:disabled,.event-slide-next:disabled{opacity:.3;cursor:default}
+.upcoming-section .upcoming-more{margin-top:.6rem}
+@media(max-width:560px){.upcoming-section{padding:.9rem}.upcoming-slider{padding:0 12px}.upcoming-section .upcoming-card{flex-basis:87%}.hero-rays:before{top:-60vw}}
+@media(prefers-reduced-motion:reduce){.home-photo-hero>img,.hero-rays:before,.hero-glow,.hero-light-sweep:after,.home-photo-hero .home-welcome-copy h1,.home-photo-hero .home-welcome-copy p,.home-photo-hero .hero-actions{animation:none}}
