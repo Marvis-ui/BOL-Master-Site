@@ -2,7 +2,7 @@
  "use strict";
  const host = document.getElementById("home-upcoming-events");
  if (!host) return;
- const onlineMeetingUrl = "https://us06web.zoom.us/j/2225208451?pwd=bgraf5GVpnO0inLLzGMVKh9ebstXHW.1";
+ const onlineMeetingUrl = "contact.html#online-gatherings";
  const now = new Date(); now.setHours(0,0,0,0);
  const entries = [];
  const add = (date,title,time,place) => { if(date >= now) entries.push({date,title,time,place}); };
@@ -32,13 +32,13 @@
    const online=item.place==="Online";
    const onsite=item.place==="Onsite";
    article.href=online ? onlineMeetingUrl : onsite ? "contact.html#church-location" : "calendar.html";
-   if(online){article.target="_blank";article.rel="noopener noreferrer";}
-   const action=online ? "Join on Zoom" : onsite ? "View church location" : "View activity details";
-   article.setAttribute("aria-label",item.title+", "+fmt.format(item.date)+", "+item.time+". "+action+(online ? " (opens in a new tab)" : ""));
+   
+   const action=online ? "Request meeting access" : onsite ? "View church location" : "View activity details";
+   article.setAttribute("aria-label",item.title+", "+fmt.format(item.date)+", "+item.time+". "+action);
    const date=document.createElement("span");date.className="upcoming-date";const day=document.createElement("strong");day.textContent=String(item.date.getDate());const month=document.createElement("small");month.textContent=new Intl.DateTimeFormat("en-GB",{month:"short"}).format(item.date).toUpperCase();date.append(day,month);
    const h=document.createElement("h3");h.textContent=item.title;
    const info=document.createElement("p");info.textContent=item.time+" · "+item.place;
-   const cue=document.createElement("span");cue.className="upcoming-action";cue.textContent=action+(online ? " ↗" : " →");
+   const cue=document.createElement("span");cue.className="upcoming-action";cue.textContent=action+" →";
    const copy=document.createElement("div");copy.className="upcoming-copy";copy.append(h,info,cue);article.append(date,copy);host.appendChild(article);
  });
  const prev=document.querySelector(".event-slide-prev"),next=document.querySelector(".event-slide-next");
