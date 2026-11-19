@@ -8,6 +8,9 @@
     <link rel="icon" href="images/bol-logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="bolwebstyle.css">
     <script src="bolsite.js" defer></script>
+    <script src="hour-of-power-data.js" defer></script>
+    <script src="hour-of-power.js" defer></script>
+    <link rel="stylesheet" href="hour-of-power.css">
     <link rel="stylesheet" href="page-banners.css">
 </head>
 <body data-theme="midnight">
@@ -39,25 +42,13 @@
             <p>Hour of Power is a place for young people to worship, open the Bible, ask honest questions and encourage one another to live with purpose.</p>
         </section>
 
-        <section class="power-columns">
-            <div>
-                <span class="eyebrow">A place to belong</span>
-                <h2 style="margin:.4rem 0; color: var(--ink); font-size:2rem;">Grow in faith, together.</h2>
-                <p class="muted">Our church site describes Hour of Power as youth fellowship after the Sunday service. Each gathering can make room for friendship, Scripture, prayer and the next generation’s gifts.</p>
-                <div class="power-points">
-                    <article class="power-point"><span class="pathway-icon" aria-hidden="true">♪</span><div><b>Gather &amp; worship</b><p>Begin with welcome, praise and time to reconnect.</p></div></article>
-                    <article class="power-point"><span class="pathway-icon" aria-hidden="true">⌑</span><div><b>Open the Word</b><p>Read Scripture, share perspectives and make room for questions.</p></div></article>
-                    <article class="power-point"><span class="pathway-icon" aria-hidden="true">✧</span><div><b>Pray &amp; grow</b><p>Encourage one another and take faith into daily life.</p></div></article>
-                </div>
-            </div>
-            <aside class="power-statement">
-                <span class="eyebrow">A promise for 2026</span>
-                <h2>Rooted in the goodness of God.</h2>
-                <p>Psalm 65:4 speaks of the joy of drawing near to God and being filled with the goodness of His house.</p>
-                <blockquote>“the goodness of your house”</blockquote>
-                <p><strong>Psalm 65:4</strong></p>
-            </aside>
-        </section>
+        <section class="power-statement" aria-label="Promise for 2026"><span class="eyebrow">A promise for 2026</span><h2>Rooted in the goodness of God.</h2><blockquote>“You invite us near, drawing us into Your courts—what an honor and a privilege! We feast until we’re full on the goodness of Your house, Your sacred temple made manifest.”</blockquote><p><strong>Psalm 65:4 · The Voice</strong></p></section>
+        <section class="hop-library" aria-labelledby="hop-title">
+  <div class="section-heading"><div><span class="eyebrow">Faith in everyday life</span><h2 id="hop-title">Weekly devotional</h2></div><div class="hop-controls"><button class="button-secondary" id="hop-prev" type="button">← Previous</button><button class="button-secondary" id="hop-next" type="button">Next →</button></div></div>
+  <article id="hop-devotional" class="hop-card" aria-live="polite">No devotionals have been published yet.</article>
+  <article id="hop-weekly-quote" class="hop-quote" aria-live="polite" hidden></article>
+  <h2>Previous Hour of Power</h2><div id="hop-archive" class="hop-archive"></div>
+</section>
 
         <section class="books-read-section" id="books-we-read" aria-labelledby="books-read-title">
             <div class="section-heading">
@@ -77,20 +68,7 @@
             </a>
         </section>
 
-        <section class="curriculum-bottom">
-            <article class="info-card">
-                <span class="eyebrow">Keep exploring</span>
-                <h2>A year in the Word</h2>
-                <p>Follow the proposed Bible Study curriculum for 2026–2027 and explore Scripture with the fellowship.</p>
-                <a class="button-primary" href="bible-study.html">Open the curriculum →</a>
-            </article>
-            <article class="info-card">
-                <span class="eyebrow">Join us</span>
-                <h2>Make the next gathering yours.</h2>
-                <p>Hour of Power meets after Sunday service, as noted on the church site. Check the calendar for shared events and celebrations.</p>
-                <a class="button-secondary" href="calendar.html">View the calendar →</a>
-            </article>
-        </section>
+        <p class="hop-editor-link"><a href="admin/hour-of-power.html">Church editor sign in</a></p>
     </main>
     <footer>© <span class="current-year">2026</span> Beacon of Light Christian Fellowship Center Vienna</footer>
 </body>

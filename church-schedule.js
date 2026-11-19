@@ -30,7 +30,7 @@
     add(nthWeekday(y,m,6,-1),"Revival Prayer · 6:30 PM · Online");
     if(typeof bolRuleEvents!=="undefined") bolRuleEvents.forEach(e=>{if(e.month==="all"||e.month===m)add(nthWeekday(y,m,e.weekday,e.nth),e.title);});
     if(typeof bolFixedEvents!=="undefined") Object.entries(bolFixedEvents).forEach(([date,title])=>{const [mm,dd]=date.split("-").map(Number);if(mm===m)add(dd,title);});
-    if(typeof bolBirthdays!=="undefined") bolBirthdays.forEach(b=>{if(b.month===m)add(b.day,b.name+" · "+b.type);});
+    if(typeof bolBirthdays!=="undefined") bolBirthdays.forEach(b=>{if(b.month===m)add(b.day,"🎂 "+b.name+" · "+b.type);});
     if(typeof bolFlexibleMonthlyEvents!=="undefined" && Array.isArray(bolFlexibleMonthlyEvents[m]))
       bolFlexibleMonthlyEvents[m].forEach(t=>add(length,t));
     if(m===11) for(let d=26;d<=30;d++) add(d,"End-of-Year Prayers · 8:30 PM · Online");
