@@ -35,6 +35,12 @@
       bolFlexibleMonthlyEvents[m].forEach(t=>add(length,t));
     if(m===11) for(let d=26;d<=30;d++) add(d,"End-of-Year Prayers · 8:30 PM · Online");
     if(y===2026 && m===3){add(3,"Good Friday");add(5,"Easter Sunday");}
+    for(const e of window.BOL_CALENDAR_EDITS||[]){
+      const [yy,mm,dd]=e.date.split("-").map(Number);
+      if(mm!==m+1||(e.mode!=="birthday"&&yy!==y))continue;
+      if(["replace","cancel"].includes(e.mode)&&map.has(dd))map.set(dd,map.get(dd).filter(t=>t!==e.original));
+      if(e.mode!=="cancel")add(dd,e.mode==="birthday"?"🎂 "+e.title+" · Birthday":[e.title,e.time,e.place].filter(Boolean).join(" · "));
+    }
     return [...map.entries()].sort((a,b)=>a[0]-b[0]);
   }
   const make=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;};
