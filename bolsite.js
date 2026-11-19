@@ -40,7 +40,7 @@
 
     // Shared public navigation, identical on all pages.
     var nav = document.querySelector(".site-nav");
-    if (nav) {
+    if (nav && !window.location.pathname.startsWith("/admin/")) {
         nav.innerHTML = '<a href="index.html">Home</a><a href="about.html">About</a>' +
         '<details class="nav-more"><summary>Messages</summary><div class="nav-more-menu"><a href="sermons.html">Sermons</a><a href="bible-study.html">Bible Study</a><a href="daily-quotes.html">Daily Quotes</a></div></details>' +
         '<details class="nav-more"><summary>Youth</summary><div class="nav-more-menu"><a href="hour-of-power.html">Hour of Power</a><a href="chess.html">Champions League Chess</a><a href="youth-portfolio.html">Our Youth Projects Portfolio</a></div></details>' +
