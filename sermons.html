@@ -75,7 +75,7 @@
         }
         .sermon-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 1.5rem;
         }
         .sermon-card {
@@ -133,6 +133,31 @@
             .sermon-controls .search-box { width: 100%; min-width: 0; }
             .sermon-date-filters { width: 100%; }
         }
+        .sermon-archive { margin-top: 1.5rem; }
+        .sermon-archive > summary { cursor: pointer; font-weight: 700; color: var(--ink); padding: 1rem 1.25rem; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; }
+        .sermon-archive-list { margin-top: .65rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-raised); overflow: hidden; }
+        .sermon-archive-row + .sermon-archive-row { border-top: 1px solid var(--line); }
+        .sermon-archive-row > summary { cursor: pointer; display: grid; grid-template-columns: minmax(9rem,1fr) minmax(0,2.5fr) auto; gap: .8rem; align-items: center; padding: .9rem 1.2rem; list-style: none; color: var(--ink); }
+        .sermon-archive-row > summary::-webkit-details-marker { display: none; }
+        .sermon-archive-row > summary::after { content: "+"; font-size: 1.2rem; color: var(--green); }
+        .sermon-archive-row[open] > summary::after { content: "−"; }
+        .sermon-archive-row > summary:hover { background: var(--green-soft); }
+        .sermon-archive-date { color: var(--muted); font-size: .82rem; }
+        .sermon-archive-title { font-weight: 700; overflow-wrap: anywhere; }
+        .sermon-archive-detail { padding: 0 1.2rem 1.2rem; }
+        .latest-sermon .watch-link { color: var(--hero-highlight); text-decoration: underline; }
+        .latest-sermon .sermon-text-note { color: var(--hero-muted); }
+        .sermon-controls { margin-bottom: 1rem; }
+        .sermon-results-count { color: var(--muted); font-size: .88rem; margin-bottom: .8rem; }
+        @media (max-width: 600px) {
+            .sermon-grid { grid-template-columns: minmax(0,1fr); gap: .9rem; }
+            .sermon-card { padding: 1.2rem; }
+            .latest-sermon { padding: 1.5rem; }
+            .sermon-archive-row > summary { grid-template-columns: minmax(0,1fr) auto; gap: .25rem .6rem; }
+            .sermon-archive-date { grid-column: 1; }
+            .sermon-archive-title { grid-column: 1; }
+            .sermon-archive-row > summary::after { grid-column: 2; grid-row: 1 / 3; }
+        }
     </style>
     <link rel="stylesheet" href="page-banners.css">
 </head>
@@ -167,7 +192,7 @@
             <p>Find a message by title, Scripture or preacher. Read the message below or open its sermon PDF in Google Drive.</p>
         </div>
 
-        <!-- Featured Latest Sermon (Auto-loads the first item in bolSermons below) -->
+        <!-- Latest dated Sunday Service, independent of archive filters -->
         <div class="latest-sermon" id="featured-sermon"></div>
 
         <!-- Filter & Search Bar -->
@@ -186,7 +211,9 @@
         </div>
 
         <!-- Archive Grid -->
+        <p class="sermon-results-count" id="sermon-results-count" aria-live="polite"></p>
         <div class="sermon-grid" id="sermon-list"></div>
+        <div id="sermon-archive"></div>
     </div>
 
     <footer>
@@ -218,17 +245,21 @@
         }
 
         function renderFeatured() {
-            const latest = newestFirst()[0];
+            const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Vienna", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date());
+            const part = type => today.find(p => p.type === type).value;
+            const todayKey = part("year") + "-" + part("month") + "-" + part("day");
+            const latest = newestFirst().find(sermon => sermon.category === "Sunday Service" && /^\d{4}-\d{2}-\d{2}$/.test(String(sermon.date)) && sermon.date <= todayKey);
             const featured = document.getElementById("featured-sermon");
             if (!latest) {
-                featured.innerHTML = "<p>There are no published sermons yet.</p>";
+                featured.innerHTML = "<p>There are no published Sunday service messages yet.</p>";
                 return;
             }
             featured.innerHTML = `
                 <span class="sermon-pill">Latest Message • ${escapeHTML(latest.category)}</span>
                 <h2>${escapeHTML(latest.title)}</h2>
                 <div class="sermon-meta">${escapeHTML(latest.speaker)} • ${escapeHTML(formatSermonDate(latest.date))} • ${escapeHTML(latest.scripture)}</div>
-                <p class="featured-summary">${escapeHTML(latest.summary)}</p>
+                ${latest.summary ? '<p class="featured-summary">' + escapeHTML(latest.summary) + '</p>' : ""}
+                ${sermonReadLinks(latest)}
             `;
         }
 
@@ -255,6 +286,24 @@
             renderSermons();
         }
 
+        function safePdfUrl(raw) {
+            try {
+                const u = new URL(String(raw || ""));
+                if(u.protocol !== "https:" || !["drive.google.com","docs.google.com"].includes(u.hostname)) return "";
+                return u.href;
+            } catch { return ""; }
+        }
+        function sermonReadLinks(sermon) {
+            const url = safePdfUrl(sermon.pdfUrl);
+            const pdf = url ? '<a class="watch-link" href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer">Open sermon PDF ↗</a>' : '';
+            const body = sermon.body ? '<details class="sermon-full-text"><summary>Read message</summary><div class="sermon-body">'+escapeHTML(sermon.body)+'</div></details>' : '';
+            return body + pdf + (!url && !body ? '<p class="sermon-text-note">PDF will be added soon</p>' : '');
+        }
+
+        function renderArchiveRow(sermon) {
+            return '<details class="sermon-archive-row"><summary><span class="sermon-archive-date">'+escapeHTML(formatSermonDate(sermon.date))+'</span><span class="sermon-archive-title">'+escapeHTML(sermon.title)+'</span></summary><div class="sermon-archive-detail"><span class="cat-tag">'+escapeHTML(sermon.category)+'</span><p class="sermon-card-meta">'+escapeHTML(sermon.scripture)+'</p><p class="sermon-speaker">Preacher: '+escapeHTML(sermon.speaker)+'</p>'+(sermon.summary ? '<p class="sermon-summary">'+escapeHTML(sermon.summary)+'</p>' : '')+sermonReadLinks(sermon)+'</div></details>';
+        }
+
         function renderSermons() {
             const query = document.getElementById("sermon-search").value.trim().toLowerCase();
             const container = document.getElementById("sermon-list");
@@ -273,19 +322,15 @@
                 return matchesDate && searchable.includes(query);
             });
 
+            const archive = document.getElementById("sermon-archive");
+            archive.innerHTML = "";
+            document.getElementById("sermon-results-count").textContent = filtered.length + (filtered.length === 1 ? " message" : " messages");
             if (filtered.length === 0) {
                 container.innerHTML = '<div class="card"><p>No messages found for these filters. Try another month or year, or choose All Messages.</p></div>';
                 return;
             }
 
-            function safePdfUrl(raw) {
-                try {
-                    const u = new URL(String(raw || ""));
-                    if(u.protocol !== "https:" || !["drive.google.com","docs.google.com"].includes(u.hostname)) return "";
-                    return u.href;
-                } catch { return ""; }
-            }
-            container.innerHTML = filtered.map(function (sermon) {
+            container.innerHTML = filtered.slice(0, 4).map(function (sermon) {
                 const url = safePdfUrl(sermon.pdfUrl);
                 const content = `
                     <span class="cat-tag">${escapeHTML(sermon.category)}</span>
@@ -306,6 +351,10 @@
                     ? '<a class="sermon-card sermon-pdf-card" href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer" aria-label="Open sermon PDF: '+escapeHTML(sermon.title)+'">'+content+'</a>'
                     : '<article class="sermon-card">'+content+'</article>';
             }).join("");
+            const older = filtered.slice(4);
+            if (older.length) {
+                archive.innerHTML = '<details class="sermon-archive"'+(allActive ? '' : ' open')+'><summary>Previous messages ('+older.length+')</summary><div class="sermon-archive-list">'+older.map(renderArchiveRow).join("")+'</div></details>';
+            }
         }
 
         populateSermonDateFilters();
