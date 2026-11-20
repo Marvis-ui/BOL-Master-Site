@@ -124,7 +124,7 @@ window.BOL_SERMONS = [
     "category": "Sunday Service",
     "scripture": "2 Peter 1:5–8; Habakkuk 2:2",
     "summary": "",
-    "pdfUrl": "",
+    "pdfUrl": "https://drive.google.com/file/d/1--Vn7iaymWQakSAZOnow0VisD5gAwC8x/view",
     "body": ""
   },
   {
