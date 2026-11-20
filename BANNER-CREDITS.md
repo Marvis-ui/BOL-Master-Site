@@ -18,3 +18,10 @@ Decorative stock photos, not documentary photographs of Beacon of Light members,
 Source pages identify these images as free under the Unsplash License: https://unsplash.com/license
 
 Homepage and chess artwork were supplied separately by the church/user and are unchanged by this banner update. Redirect pages and the private sermon editor do not receive decorative banners.
+
+
+## Updated Calendar and Beacon of Hope imagery
+
+- Church Calendar: desk calendar photograph by Yaqing Wei, https://unsplash.com/photos/211NmLyOzYU (Unsplash License).
+- Beacon of Hope: lighthouse casting a beam beneath the stars, Nathan Jennings, https://unsplash.com/photos/VsPsf4F5Pi0 (Unsplash License).
+- These replace the previous gathering and food-giving banner photographs. Credits are kept here rather than overlaid on the banners.
