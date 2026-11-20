@@ -42,7 +42,7 @@
 .banner-vienna { --banner-photo: url("https://images.unsplash.com/photo-1568132585619-01ebde363d59?auto=format&fit=crop&w=1600&q=80"); }
 .banner-archive { --banner-photo: url("https://images.unsplash.com/photo-1660593089599-f8e50f5204b6?auto=format&fit=crop&w=1600&q=80"); }
 .banner-about { --banner-photo: url("https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?auto=format&fit=crop&w=1600&q=80"); }
-.banner-hope { --banner-photo: url("https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1600&q=80"); }
+.banner-hope { --banner-photo: url("images/Beacon%20of%20hope_%20helping%20hands%20%281%29.png"); }
 .banner-scripture { --banner-photo: url("https://images.unsplash.com/photo-1789479925012-cca4d5402296?auto=format&fit=crop&w=1600&q=80"); }
 .banner-gathering { --banner-photo: url("https://images.unsplash.com/photo-1761058556617-ddd0f3b9795e?auto=format&fit=crop&w=1600&q=80"); }
 .banner-dawn { --banner-photo: url("https://images.unsplash.com/photo-1478341089230-f9be22921e38?auto=format&fit=crop&w=1600&q=80"); }
@@ -98,7 +98,7 @@
     .banner-vienna { --banner-photo: url("https://images.unsplash.com/photo-1568132585619-01ebde363d59?auto=format&fit=crop&w=900&q=75"); }
     .banner-archive { --banner-photo: url("https://images.unsplash.com/photo-1660593089599-f8e50f5204b6?auto=format&fit=crop&w=900&q=75"); }
     .banner-about { --banner-photo: url("https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?auto=format&fit=crop&w=900&q=75"); }
-    .banner-hope { --banner-photo: url("https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=900&q=75"); }
+    .banner-hope { --banner-photo: url("images/Beacon%20of%20hope_%20helping%20hands%20%281%29.png"); }
     .banner-scripture { --banner-photo: url("https://images.unsplash.com/photo-1789479925012-cca4d5402296?auto=format&fit=crop&w=900&q=75"); }
     .banner-gathering { --banner-photo: url("https://images.unsplash.com/photo-1761058556617-ddd0f3b9795e?auto=format&fit=crop&w=900&q=75"); }
     .banner-dawn { --banner-photo: url("https://images.unsplash.com/photo-1478341089230-f9be22921e38?auto=format&fit=crop&w=900&q=75"); }
