@@ -9,11 +9,8 @@
     <link rel="icon" href="images/bol-logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="bolwebstyle.css">
     <script src="bolsite.js" defer></script>
-    <script src="bible-questions.js" defer></script>
-    <script src="daily-verses.js" defer></script>
     <script src="boldata.js" defer></script>
     <script src="calendar-editor-data.js" defer></script>
-    <script src="home.js" defer></script>
     <script src="home-calendar.js" defer></script>
     <style>
     .bol-welcome-stage{position:relative;isolation:isolate;overflow:hidden;display:grid;place-items:center;min-height:clamp(420px,56vh,650px);padding:clamp(28px,5vw,64px) 24px;text-align:center;border-radius:24px;background:radial-gradient(ellipse at 8% 20%,#087e88 0%,transparent 52%),radial-gradient(ellipse at 70% 100%,#164c43 0%,transparent 48%),linear-gradient(115deg,#075b65,#082f3d 47%,#030918 95%);box-shadow:0 18px 48px #092d3826;border-bottom:3px solid #d7ad55;color:#fff}
@@ -62,6 +59,19 @@
     .bol-season-year[hidden]{display:none}
     @media(max-width:600px){.bol-welcome-stage:not([data-season="regular"]) .bol-welcome-big{font-size:clamp(2rem,9vw,4rem)}.bol-welcome-stage:not([data-season="regular"]) .bol-welcome-script{font-size:clamp(2.3rem,10vw,4rem)}}
     @media(prefers-reduced-motion:reduce){.bol-season-art *{animation:none!important}.bol-season-snow{top:var(--y)}.bol-season-firework{opacity:.25}.bol-season-spark{opacity:.45}}
+
+ 
+    /* End-of-Year Bible Challenge: replaces the trivia and quote widgets. */
+    .bible-challenge-feature{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:clamp(1.5rem,4vw,4rem);align-items:center;margin:2.4rem 0 3rem;padding:clamp(1.5rem,4.5vw,4rem);border:2px solid #bc9459;border-radius:27px;background:radial-gradient(ellipse at 78% 22%,#41628275,transparent 45%),linear-gradient(123deg,#071a30,#112c4c 55%,#0a1a34);color:#fffaf0;box-shadow:0 20px 55px #08182d28;}
+    .bible-challenge-feature::before{content:"";position:absolute;inset:-50%;z-index:-1;background:conic-gradient(from 20deg,transparent 0deg,#eed7a01a 12deg,transparent 40deg,transparent 180deg,#eed7a022 190deg,transparent 225deg);animation:bibleChallengeSweep 16s linear infinite;}
+    .bible-challenge-sparkles{position:absolute;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(circle at 12% 18%,#fde3a8 1px,transparent 3px),radial-gradient(circle at 60% 70%,#fff7d1 2px,transparent 4px),radial-gradient(circle at 85% 15%,#ffe1a7 2px,transparent 4px),radial-gradient(circle at 92% 83%,#ffe1a7 1px,transparent 3px);animation:bibleChallengeTwinkle 5s ease-in-out infinite alternate}
+    .bible-challenge-copy{position:relative;z-index:2}.bible-challenge-eyebrow{font-size:.72rem;letter-spacing:.17em;font-weight:850;color:#f7d38b}.bible-challenge-copy h2{margin:1rem 0;font:800 clamp(2.3rem,4vw,4.5rem)/1.09 Georgia,serif;letter-spacing:-.035em;color:white}.bible-challenge-copy h2 em{color:#f4d387;font-style:normal}.bible-challenge-copy p{max-width:52ch;color:#edf2f7;line-height:1.8;margin:.75rem 0}.bible-challenge-copy .bible-challenge-tagline{font:700 clamp(1rem,1.4vw,1.25rem)/1.5 Georgia,serif;color:#f8d895}
+    .bible-challenge-actions{display:flex;flex-direction:column;align-items:flex-start;gap:.85rem;margin-top:1.7rem}.bible-challenge-enter{display:inline-flex;align-items:center;gap:1rem;padding:1rem 1.5rem;border-radius:999px;border:2px solid #fff0c4;color:#17283b;background:linear-gradient(100deg,#dfb66a,#fff1c3,#d3a04c);background-size:220% 100%;font-size:1rem;font-weight:850;text-decoration:none;animation:bibleChallengeGold 4s linear infinite,bibleChallengeBreathe 2.8s ease-in-out infinite alternate;box-shadow:0 0 27px #efc87266}.bible-challenge-enter:hover{transform:translateY(-4px);box-shadow:0 0 38px #efc872a0;color:#071a30}.bible-challenge-enter:focus-visible{outline:3px solid white;outline-offset:4px}.bible-challenge-date{font-size:.78rem;color:#f3e2bf}
+    .bible-challenge-art{position:relative;padding:1.1rem;border:4px ridge #c9a46c;border-radius:14px;background:linear-gradient(145deg,#192a44,#0c1a33);box-shadow:18px 19px 2px #050d1d58,0 8px 35px #0009;transform:perspective(900px) rotateY(-7deg);animation:bibleChallengeFloat 7s ease-in-out infinite alternate}.bible-challenge-art-foil{text-align:center;color:#f4d294;font:800 clamp(.85rem,1.7vw,1.35rem)/1.5 Georgia,serif;letter-spacing:.08em;padding:.6rem .2rem 1rem}.bible-challenge-art-foil span{margin:0 .3rem}.bible-challenge-doors{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}.bible-challenge-doors span{display:grid;place-items:center;aspect-ratio:.85;border:1px solid #c8a567;border-radius:4px;background:linear-gradient(140deg,#18304e,#0a1831);color:#f2cf8b;font:700 clamp(.8rem,1.5vw,1.18rem) Georgia,serif;box-shadow:inset 2px 0 1px #eedaa122;animation:bibleChallengeDoor 6s ease-in-out infinite alternate}.bible-challenge-doors span:nth-child(4n){animation-delay:-2s}.bible-challenge-doors span:nth-child(5n){animation-delay:-4s}.bible-challenge-art-footer{text-align:center;color:#efd4a1;font-size:.59rem;letter-spacing:.17em;font-weight:700;padding:1rem .2rem .2rem}
+    @keyframes bibleChallengeSweep{to{transform:rotate(360deg)}}@keyframes bibleChallengeTwinkle{to{opacity:.35}}@keyframes bibleChallengeFloat{to{transform:perspective(900px) rotateY(-4deg) translateY(-9px)}}@keyframes bibleChallengeDoor{to{border-color:#f6e5b2;background:#1d3959}}@keyframes bibleChallengeGold{to{background-position:220% 0}}@keyframes bibleChallengeBreathe{to{box-shadow:0 0 37px #efc872a0}}
+    @media(max-width:850px){.bible-challenge-feature{grid-template-columns:1fr}.bible-challenge-art{width:min(100%,480px);margin:auto;transform:none}.bible-challenge-copy{text-align:center}.bible-challenge-actions{align-items:center}.bible-challenge-copy p{margin-left:auto;margin-right:auto}}
+    @media(max-width:480px){.bible-challenge-feature{padding:1.25rem}.bible-challenge-copy h2{font-size:clamp(2.2rem,9vw,3rem)}.bible-challenge-art{padding:.7rem}.bible-challenge-doors{gap:3px}.bible-challenge-art-foil{font-size:.9rem}}
+    @media(prefers-reduced-motion:reduce){.bible-challenge-feature::before,.bible-challenge-sparkles,.bible-challenge-art,.bible-challenge-enter,.bible-challenge-doors span{animation:none!important;transition:none!important}}
 
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
@@ -121,36 +131,48 @@
 
         
 
-        <section class="home-feature-grid" aria-label="Bible trivia and daily encouragement">
-            <article class="quiz-card">
-                <div class="quiz-header">
-                    <span class="quiz-tag">BOL Bible Trivia · 100 questions</span>
-                    <span id="quiz-score" aria-live="polite">Points: 0</span>
+        <section class="bible-challenge-feature" aria-labelledby="bible-challenge-home-title">
+            <div class="bible-challenge-sparkles" aria-hidden="true"></div>
+            <div class="bible-challenge-copy">
+                <span class="bible-challenge-eyebrow">BEACON OF LIGHT · DECEMBER 2026</span>
+                <h2 id="bible-challenge-home-title">End-of-Year<br><em>Bible Challenge</em></h2>
+                <p class="bible-challenge-tagline">24 Days · 24 Bible Mysteries · One Grand Finale</p>
+                <p>Not just trivia. Investigate forgotten stories, untangle genealogies and separate tradition from biblical fact. Everyone is welcome—from age 10 to 80 and beyond.</p>
+                <div class="bible-challenge-actions">
+                    <a class="bible-challenge-enter" href="bible-challenge.html">Enter the Challenge <span aria-hidden="true">→</span></a>
+                    <span class="bible-challenge-date">Begins 1 December · New door opens daily at 7:00 AM</span>
                 </div>
-                <div class="quiz-progress-row">
-                    <span id="quiz-progress-label">Question 1 of 100</span>
-                    <progress id="quiz-progress" value="0" max="100" aria-label="Trivia progress">0%</progress>
-                    <span id="quiz-best">Best: 0</span>
+            </div>
+            <div class="bible-challenge-art" aria-hidden="true">
+                <div class="bible-challenge-art-foil">24 DAYS <span>✦</span> 24 MYSTERIES</div>
+                <div class="bible-challenge-doors">
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+                    <span>8</span>
+                    <span>9</span>
+                    <span>10</span>
+                    <span>11</span>
+                    <span>12</span>
+                    <span>13</span>
+                    <span>14</span>
+                    <span>15</span>
+                    <span>16</span>
+                    <span>17</span>
+                    <span>18</span>
+                    <span>19</span>
+                    <span>20</span>
+                    <span>21</span>
+                    <span>22</span>
+                    <span>23</span>
+                    <span>24</span>
                 </div>
-                <p class="quiz-question" id="quiz-question">Loading a question…</p>
-                <div class="quiz-options" id="quiz-options"></div>
-                <div class="quiz-footer">
-                    <span id="quiz-feedback" aria-live="polite"></span>
-                    <button class="quiz-next" id="quiz-next" type="button" disabled>Next question →</button>
-                </div>
-            </article>
-            <article class="quote-card">
-                <div>
-                    <span class="eyebrow">A moment in the Word</span>
-                    <blockquote id="daily-quote-text">“Your word is a lamp for my feet, a light on my path.”</blockquote>
-                    <cite id="daily-quote-ref">Psalm 119:105</cite>
-                </div>
-                <div class="react-group" aria-label="Respond to today's verse">
-                    <button class="react-pill" type="button" data-reaction="amen">🙏 Amen <span class="r-count">0</span></button>
-                    <button class="react-pill" type="button" data-reaction="love">❤️ Love <span class="r-count">0</span></button>
-                    <button class="react-pill" type="button" data-reaction="word">🔥 Word <span class="r-count">0</span></button>
-                </div>
-            </article>
+                <div class="bible-challenge-art-footer">DISCOVER WHAT'S HIDDEN IN THE WORD</div>
+            </div>
         </section>
 
         
