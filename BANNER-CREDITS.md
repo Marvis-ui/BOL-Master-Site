@@ -4,9 +4,9 @@ Decorative stock photos, not documentary photographs of Beacon of Light members,
 
 | Page | Subject | Photographer | Source |
 | --- | --- | --- | --- |
-| about.html | Vienna cityscape | Vladyslav Vedernikov | [Unsplash](https://unsplash.com/photos/architectural-photography-of-white-and-brown-houses-Ix3mf0Efwus) |
+| about.html | Lighthouse under a starry sky | Nathan Jennings | [Unsplash](https://unsplash.com/photos/VsPsf4F5Pi0) |
 | archive.html | Books and memories | Laura Ohlman | [Unsplash](https://unsplash.com/photos/a-stack-of-books-qRtcb9wHG40) |
-| beacon-of-hope.html | Hands sharing food | Alejandra Ezquerro | [Unsplash](https://unsplash.com/photos/two-persons-holding-fruits-tYdgOQk72iA) |
+| beacon-of-hope.html | Volunteers distributing food | Photographer not recorded in project notes | [Unsplash image CDN](https://images.unsplash.com/photo-1593113598332-cd288d649433) |
 | bible-study.html | Open Bible | Humble Lamb | [Unsplash](https://unsplash.com/photos/open-bible-on-wooden-desk-HujL5cnFHws) |
 | calendar.html | Congregation in worship | Drew Walker | [Unsplash](https://unsplash.com/photos/a-group-of-people-standing-in-a-room-with-their-hands-up-vNk2b1rkly0) |
 | contact.html | Vienna cityscape | Vladyslav Vedernikov | [Unsplash](https://unsplash.com/photos/architectural-photography-of-white-and-brown-houses-Ix3mf0Efwus) |
@@ -23,5 +23,5 @@ Homepage and chess artwork were supplied separately by the church/user and are u
 ## Updated Calendar and Beacon of Hope imagery
 
 - Church Calendar: desk calendar photograph by Yaqing Wei, https://unsplash.com/photos/211NmLyOzYU (Unsplash License).
-- Beacon of Hope: lighthouse casting a beam beneath the stars, Nathan Jennings, https://unsplash.com/photos/VsPsf4F5Pi0 (Unsplash License).
-- These replace the previous gathering and food-giving banner photographs. Credits are kept here rather than overlaid on the banners.
+- About: lighthouse casting a beam beneath the stars, Nathan Jennings, https://unsplash.com/photos/VsPsf4F5Pi0 (Unsplash License). The lighthouse is reserved for the About page.
+- Beacon of Hope: volunteers distributing food, served from the Unsplash CDN image photo-1593113598332-cd288d649433. This replaces the lighthouse on the charity page. The photographer metadata was not recorded in the project notes.
