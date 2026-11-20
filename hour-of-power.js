@@ -35,40 +35,30 @@ let quoteIndex=0;
 const quoteHost=byId("hop-weekly-quote");
 quoteHost.hidden=!quotes.length;
 if(quotes.length){
- const browsing=make("section");
- browsing.setAttribute("aria-label","Browse Hour of Power quotes");
- const controls=make("div",null,"hop-controls");
- const previous=make("button","← Previous quote","button-secondary");
- const next=make("button","Next quote →","button-secondary");
+ const content=make("div",null,"hop-quote-content");
+ content.id="hop-quote-content";
+ content.setAttribute("aria-live","polite");
+ content.setAttribute("aria-atomic","true");
+ const controls=make("div",null,"hop-quote-controls");
+ const previous=make("button","← Previous");
+ const next=make("button","Next →");
  previous.type=next.type="button";
- previous.setAttribute("aria-controls","hop-weekly-quote");
- next.setAttribute("aria-controls","hop-weekly-quote");
- const position=make("p");
- position.setAttribute("role","status");
- const history=make("div",null,"hop-archive");
+ previous.setAttribute("aria-label","Previous quote");
+ next.setAttribute("aria-label","Next quote");
+ previous.setAttribute("aria-controls","hop-quote-content");
+ next.setAttribute("aria-controls","hop-quote-content");
  controls.append(previous,next);
- browsing.append(controls,position,make("h3","Previous Hour of Power quotes"),history);
- quoteHost.after(browsing);
- const buttons=quotes.map((q,i)=>{
-   const button=make("button",null,"hop-archive-item");
-   button.type="button";
-   button.append(make("span",format(q.date)),make("strong",q.quote));
-   button.onclick=()=>{quoteIndex=i;renderQuote();quoteHost.scrollIntoView({block:"nearest"});};
-   history.append(button);
-   return button;
- });
+ controls.hidden=quotes.length<2;
+ quoteHost.replaceChildren(content,controls);
  function renderQuote(){
    const q=quotes[quoteIndex];
-   quoteHost.replaceChildren(
+   content.replaceChildren(
      make("p",quoteIndex===0?"Latest Hour of Power quote":"Hour of Power quote","eyebrow"),
      make("blockquote",q.quote),
      make("p",[q.speaker,q.theme,format(q.date)].filter(Boolean).join(" · "))
    );
    previous.disabled=quoteIndex>=quotes.length-1;
    next.disabled=quoteIndex===0;
-   controls.hidden=quotes.length<2;
-   position.textContent="Quote "+(quoteIndex+1)+" of "+quotes.length;
-   buttons.forEach((button,i)=>button.setAttribute("aria-pressed",String(i===quoteIndex)));
  }
  previous.onclick=()=>{if(quoteIndex<quotes.length-1){quoteIndex++;renderQuote();}};
  next.onclick=()=>{if(quoteIndex>0){quoteIndex--;renderQuote();}};
