@@ -6,35 +6,78 @@
     <title>Beacon of Light | Sermons & Notes</title>
     <link rel="stylesheet" href="bolwebstyle.css">
     <style>
-        .latest-sermon {
-            background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 65%, var(--hero-c) 100%);
-            color: var(--on-hero);
-            border-radius: 20px;
-            padding: 2.5rem;
+        .sermon-intro {
+            display: grid;
+            grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+            gap: 1.4rem;
+            align-items: stretch;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 25px color-mix(in srgb, var(--ink) 12%, transparent);
+        }
+        .sermon-intro > .page-header {
+            margin: 0;
+            min-width: 0;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .latest-sermon {
+            background: var(--surface-raised);
+            color: var(--ink);
+            border: 1px solid var(--line);
+            border-radius: 4px 22px 22px 4px;
+            border-left: 5px solid var(--accent);
+            padding: 1.6rem;
+            min-width: 0;
+            margin: 0;
+            box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 7%, transparent);
+            overflow-wrap: anywhere;
         }
         .sermon-pill {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--accent-ink);
-            font-size: 0.75rem;
+            display: block;
+            background: none;
+            color: var(--green);
+            font-size: .76rem;
             font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 20px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.75rem;
+            letter-spacing: 1.2px;
+            margin: 0 0 1rem;
         }
+        .featured-date {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            margin-bottom: 1rem;
+        }
+        .featured-date-block {
+            display: grid;
+            place-items: center;
+            align-content: center;
+            flex: 0 0 62px;
+            min-height: 70px;
+            border-radius: 10px;
+            background: var(--hero-a);
+            color: var(--on-hero);
+            line-height: 1.05;
+        }
+        .featured-date-block strong { font-size: 1.75rem; }
+        .featured-date-block small { font-size: .7rem; text-transform: uppercase; letter-spacing: .07em; }
+        .featured-date-label { font-size: .82rem; color: var(--muted); font-weight: 600; }
         .latest-sermon h2 {
-            font-size: 1.8rem;
-            margin-bottom: 0.4rem;
+            font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+            color: var(--ink);
+            line-height: 1.2;
+            margin: 0 0 .65rem;
         }
         .sermon-meta {
-            color: var(--hero-highlight);
-            font-size: 0.92rem;
+            color: var(--green);
+            font-size: .87rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: .7rem;
+        }
+        @media (max-width: 850px) {
+            .sermon-intro { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+            .sermon-intro > .page-header { min-height: 210px; }
         }
         .sermon-controls {
             display: flex;
@@ -110,7 +153,7 @@
         .watch-link:hover {
             text-decoration: underline;
         }
-        .featured-summary { color: var(--hero-muted); max-width: 720px; line-height: 1.65; }
+        .featured-summary { color: var(--muted); font-size: .92rem; line-height: 1.55; }
         .sermon-title { font-size: 1.2rem; color: var(--ink); margin: 0 0 .3rem; }
         .sermon-card-meta { font-size: .85rem; color: var(--green); font-weight: 700; margin-bottom: .75rem; }
         .sermon-summary { color: var(--muted); font-size: .94rem; }
@@ -145,8 +188,8 @@
         .sermon-archive-date { color: var(--muted); font-size: .82rem; }
         .sermon-archive-title { font-weight: 700; overflow-wrap: anywhere; }
         .sermon-archive-detail { padding: 0 1.2rem 1.2rem; }
-        .latest-sermon .watch-link { color: var(--hero-highlight); text-decoration: underline; }
-        .latest-sermon .sermon-text-note { color: var(--hero-muted); }
+        .latest-sermon .watch-link { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+        .latest-sermon .sermon-text-note { color: var(--muted); }
         .sermon-controls { margin-bottom: 1rem; }
         .sermon-results-count { color: var(--muted); font-size: .88rem; margin-bottom: .8rem; }
         @media (max-width: 600px) {
@@ -187,13 +230,15 @@
     <link rel="icon" href="images/bol-logo.jpg" type="image/jpeg">
     
     <div class="container" id="main">
+        <div class="sermon-intro">
         <div class="page-header photo-banner banner-scripture">
             <h1>Sermons & Message Notes</h1>
             <p>Find a message by title, Scripture or preacher. Read the message below or open its sermon PDF in Google Drive.</p>
         </div>
 
         <!-- Latest dated Sunday Service, independent of archive filters -->
-        <div class="latest-sermon" id="featured-sermon"></div>
+        <section class="latest-sermon" id="featured-sermon" aria-label="Latest Sunday sermon"></section>
+        </div>
 
         <!-- Filter & Search Bar -->
         <div class="sermon-controls">
@@ -254,10 +299,13 @@
                 featured.innerHTML = "<p>There are no published Sunday service messages yet.</p>";
                 return;
             }
+            const sermonDate = new Date(latest.date + "T12:00:00");
+            const monthLabel = sermonDate.toLocaleDateString("en-GB", {month:"short"});
             featured.innerHTML = `
-                <span class="sermon-pill">Latest Message • ${escapeHTML(latest.category)}</span>
+                <span class="sermon-pill">Latest Sunday message</span>
+                <div class="featured-date"><span class="featured-date-block" aria-hidden="true"><strong>${escapeHTML(sermonDate.getDate())}</strong><small>${escapeHTML(monthLabel)}</small></span><span class="featured-date-label">${escapeHTML(formatSermonDate(latest.date))}</span></div>
                 <h2>${escapeHTML(latest.title)}</h2>
-                <div class="sermon-meta">${escapeHTML(latest.speaker)} • ${escapeHTML(formatSermonDate(latest.date))} • ${escapeHTML(latest.scripture)}</div>
+                <div class="sermon-meta">${escapeHTML(latest.scripture)}<br>${escapeHTML(latest.speaker)}</div>
                 ${latest.summary ? '<p class="featured-summary">' + escapeHTML(latest.summary) + '</p>' : ""}
                 ${sermonReadLinks(latest)}
             `;
