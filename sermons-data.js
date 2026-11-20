@@ -141,5 +141,38 @@ window.BOL_SERMONS = [
     "summary": "",
     "pdfUrl": "https://drive.google.com/file/d/1CGB3yo2D1PmmQ3HdGk8uPU1wjz7t9HAR/view",
     "body": ""
+  },
+  {
+    "id": "cecilia-waiting-upon-lord",
+    "title": "Benefits of Waiting upon the Lord",
+    "speaker": "Pastor Cecilia Fayefunmi",
+    "date": "",
+    "category": "Sermon",
+    "scripture": "Isaiah 40:31",
+    "summary": "",
+    "pdfUrl": "https://drive.google.com/file/d/1H_NFy6HL6LxXM0LMSl-Vl9YAvbmOkcpS/view",
+    "body": ""
+  },
+  {
+    "id": "cecilia-marah-to-elim",
+    "title": "From Marah to Elim: God Is Leading You to Your Refreshing Oasis",
+    "speaker": "Pastor Cecilia Fayefunmi",
+    "date": "",
+    "category": "Sermon",
+    "scripture": "Exodus 15:22–27",
+    "summary": "",
+    "pdfUrl": "https://drive.google.com/file/d/1E2_K90VGRii85eS0yMIJu7-bhLI6Ik2r/view",
+    "body": ""
+  },
+  {
+    "id": "cecilia-getting-to-becoming",
+    "title": "From Getting to Becoming: The Pathway to True Abundance",
+    "speaker": "Pastor Cecilia Fayefunmi",
+    "date": "",
+    "category": "Sermon",
+    "scripture": "Matthew 6:33",
+    "summary": "",
+    "pdfUrl": "https://drive.google.com/file/d/1Pdp88jntpYEs0ZlM1X9YdNtoxqEIc7Vl/view",
+    "body": ""
   }
 ];
