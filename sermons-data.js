@@ -1,16 +1,5 @@
 window.BOL_SERMONS = [
   {
-    "id": "walking-as-children-of-light",
-    "title": "Walking as Children of Light",
-    "speaker": "Pastor David",
-    "date": "2026-11-08",
-    "category": "Sunday Service",
-    "scripture": "Ephesians 5:8–14",
-    "summary": "How to reflect Christ's character in our daily choices, school, and workplaces even when the world around us feels dark.",
-    "pdfUrl": "",
-    "body": ""
-  },
-  {
     "id": "standing-firm-under-pressure",
     "title": "Standing Firm Under Pressure",
     "speaker": "BOL Youth Team",
