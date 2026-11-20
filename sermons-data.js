@@ -151,7 +151,8 @@ window.BOL_SERMONS = [
     "scripture": "Isaiah 40:31",
     "summary": "",
     "pdfUrl": "https://drive.google.com/file/d/1H_NFy6HL6LxXM0LMSl-Vl9YAvbmOkcpS/view",
-    "body": ""
+    "body": "",
+    "pdfPublic": false
   },
   {
     "id": "cecilia-marah-to-elim",
@@ -162,7 +163,8 @@ window.BOL_SERMONS = [
     "scripture": "Exodus 15:22–27",
     "summary": "",
     "pdfUrl": "https://drive.google.com/file/d/1E2_K90VGRii85eS0yMIJu7-bhLI6Ik2r/view",
-    "body": ""
+    "body": "",
+    "pdfPublic": false
   },
   {
     "id": "cecilia-getting-to-becoming",
@@ -173,6 +175,7 @@ window.BOL_SERMONS = [
     "scripture": "Matthew 6:33",
     "summary": "",
     "pdfUrl": "https://drive.google.com/file/d/1Pdp88jntpYEs0ZlM1X9YdNtoxqEIc7Vl/view",
-    "body": ""
+    "body": "",
+    "pdfPublic": false
   }
 ];
