@@ -122,6 +122,14 @@
             text-transform: uppercase;
             letter-spacing: .14em;
         }
+        .photo-frame.album-date-cover { height: 128px; gap: .3rem; padding: 1rem; background: linear-gradient(128deg,var(--hero-a),var(--hero-b),var(--hero-c)); color: var(--on-hero); }
+        .album-year-text { font: 700 clamp(1.9rem,4vw,3rem)/1.1 Georgia,serif; color: var(--hero-highlight); }
+        .album-category-text { font-size: .73rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
+        .gallery-links-section { margin: 2.5rem 0; padding: 1.5rem; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-raised); }
+        .gallery-links-section p { color: var(--muted); }
+        .album-shared-links { display: flex; flex-wrap: wrap; gap: .75rem; }
+        .album-shared-link { background: var(--green-soft); color: var(--green); font-weight: 700; border: 1px solid var(--line); border-radius: 100px; padding: .8rem 1rem; }
+        .photo-card.album-pending { cursor: default; }
     </style>
     <link rel="stylesheet" href="page-banners.css">
 </head>
@@ -155,17 +163,24 @@
         </div>
 
         <h2 class="gallery-subtitle">Photo Albums</h2>
-        <p class="gallery-subtitle">Browse our shared Google Photos collections. Album names will be updated once their original titles are verified.</p>
+        <p class="gallery-subtitle">A look back at our church family through the years.</p>
         <div class="gallery-toolbar">
             <div class="gallery-tabs" role="group" aria-label="Filter photo albums">
-                <button type="button" class="gal-tab active" data-album-filter="All" aria-pressed="true">All Moments</button>
-                <button type="button" class="gal-tab" data-album-filter="Special Events" aria-pressed="false">Special Events</button>
-                <button type="button" class="gal-tab" data-album-filter="Chess Championship" aria-pressed="false">Chess Championship</button>
-                <button type="button" class="gal-tab" data-album-filter="Annual Picnic" aria-pressed="false">Annual Picnic</button>
-                <button type="button" class="gal-tab" data-album-filter="Shared Albums" aria-pressed="false">Google Photos</button>
+                <button type="button" class="gal-tab active" data-album-filter="All" aria-pressed="true">All moments</button>
+                <button type="button" class="gal-tab" data-album-filter="Community" aria-pressed="false">Community</button>
+                <button type="button" class="gal-tab" data-album-filter="Fellowship" aria-pressed="false">Fellowship</button>
+                <button type="button" class="gal-tab" data-album-filter="Annual Picnic" aria-pressed="false">Picnics</button>
+                <button type="button" class="gal-tab" data-album-filter="Thanksgiving" aria-pressed="false">Thanksgiving</button>
+                <button type="button" class="gal-tab" data-album-filter="Worship &amp; Fellowship" aria-pressed="false">Worship</button>
+                <button type="button" class="gal-tab" data-album-filter="Online Fellowship" aria-pressed="false">Online</button>
             </div>
         </div>
         <div class="gallery-grid" id="gallery-grid" aria-live="polite"></div>
+        <section class="gallery-links-section" aria-labelledby="shared-photo-title">
+            <h2 id="shared-photo-title">Browse our shared photos</h2>
+            <p>Explore the shared Google Photos collections below. We’ll match them to their individual album titles as soon as those links are confirmed.</p>
+            <div id="unmatched-photo-links" class="album-shared-links"></div>
+        </section>
         <noscript><p>Enable JavaScript to browse the photo albums.</p></noscript>
     </div>
     <footer>
