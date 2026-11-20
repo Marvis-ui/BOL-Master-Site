@@ -40,6 +40,29 @@
     @keyframes bolStageRays{to{transform:rotate(360deg)}}@keyframes bolStageGold{to{background-position:220% 0}}@keyframes bolStagePulse{to{box-shadow:0 0 35px 10px #f8cb7288}}
     @media(max-width:600px){.bol-welcome-stage{border-radius:18px;min-height:430px;padding:28px 14px}.bol-welcome-big{font-size:clamp(2.5rem,11vw,4rem)}.bol-welcome-script{font-size:clamp(2.3rem,10vw,3.5rem)}.bol-welcome-name{font-size:1rem}.bol-welcome-rule{margin:12px auto}.bol-welcome-actions{margin-top:20px}}
     @media(prefers-reduced-motion:reduce){.bol-welcome-stage:before,.bol-welcome-stage *,.bol-welcome-stage *:after{animation:none!important}}
+     
+    #main .upcoming-section{border:1px solid #d7b66d;box-shadow:0 0 24px #d5a83e38,0 10px 28px #9c78251c,inset 0 1px 0 #fff4cd; background-image:linear-gradient(145deg,#e8c76b12,transparent 60%)}
+    #main .upcoming-section h2{display:inline-block;border-bottom:2px solid #c79b42;padding-bottom:.35rem}
+    .bol-season-art{position:absolute;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
+    .bol-season-art[hidden]{display:none}
+    .bol-welcome-stage[data-season="christmas"]{background:radial-gradient(ellipse at 50% 0%,#28765b,transparent 65%),linear-gradient(130deg,#123c32,#071f2c 75%,#162a22)}
+    .bol-welcome-stage[data-season="crossover"]{background:radial-gradient(ellipse at 50% 85%,#80602d66,transparent 65%),linear-gradient(125deg,#050918,#102c30,#070b18)}
+    .bol-welcome-stage[data-season="newyear"]{background:radial-gradient(ellipse at 50% 0%,#af84484d,transparent 65%),linear-gradient(130deg,#254735,#0c2525,#382c1b)}
+    .bol-welcome-stage:not([data-season="regular"]) .bol-welcome-big{font-size:clamp(2.2rem,6.5vw,5.7rem)}
+    .bol-welcome-stage:not([data-season="regular"]) .bol-welcome-script{font-size:clamp(2.5rem,7vw,6rem)}
+    .bol-welcome-stage:not([data-season="regular"]) .bol-welcome-name{font-size:clamp(.9rem,1.8vw,1.35rem)}
+    .bol-season-snow{position:absolute;left:var(--x);top:-30px;color:#fff9e7;font-size:var(--s);opacity:.8;text-shadow:0 0 9px #fff9;animation:bolSnow var(--d) linear infinite;animation-delay:var(--delay)}
+    @keyframes bolSnow{from{transform:translate(0,-5vh) rotate(0deg)}to{transform:translate(var(--drift),800px) rotate(300deg)}}
+    .bol-season-spark{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#ffe3a0;box-shadow:0 0 10px 3px #e9b14d88;animation:bolSpark var(--d) ease-in-out infinite;animation-delay:var(--delay)}
+    @keyframes bolSpark{0%,100%{opacity:.13;transform:scale(.5)}50%{opacity:.95;transform:scale(1.3)}}
+    .bol-season-firework{position:absolute;left:var(--x);top:var(--y);width:0;height:0;animation:bolBurst 5s ease-out infinite;animation-delay:var(--delay)}
+    .bol-season-firework i{position:absolute;width:2px;height:65px;transform-origin:50% 0;transform:rotate(var(--angle)) translateY(12px);background:linear-gradient(#fff1bc, #dda74588,transparent)}
+    @keyframes bolBurst{0%,12%{transform:scale(.05);opacity:0}22%{opacity:.8}65%,100%{transform:scale(1.9);opacity:0}}
+    .bol-season-year{display:block;font:900 clamp(4rem,13vw,10rem)/1 Georgia,serif;color:#e8bf66;text-shadow:0 2px #fff1b5,0 5px #a77930,0 9px 18px #0009;letter-spacing:.04em;margin:.15em 0}
+    .bol-season-year[hidden]{display:none}
+    @media(max-width:600px){.bol-welcome-stage:not([data-season="regular"]) .bol-welcome-big{font-size:clamp(2rem,9vw,4rem)}.bol-welcome-stage:not([data-season="regular"]) .bol-welcome-script{font-size:clamp(2.3rem,10vw,4rem)}}
+    @media(prefers-reduced-motion:reduce){.bol-season-art *{animation:none!important}.bol-season-snow{top:var(--y)}.bol-season-firework{opacity:.25}.bol-season-spark{opacity:.45}}
+
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
 </head>
@@ -132,6 +155,56 @@
 
         
     </main>
+    <script>
+    (() => {
+      const stage = document.querySelector('.bol-welcome-stage');
+      if (!stage) return;
+      const dateFormatter = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Vienna',year:'numeric',month:'2-digit',day:'2-digit'});
+      function seasonForDate(date) {
+        const p = Object.fromEntries(dateFormatter.formatToParts(date).map(x=>[x.type,x.value]));
+        const key = p.year+'-'+p.month+'-'+p.day;
+        if(key >= '2026-12-01' && key <= '2026-12-28') return 'christmas';
+        if(key >= '2026-12-29' && key <= '2026-12-31') return 'crossover';
+        if(key >= '2027-01-01' && key <= '2027-01-31') return 'newyear';
+        return 'regular';
+      }
+      const big=stage.querySelector('.bol-welcome-big'), script=stage.querySelector('.bol-welcome-script'), name=stage.querySelector('.bol-welcome-name'), greet=stage.querySelector('.bol-welcome-greeting'), invite=stage.querySelector('.bol-welcome-invite');
+      const regular=[big.textContent,script.textContent,name.textContent,greet.textContent,invite.textContent];
+      const configs={
+        regular,
+        christmas:['JOY TO THE WORLD','Merry Christmas','Welcome to Beacon of Light Christian Fellowship Center Vienna',"We’re so glad you’re here.",'Join us as we celebrate the birth of Jesus Christ.'],
+        crossover:['CROSS OVER NIGHT','Into a New Year','Beacon of Light Christian Fellowship Center Vienna','31 December 2026','Join us in worship, prayer and thanksgiving.'],
+        newyear:['HAPPY NEW YEAR','Welcome to Beacon of Light','Christian Fellowship Center Vienna','May this year be filled with God’s goodness.','Join us for worship, prayer, and fellowship.']
+      };
+      const art=document.createElement('div');art.className='bol-season-art';art.setAttribute('aria-hidden','true');stage.prepend(art);
+      const year=document.createElement('span');year.className='bol-season-year';year.textContent='2027';year.hidden=true;big.after(year);
+      function render(){
+        const mode=seasonForDate(new Date());
+        if(stage.dataset.season===mode)return;
+        stage.dataset.season=mode;
+        [big,script,name,greet,invite].forEach((el,i)=>el.textContent=configs[mode][i]);
+        year.hidden=mode!=='newyear';
+        art.replaceChildren();art.hidden=mode==='regular';
+        const count=mode==='christmas'?52:mode==='regular'?0:38;
+        for(let i=0;i<count;i++){
+          const el=document.createElement('span');
+          el.className=mode==='christmas'?'bol-season-snow':'bol-season-spark';
+          if(mode==='christmas')el.textContent=['❄','❅','❆','·'][i%4];
+          const values={'--x':((i*37+5)%100)+'%','--y':((i*23+9)%100)+'%','--s':(mode==='christmas'?8+i%17:2+i%5)+'px','--d':(8+i%11)+'s','--delay':(-i*.71)+'s','--drift':(i%2?65:-60)+'px'};
+          for(const [k,v] of Object.entries(values))el.style.setProperty(k,v);
+          art.append(el);
+        }
+        if(mode==='crossover'||mode==='newyear')for(let j=0;j<5;j++){
+          const burst=document.createElement('span');burst.className='bol-season-firework';
+          burst.style.setProperty('--x',[12,85,23,78,92][j]+'%');burst.style.setProperty('--y',[20,25,72,70,48][j]+'%');burst.style.setProperty('--delay',(-j*1.17)+'s');
+          for(let k=0;k<16;k++){const ray=document.createElement('i');ray.style.setProperty('--angle',(k*22.5)+'deg');burst.append(ray)}
+          art.append(burst);
+        }
+      }
+      render();setInterval(render,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
+    })();
+    </script>
+
 
     <footer>© <span class="current-year">2026</span> Beacon of Light Christian Fellowship Center Vienna</footer>
 <script src="church-library.js" defer></script></body>
