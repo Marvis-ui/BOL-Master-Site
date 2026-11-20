@@ -6,7 +6,7 @@ Decorative stock photos, not documentary photographs of Beacon of Light members,
 | --- | --- | --- | --- |
 | about.html | Lighthouse under a starry sky | Nathan Jennings | [Unsplash](https://unsplash.com/photos/VsPsf4F5Pi0) |
 | archive.html | Books and memories | Laura Ohlman | [Unsplash](https://unsplash.com/photos/a-stack-of-books-qRtcb9wHG40) |
-| beacon-of-hope.html | Volunteers distributing food | Photographer not recorded in project notes | [Unsplash image CDN](https://images.unsplash.com/photo-1593113598332-cd288d649433) |
+| beacon-of-hope.html | Helping hands in a church | Supplied by the church/user | User-provided image stored in `images/Beacon of hope_ helping hands (1).png` |
 | bible-study.html | Open Bible | Humble Lamb | [Unsplash](https://unsplash.com/photos/open-bible-on-wooden-desk-HujL5cnFHws) |
 | calendar.html | Congregation in worship | Drew Walker | [Unsplash](https://unsplash.com/photos/a-group-of-people-standing-in-a-room-with-their-hands-up-vNk2b1rkly0) |
 | contact.html | Vienna cityscape | Vladyslav Vedernikov | [Unsplash](https://unsplash.com/photos/architectural-photography-of-white-and-brown-houses-Ix3mf0Efwus) |
@@ -24,4 +24,4 @@ Homepage and chess artwork were supplied separately by the church/user and are u
 
 - Church Calendar: desk calendar photograph by Yaqing Wei, https://unsplash.com/photos/211NmLyOzYU (Unsplash License).
 - About: lighthouse casting a beam beneath the stars, Nathan Jennings, https://unsplash.com/photos/VsPsf4F5Pi0 (Unsplash License). The lighthouse is reserved for the About page.
-- Beacon of Hope: volunteers distributing food, served from the Unsplash CDN image photo-1593113598332-cd288d649433. This replaces the lighthouse on the charity page. The photographer metadata was not recorded in the project notes.
+- Beacon of Hope: helping hands at church, using the image supplied by the church/user. The lighthouse remains reserved for the About page.
