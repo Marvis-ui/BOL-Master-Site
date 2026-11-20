@@ -4,7 +4,10 @@
 window.BOL_GALLERY_ALBUMS = [
     { title: "BOL Church Anniversary", category: "Special Events", cover: "", symbol: "✦", description: "Celebrating God's faithfulness together on the first Sunday of August.", driveUrl: "" },
     { title: "Annual Summer Picnic", category: "Annual Picnic", cover: "", symbol: "☀", description: "Food, games, and outdoor fellowship with the entire church family.", driveUrl: "" },
-    { title: "BOL Chess Championship", category: "Chess Championship", cover: "", symbol: "♞", description: "Memories from our annual August chess championship.", driveUrl: "" }
+    { title: "BOL Chess Championship", category: "Chess Championship", cover: "", symbol: "♞", description: "Memories from our annual August chess championship.", driveUrl: "" },
+    { title: "Shared Church Album 1", category: "Shared Albums", cover: "", symbol: "✧", description: "Photographs shared by our church family.", driveUrl: "https://photos.app.goo.gl/oSQSwfvKrzyBZJBo6" },
+    { title: "Shared Church Album 2", category: "Shared Albums", cover: "", symbol: "✧", description: "Photographs shared by our church family.", driveUrl: "https://photos.app.goo.gl/2f9TnEXDdTWxZ5PX9" },
+    { title: "Shared Church Album 3", category: "Shared Albums", cover: "", symbol: "✧", description: "Photographs shared by our church family.", driveUrl: "https://photos.app.goo.gl/48BDorZa4daVFPZ89" }
 ];
 
 (function () {
@@ -16,9 +19,10 @@ window.BOL_GALLERY_ALBUMS = [
     function folderUrl(value) {
         try {
             const url = new URL(value);
-            return url.protocol === "https:" && url.hostname === "drive.google.com" &&
-                !url.username && !url.password &&
-                /^\/(?:drive\/(?:u\/\d+\/)?)?folders\/[a-zA-Z0-9_-]+\/?$/.test(url.pathname) ? url.href : "";
+            if (url.protocol !== "https:" || url.username || url.password || url.search || url.hash) return "";
+            if (url.hostname === "photos.app.goo.gl" && /^\/[a-zA-Z0-9_-]+\/?$/.test(url.pathname)) return url.href;
+            if (url.hostname === "drive.google.com" && /^\/(?:drive\/(?:u\/\d+\/)?)?folders\/[a-zA-Z0-9_-]+\/?$/.test(url.pathname)) return url.href;
+            return "";
         } catch (_) { return ""; }
     }
     function render(category) {
@@ -29,7 +33,7 @@ window.BOL_GALLERY_ALBUMS = [
             card.className = "photo-card" + (url ? "" : " album-pending");
             if (url) {
                 card.href = url; card.target = "_blank"; card.rel = "noopener noreferrer";
-                card.setAttribute("aria-label", "Open " + album.title + " in Google Drive (opens in a new tab)");
+                card.setAttribute("aria-label", "Open " + album.title + " (opens in a new tab)");
             }
             const frame = document.createElement("div"); frame.className = "photo-frame";
             if (album.cover) {
@@ -47,7 +51,7 @@ window.BOL_GALLERY_ALBUMS = [
             const title = document.createElement("h3"); title.textContent = album.title;
             const description = document.createElement("p"); description.textContent = album.description;
             const status = document.createElement("span"); status.className = "album-status";
-            status.textContent = url ? "View album on Google Drive ↗" : "Album coming soon";
+            status.textContent = url ? "Open photo album ↗" : "Album coming soon";
             info.append(label, title, description, status);
             card.append(frame, info); grid.append(card);
         });
