@@ -16,14 +16,14 @@ function render(){
  const r=devotionals[index];
  if(!r){host.append(make("p","No devotionals have been published yet."));}
  else {
- host.append(make("p",format(r.date),"eyebrow"),make("h2",r.title));
+ host.append(make("p",r.endDate ? format(r.date)+" — "+format(r.endDate) : format(r.date),"eyebrow"),make("h2",r.title));
  if(r.scripture)host.append(make("p",r.scripture,"hop-scripture"));
  if(r.quote)host.append(make("blockquote",r.quote,"hop-main-quote"));
  if(r.story)host.append(make("h3","Introduction"),make("p",r.story,"hop-story"));
  if(r.lessons&&r.lessons.length){host.append(make("h3","Key lessons"));const list=make("ol",null,"hop-lessons");r.lessons.forEach(t=>list.append(make("li",t)));host.append(list);}
  if(r.referenceUrl){try{const u=new URL(r.referenceUrl);if(u.protocol==="https:"){const link=make("a",r.referenceTitle||"Explore the reference","button-secondary");link.href=u.href;link.target="_blank";link.rel="noopener noreferrer";host.append(link);}}catch{}}
  }
- devotionals.forEach((entry,i)=>{const b=make("button",null,"hop-archive-item");b.type="button";b.setAttribute("aria-pressed",String(i===index));b.append(make("span",format(entry.date)),make("strong",entry.title));b.onclick=()=>{index=i;render();host.scrollIntoView({block:"nearest"});};archive.append(b);});
+ devotionals.forEach((entry,i)=>{const b=make("button",null,"hop-archive-item");b.type="button";b.setAttribute("aria-pressed",String(i===index));b.append(make("span",entry.endDate ? format(entry.date)+" — "+format(entry.endDate) : format(entry.date)),make("strong",entry.title));b.onclick=()=>{index=i;render();host.scrollIntoView({block:"nearest"});};archive.append(b);});
  if(!devotionals.length)archive.append(make("p","Previous devotionals will appear here."));
 
 }
