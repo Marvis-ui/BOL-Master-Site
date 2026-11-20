@@ -20,6 +20,22 @@
     .essential-book .book-author{color:var(--green);font-weight:700}
     .essential-book .book-topic{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
     .essential-book a{margin-top:auto;font-weight:700;color:var(--green)}
+    .featured-essential-reading{margin:1.5rem 0 2.4rem}
+    .featured-essential-link{display:grid;grid-template-columns:minmax(195px,290px) 1fr;align-items:center;gap:clamp(1.5rem,5vw,3rem);background:var(--surface-raised);border:1px solid var(--line);border-radius:22px;padding:clamp(1.2rem,4vw,2.3rem);color:var(--ink);text-decoration:none;box-shadow:0 15px 40px color-mix(in srgb,var(--green) 10%,transparent)}
+    .featured-essential-link:hover{border-color:var(--accent);box-shadow:0 20px 50px color-mix(in srgb,var(--accent) 25%,transparent)}
+    .believing-cover{aspect-ratio:3/4.3;display:flex;flex-direction:column;gap:.5rem;align-items:center;justify-content:space-around;padding:1.4rem 1.1rem;background:linear-gradient(130deg,#11110d,#29271e 50%,#12120f);border:2px solid #c4a052;border-left:10px solid #090907;border-right:6px solid #766c54;border-radius:7px 16px 16px 7px;color:#fff6dd;text-align:center;box-shadow:12px 15px 28px #0004;overflow:hidden}
+    .believing-cover-top{font:700 .6rem/1.4 Georgia,serif;letter-spacing:.12em;color:#d4af37}
+    .believing-cover-title{font:800 clamp(1.1rem,2vw,1.65rem)/1.2 Georgia,serif;letter-spacing:.025em;color:#fff;text-shadow:0 2px 10px #000}
+    .believing-cover-title em{font-style:normal;color:#f5e6c8}
+    .believing-cover-subtitle{font:italic .75rem/1.5 Georgia,serif;color:#e6d8bd}
+    .believing-cover-author{font:700 .72rem/1.5 Georgia,serif;color:#e8cf91}
+    .believing-cover img{width:100%;height:30%;object-fit:cover;border:2px solid #d4af37;border-radius:8px}
+    .believing-cover-bottom{font:700 .62rem/1.5 Georgia,serif;letter-spacing:.07em;color:#d4af37}
+    .featured-essential-copy h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;margin:.6rem 0 1rem}
+    .featured-essential-copy p{line-height:1.75;color:var(--muted);margin:0 0 1rem}
+    .featured-essential-copy .featured-essential-by{color:var(--green);font-weight:700}
+    .featured-essential-cta{display:inline-flex;padding:.85rem 1.1rem;background:var(--green);color:var(--on-hero);border-radius:100px;font-weight:700}
+    @media(max-width:640px){.featured-essential-link{grid-template-columns:1fr}.believing-cover{max-width:260px;margin:auto}}
     </style>
 </head>
 <body data-theme="midnight">
@@ -49,6 +65,25 @@
             <span class="eyebrow">Youth · Hour of Power</span>
             <h1>Essential Readings</h1>
             <p>Good books open up new questions, strengthen our judgment and help us grow. Explore books on money, purpose and wise living, and read at your own pace.</p>
+        </section>
+        <section class="featured-essential-reading" aria-labelledby="featured-essential-title">
+          <a href="https://believinglies.previewnest.site/" class="featured-essential-link" target="_blank" rel="noopener noreferrer">
+            <div class="believing-cover" role="img" aria-label="The Danger of Believing Lies, original digital book hardcover design">
+              <span class="believing-cover-top">1 KINGS 13 · SCRIPTURAL TREATISE</span>
+              <strong class="believing-cover-title">THE DANGER OF<br><em>BELIEVING LIES</em></strong>
+              <span class="believing-cover-subtitle">Lessons from the Old and Young Prophet in Bethel</span>
+              <span class="believing-cover-author">Pastor Cecilia Oluwatoyin Fayefunmi</span>
+              <img src="https://raw.githubusercontent.com/onlinefirst2026-beep/Book-BelievingLies/main/src/assets/images/book_cover_realistic_1787927587327.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" />
+              <span class="believing-cover-bottom">SCRIPTURAL STUDY EDITION · 2026</span>
+            </div>
+            <div class="featured-essential-copy">
+              <span class="eyebrow">Featured book · Hour of Power</span>
+              <h2 id="featured-essential-title">The Danger of Believing Lies</h2>
+              <p class="featured-essential-by">By Pastor Cecilia Oluwatoyin Fayefunmi</p>
+              <p>Our ongoing Sunday reading and devotional series explores spiritual discernment and truth through 1 Kings 13. We read and discuss the book chapter by chapter, from August 2026 through March 2027.</p>
+              <span class="featured-essential-cta">Open the original digital book ↗</span>
+            </div>
+          </a>
         </section>
         <section class="hop-library" aria-labelledby="reading-title">
             <div class="section-heading">
