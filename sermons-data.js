@@ -1,16 +1,5 @@
 window.BOL_SERMONS = [
   {
-    "id": "standing-firm-under-pressure",
-    "title": "Standing Firm Under Pressure",
-    "speaker": "BOL Youth Team",
-    "date": "2026-11-08",
-    "category": "Hour of Power",
-    "scripture": "Daniel 3:16–18",
-    "summary": "Lessons from Shadrach, Meshach, and Abednego on staying bold in your faith when facing peer pressure.",
-    "pdfUrl": "",
-    "body": ""
-  },
-  {
     "id": "guarding-your-mind-and-purpose",
     "title": "Guarding Your Mind & Purpose",
     "speaker": "BOL Youth Team",
