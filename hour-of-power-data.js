@@ -266,5 +266,22 @@ window.BOL_HOUR_OF_POWER = [
     "referenceTitle": "",
     "lessons": [],
     "published": true
+  },
+  {
+    "kind": "devotional",
+    "id": "believing-lies-aug2026-mar2027",
+    "title": "The Danger of Believing Lies — Sunday Reading & Devotional Series",
+    "date": "2026-08-30",
+    "endDate": "2027-03-28",
+    "series": true,
+    "scripture": "1 Kings 13:1–32",
+    "quote": "",
+    "story": "Our Hour of Power Sunday devotional series is based on The Danger of Believing Lies by Pastor Cecilia Oluwatoyin Fayefunmi. Starting in August 2026 and continuing through March 2027, we read and discuss the book one chapter at a time, reflecting on biblical truth, spiritual discernment and what it means for our everyday choices.",
+    "speaker": "Pastor Cecilia Oluwatoyin Fayefunmi",
+    "theme": "Faith, truth and discernment",
+    "referenceTitle": "Read The Danger of Believing Lies",
+    "referenceUrl": "https://believinglies.previewnest.site/",
+    "lessons": [],
+    "published": true
   }
 ];
