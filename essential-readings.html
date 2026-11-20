@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Essential books for personal growth and financial literacy at Beacon of Light Christian Fellowship Center Vienna.">
+    <title>Essential Readings | Beacon of Light Vienna</title>
+    <link rel="icon" href="images/bol-logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="bolwebstyle.css">
+    <script src="bolsite.js" defer></script>
+    <script src="hour-of-power-data.js" defer></script>
+    
+    <link rel="stylesheet" href="hour-of-power.css">
+    <link rel="stylesheet" href="page-banners.css">
+    <style>
+    .essential-books-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1.2rem;margin:1rem 0 2rem}
+    .essential-book{padding:1.65rem;border-radius:18px;background:var(--surface-raised);border:1px solid var(--line);border-top:5px solid var(--green);display:flex;flex-direction:column;gap:.75rem;min-height:215px}
+    .essential-book h3{font:700 clamp(1.25rem,2.5vw,1.7rem)/1.2 Georgia,serif;color:var(--ink);margin:0}
+    .essential-book p{margin:0;line-height:1.6;color:var(--muted)}
+    .essential-book .book-author{color:var(--green);font-weight:700}
+    .essential-book .book-topic{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+    .essential-book a{margin-top:auto;font-weight:700;color:var(--green)}
+    </style>
+</head>
+<body data-theme="midnight">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <a class="logo" href="index.html" aria-label="Beacon of Light home">
+            <img src="images/bol-logo.jpg" alt="">
+            <span class="logo-name">BEACON OF LIGHT<span>CHRISTIAN FELLOWSHIP CENTER · VIENNA</span></span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a><a href="about.html">About</a><a href="calendar.html">Activities</a>
+            <a href="bible-study.html">Bible Study</a><a href="hour-of-power.html">Hour of Power</a>
+            <details class="nav-more"><summary>More</summary><div class="nav-more-menu">
+                <a href="daily-quotes.html">Daily Quotes</a>
+                <a href="sermons.html">Sermons</a><a href="chess.html">Chess</a>
+                <a href="gallery.html">Fellowship &amp; Memories</a><a href="archive.html">Archive</a><a href="beacon-of-hope.html">Beacon of Hope</a><a href="contact.html">Contact</a>
+            </div></details>
+        </nav>
+        <div class="theme-switch" role="group" aria-label="Choose a color theme">
+            <span class="theme-switch-label">Theme</span>
+            <button class="theme-btn" type="button" data-theme-choice="midnight" aria-pressed="true">Midnight &amp; Gold</button>
+            <button class="theme-btn" type="button" data-theme-choice="olive" aria-pressed="false">Olive &amp; Clay</button>
+        </div>
+    </header>
+    <main class="container" id="main">
+        <section class="page-hero photo-banner banner-learning">
+            <span class="eyebrow">Youth · Hour of Power</span>
+            <h1>Essential Readings</h1>
+            <p>Good books open up new questions, strengthen our judgment and help us grow. Explore books on money, purpose and wise living, and read at your own pace.</p>
+        </section>
+        <section class="hop-library" aria-labelledby="reading-title">
+            <div class="section-heading">
+                <div><span class="eyebrow">Our recommended reading shelf</span><h2 id="reading-title">Books worth exploring</h2></div>
+                <p>Selected books for lifelong learning. The church editor can add new titles as the list grows.</p>
+            </div>
+            <div id="essential-books" class="essential-books-grid" aria-live="polite"></div>
+            <p><a href="hour-of-power.html#books-we-read">← Return to our Sunday reading series</a></p>
+            <p class="hop-editor-link"><a href="admin/hour-of-power.html">Church editor · Add a book</a></p>
+        </section>
+    </main>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+const host=document.getElementById("essential-books");
+if(!host)return;
+const records=(Array.isArray(window.BOL_HOUR_OF_POWER)?window.BOL_HOUR_OF_POWER:[]).filter(r=>r.kind==="reading"&&r.published===true);
+host.replaceChildren();
+const e=(tag,text,cls)=>{const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n;};
+if(!records.length){host.append(e("p","The recommended reading list is being prepared."));return;}
+records.forEach(book=>{
+const card=e("article",null,"essential-book");
+card.append(e("span",book.theme||"Recommended reading","book-topic"),e("h3",book.title),e("p",book.speaker||"","book-author"));
+if(book.story)card.append(e("p",book.story));
+if(book.referenceUrl){try{const url=new URL(book.referenceUrl);if(url.protocol==="https:"){const link=e("a","Explore this book ↗");link.href=url.href;link.target="_blank";link.rel="noopener noreferrer";card.append(link);}}catch{}}
+host.append(card);
+});
+});
+</script>
+    <footer>© <span class="current-year">2026</span> Beacon of Light Christian Fellowship Center Vienna</footer>
+</body>
+</html>
