@@ -8,3 +8,13 @@
 .hop-quote-controls button:hover:not(:disabled){color:var(--hero-highlight)}
 .hop-quote-controls button:focus-visible{outline:2px solid var(--hero-highlight);outline-offset:3px}
 .hop-quote-controls button:disabled{opacity:.45;cursor:default}
+
+/* Ongoing Sunday book discussion */
+.hop-book-series-note{line-height:1.75;max-width:80ch;padding:1.15rem 1.4rem;border-left:4px solid var(--accent);background:var(--green-soft);border-radius:0 12px 12px 0;color:var(--ink);margin:1rem 0 1.4rem}
+.hop-chapter-section{margin:2rem 0 1rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.hop-chapter-section > p{color:var(--muted);max-width:75ch}
+#hop-book-discussions{margin:1.25rem 0}
+#hop-book-discussions .hop-archive-item{background:var(--surface-raised)}
+#hop-book-discussions .hop-archive-item .hop-lessons{margin:1rem 0 0}
+.hop-reading-link{margin:2rem 0 0}
+.hop-reading-link a{display:inline-flex;align-items:center;font-weight:700;text-decoration:none}
