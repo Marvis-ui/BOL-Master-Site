@@ -31,21 +31,6 @@ byId("hop-prev").onclick=()=>{if(index<devotionals.length-1){index++;render();}}
 byId("hop-next").onclick=()=>{if(index>0){index--;render();}};
 render();
 
-// Book discussion notes are separate from the original youth devotionals.
-const bookDiscussions=sorted.filter(r=>r.kind==="book-discussion");
-const bookHost=byId("hop-book-discussions");
-if(bookHost){
-  bookHost.replaceChildren();
-  if(!bookDiscussions.length) bookHost.append(make("p","Chapter reflections will appear here as the church editor publishes them."));
-  bookDiscussions.forEach(r=>{
-    const card=make("article",null,"hop-archive-item");
-    card.append(make("span",format(r.date)),make("strong",r.title));
-    if(r.scripture) card.append(make("p",r.scripture,"hop-scripture"));
-    if(r.story) card.append(make("p",r.story,"hop-story"));
-    if(r.lessons?.length){const list=make("ol",null,"hop-lessons");r.lessons.forEach(t=>list.append(make("li",t)));card.append(list);}
-    bookHost.append(card);
-  });
-}
 let quoteIndex=0;
 const quoteHost=byId("hop-weekly-quote");
 quoteHost.hidden=!quotes.length;
