@@ -320,8 +320,8 @@ module.exports = async function handler(req, res) {
         if (input[key] != null && typeof input[key] !== "string") return send(res, 400, { error: "Invalid " + key });
         record[key] = (input[key] || "").trim();
       }
-      if (!["devotional","quote"].includes(record.kind) || !/^[a-zA-Z0-9_-]{1,120}$/.test(record.id) || !/^\d{4}-\d{2}-\d{2}$/.test(record.date) || Number.isNaN(Date.parse(record.date+"T12:00:00Z")) || new Date(record.date+"T12:00:00Z").toISOString().slice(0,10)!==record.date) return send(res,400,{error:"Invalid record type, ID or date."});
-      if (record.kind === "devotional" && (!record.title || !record.scripture) || record.kind === "quote" && !record.quote) return send(res,400,{error:"Enter the title and Scripture, or quote text."});
+      if (!["devotional","quote","reading","book-discussion"].includes(record.kind) || !/^[a-zA-Z0-9_-]{1,120}$/.test(record.id) || !/^\d{4}-\d{2}-\d{2}$/.test(record.date) || Number.isNaN(Date.parse(record.date+"T12:00:00Z")) || new Date(record.date+"T12:00:00Z").toISOString().slice(0,10)!==record.date) return send(res,400,{error:"Invalid record type, ID or date."});
+      if ((record.kind === "devotional" && (!record.title || !record.scripture)) || (record.kind === "quote" && !record.quote) || (["reading","book-discussion"].includes(record.kind) && !record.title)) return send(res,400,{error:"Enter the title and Scripture, or quote text."});
       if (Object.entries(record).some(([k,v])=>v.length>(k==="story"?50000:k==="quote"?10000:k==="referenceUrl"?2000:300))) return send(res,400,{error:"A field exceeds its maximum length."});
       if (!Array.isArray(input.lessons) || input.lessons.length>50 || input.lessons.some(t=>typeof t!=="string" || t.length>3000)) return send(res,400,{error:"Invalid lesson list."});
       record.lessons=input.lessons.map(t=>t.trim()).filter(Boolean);

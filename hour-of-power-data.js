@@ -1,4 +1,3 @@
-// Original youth devotionals recovered from BOLYouthHub Supabase; previously published quotes retained.
 window.BOL_HOUR_OF_POWER = [
   {
     "kind": "devotional",
@@ -218,6 +217,51 @@ window.BOL_HOUR_OF_POWER = [
     "story": "",
     "speaker": "Sister Evelyne Onyedikachi",
     "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [],
+    "published": true
+  },
+  {
+    "kind": "reading",
+    "id": "essential-reading-1",
+    "title": "Rich Dad Poor Dad",
+    "date": "2026-11-20",
+    "scripture": "",
+    "quote": "",
+    "story": "Money, financial literacy and how we think about assets and income.",
+    "speaker": "Robert T. Kiyosaki",
+    "theme": "Financial literacy",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [],
+    "published": true
+  },
+  {
+    "kind": "reading",
+    "id": "essential-reading-2",
+    "title": "Retire Before Mom and Dad",
+    "date": "2026-11-20",
+    "scripture": "",
+    "quote": "",
+    "story": "A practical introduction to saving, investing and financial independence.",
+    "speaker": "Rob Berger",
+    "theme": "Financial literacy",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [],
+    "published": true
+  },
+  {
+    "kind": "reading",
+    "id": "essential-reading-3",
+    "title": "The Richest Man in Babylon",
+    "date": "2026-11-20",
+    "scripture": "",
+    "quote": "",
+    "story": "Timeless stories on saving, stewardship and building financial habits.",
+    "speaker": "George S. Clason",
+    "theme": "Financial literacy",
     "referenceUrl": "",
     "referenceTitle": "",
     "lessons": [],
