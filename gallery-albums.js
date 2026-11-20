@@ -75,8 +75,12 @@ window.BOL_UNMATCHED_ALBUM_LINKS = [
   const albums = window.BOL_GALLERY_ALBUMS;
   const filters = [...document.querySelectorAll("[data-album-filter]")];
   function safeAlbumUrl(value) {
-    try { const u=new URL(value); return u.protocol==="https:" && u.hostname==="photos.app.goo.gl" && /^\\/[A-Za-z0-9_-]+\\/?$/.test(u.pathname) && !u.username && !u.password && !u.search ? u.href : ""; }
-    catch {return "";}
+    try {
+      const u = new URL(value);
+      if(u.protocol!=="https:" || u.hostname!=="photos.app.goo.gl" || u.username || u.password || u.search || u.hash) return "";
+      const slug=u.pathname.replace(/^\/+|\/+$/g,"");
+      return /^[A-Za-z0-9_-]+$/.test(slug) ? u.href : "";
+    } catch {return "";}
   }
   function element(tag,text,cls) { const e=document.createElement(tag); if(text)e.textContent=text; if(cls)e.className=cls;return e; }
   function render(category) {
