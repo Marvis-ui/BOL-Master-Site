@@ -1,4 +1,183 @@
+// Original youth devotionals recovered from BOLYouthHub Supabase; previously published quotes retained.
 window.BOL_HOUR_OF_POWER = [
+  {
+    "kind": "devotional",
+    "id": "e0805118-a0e6-41fc-81e9-bae1a83b77ab",
+    "title": "2026 Goal Setting Devotional",
+    "date": "2026-01-18",
+    "scripture": "The plans of the diligent lead surely to abundance, but everyone who is hasty comes only to poverty. Proverbs 21:5",
+    "quote": "The man who moves a mountain begins by carrying away small stones",
+    "story": "A young builder once told his mentor, “I want to change my life this year.” The mentor took him to a field full of scattered stones and pointed to a pile in the distance. “Move that pile to the other side,” he said. The young builder stared at the mountain of stones and felt overwhelmed. So he did what most people do—he tried a little, got tired, got distracted, and came back the next day with the same heavy feeling.\n\nOn the third day, the mentor placed three small baskets on the ground. “Choose only three,” he said. “Not ten baskets. Not twenty. Just three.” The young builder picked three baskets and wrote on each one what mattered most to him. The mentor added, “Now pray over these. Ask God for wisdom. Don’t chase everything—choose what truly matters.”\n\nThen the mentor drew a simple path in the sand: Quarterly → Monthly → Weekly. “This is how mountains move,” he said. “You don’t carry the whole pile at once. You set quarterly milestones so you don’t lose direction. You plan monthly actions so you keep your pace. And you make weekly commitments so you stay accountable.”\n\nSo the young builder worked differently. Each week, he moved a small number of stones—nothing dramatic, but consistent. Every month, he reviewed his progress and adjusted his approach. Every quarter, he stepped back, checked his direction, and recommitted. Weeks turned into months, and months turned into visible change. The pile began to shrink. Momentum replaced stress.\n\nOne day he realized the real miracle: God had strengthened his focus, not just his muscles. And the mentor said, “God can do more with one focused year than we can do with ten distracted ones. Measure what matters, review it regularly, and you’ll improve. Don’t wait for motivation—build habits, and momentum will come.”",
+    "speaker": "",
+    "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [
+      "Keep it simple: set a maximum of 3 goals for 2026.",
+      "Write them down. Pray over them. Choose what truly matters.",
+      "Then break each goal into SMART steps: Quarterly → Monthly → Weekly.",
+      "Quarterly milestones keep your direction clear; Monthly actions keep your pace steady; Weekly commitments keep you accountable.",
+      "Small and consistent changes build big results over time.",
+      "Track progress: weekly check-in, monthly review, quarterly evaluation.",
+      "What gets measured gets improved—and what’s reviewed gets done.",
+      "Don’t wait for motivation; build habits and let momentum grow."
+    ],
+    "published": true
+  },
+  {
+    "kind": "devotional",
+    "id": "c462af9a-80bb-4742-a8a6-2473d93f897a",
+    "title": "Keep Going: Consistency Over Speed",
+    "date": "2026-01-25",
+    "scripture": "Look straight ahead, and fix your eyes on what lies before you.",
+    "quote": "It does not matter how slowly you go as long as you do not stop by confucius",
+    "story": "Today, let’s continue our 2026 goals with one simple truth: progress is still progress, even when it feels slow. Some weeks you’ll be strong, other weeks you’ll feel tired, busy, or distracted—but your future is shaped by the days you choose to keep moving anyway. This is why your weekly commitments matter: they protect your goal when motivation fades.\n\nConfucius said, “It does not matter how slowly you go as long as you do not stop.” That mindset is spiritual too—faithfulness is often quiet and repetitive. If you can’t do everything, do the next right step. Keep your goals SMART, keep your plan simple, and keep showing up: a weekly check-in, a monthly review, and a quarterly evaluation. Consistency is not speed; it’s refusal to quit.\n",
+    "speaker": "",
+    "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [
+      "Slow progress is still progress—don’t stop; You don’t need speed; you need steadiness—keep moving, don’t stop.",
+      "Consistency beats intensity: small steps done weekly become big results.",
+      "Fix your focus: looking “straight ahead” protects your top 3 goals from distractions.",
+      "Turn big dreams into a path: Quarterly direction → Monthly rhythm → Weekly action.",
+      "Measure and review: what you track improves; what you review gets done.",
+      "When motivation is low, lean on discipline—habits create momentum."
+    ],
+    "published": true
+  },
+  {
+    "kind": "devotional",
+    "id": "ce3760bc-4021-4ad3-9cd8-74399d24d1e4",
+    "title": "Travel Light: Humility, Pace, and Endurance",
+    "date": "2026-02-01",
+    "scripture": "Since we are surrounded by so many examples [of faith], we must get rid of everything that slows us down, especially sin that distracts us. We must run the race that lies ahead of us and never give up. Hebrews 12:1",
+    "quote": "Those who stand on tiptoes cannot stand for long. Those who take giant strides, cannot walk very far. Those who show off, do not shine. Those who insist they are right, are not enlightened. Those who boast, achieve nothing lasting. Those who brag, will not endure.",
+    "story": "A man set out on a mountain trek with a backpack so packed it looked like a trophy. Some items were useful, but many were “image items”—extra gear he didn’t know how to use, flashy tools he wanted others to notice, and even space reserved for souvenirs he planned to show off later. He wasn’t just preparing for the climb; he was preparing to be admired on the climb.\n\nAt the first steep section, he noticed a few hikers moving faster, and something in him panicked. He didn’t want to look ordinary, so he began **walking on tiptoes**—stretching himself to make the hike look like a child’s play, as if the slope had no effect on him. He kept his posture high and his face relaxed, pretending it was effortless. Then, to prove he was strong, he started taking **giant strides**—skipping steps, pushing ahead, forcing speed instead of keeping rhythm. For a moment, it looked impressive. People glanced. He felt seen.\n\nBut pride always charges interest.\n\nHis breathing changed first—shorter, sharper. The giant strides that once looked powerful began to steal his balance. His knees took more impact than they were designed for. The tiptoe posture tightened his calves and made his footing unstable on loose gravel. He started making small mistakes—slipping slightly, catching himself, wasting energy. Then the stops began: “Just a quick rest.” But each rest became longer than the last, and each restart felt heavier than the previous one. Not because the mountain got bigger—because his *burdens* did.\n\nHalfway up, an older hiker matched his pace without competing. After watching him struggle, the older man said quietly, “Your legs aren’t the issue. **Your load is.**” Then he nodded at the backpack and asked one question: “Which of these things actually helps you reach the summit?”\n\nThat question exposed more than the bag—it exposed the heart.\n\nSo the man began to unload, one piece at a time. Not only objects, but the attitudes behind them:\n\n1) the need to be noticed (showing off),\n2) the need to prove strength (giant strides),\n3) the habit of performing (tiptoes),\n4) the stubborn insistence on being right (refusing correction),\n5)  and the noise of boasting (talking big instead of walking steady).\n\nWith every unnecessary item removed, his shoulders dropped, his breathing deepened, and his steps became sure. His pace slowed—but he stopped collapsing. He found a sustainable rhythm: one step, then another, then another. And something surprising happened: the hikers he once tried to impress were far ahead, but he was no longer chasing them. He was finally **finishing**.",
+    "speaker": "",
+    "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [
+      "Don’t live on tiptoes. A life built on impressing people can’t last long—choose stability over performance.",
+      "Avoid giant strides. Rushing without wisdom burns energy fast; steady pace builds endurance.",
+      "Stop showing off. Real impact doesn’t need noise—true fruit speaks for itself.",
+      "Release the need to be right. Humility keeps your heart teachable; pride blocks growth.",
+      "Don’t boast—build. Loud declarations don’t equal lasting results; consistent work does.",
+      "Drop the extra weight. Anything that feeds ego but drains discipline must be laid aside, so you can run your race well."
+    ],
+    "published": true
+  },
+  {
+    "kind": "devotional",
+    "id": "95c0b0bc-41d6-430b-8abd-d77863993cab",
+    "title": "Relationships 101: Know What You’re Building",
+    "date": "2026-02-08",
+    "scripture": "Keep company with the wise and you will become wise. If you make friends with stupid people, you will be ruined. Proverbs 13:20",
+    "quote": "Not everyone deserves front-row access to your heart. Wisdom assigns the right distance.",
+    "story": "A teenager got a new phone and joined every group chat: class chat, sports chat, meme chat, “besties” chat, even strangers from a trending page. At first, it felt like connection—messages nonstop, emojis, attention, “you’re my guy!” But when exam week came, the “friends” disappeared. When he shared a fear, it became content for jokes. And when he tried to set boundaries, they called him boring.\nThat’s when he realized something important: not every connection deserves the same access to your heart. Some people can know your name, some can know your story, and only a few should be trusted with your wounds, your dreams, and your future. Wisdom is knowing what kind of relationship you’re building—and giving it the right level of trust.\n\nThe 5 Relationship Levels (Expanded)\n\n1) Acquaintance (Knowing / Familiar)\nThis is the person you recognize—classmate, neighbor, someone from church, online contact, teammate. You can greet them, be kind, and talk about general things. But they have not earned deep trust yet.\nAccess level: your time in public spaces.\nSigns: friendly, casual, limited history.\nCaution: don’t overshare or borrow their values too quickly.\n\n2) Friend (Shared life / Mutual respect)\nA friend is someone you know beyond surface talk. You’ve shared moments, laughed, learned, and seen some character. They respect you and your boundaries.\nAccess level: your thoughts, normal struggles, and daily life.\nSigns: consistency, respect, honesty, good influence.\nCaution: a friend should help you become better, not just busier.\n\n3) Close Friend (Trusted circle / Inner room)\nThis is your small circle—people who have proven loyalty over time. They don’t only celebrate you; they also correct you with love. They don’t compete with you; they cover you.\nAccess level: your fears, your plans, your weaknesses, your private battles.\nSigns: confidentiality, accountability, selfless support, stable character.\nCaution: your inner circle should be few—because access is powerful.\n\n4) Mentor / Parent (Guidance / Protection)\nMentors and parents aren’t just companions; they are guardrails. They can see what you don’t see because of experience, love, and responsibility. They ask hard questions not to control you, but to protect your destiny.\nAccess level: your decisions, direction, and growth.\nSigns: wisdom, correction, patience, long-term vision, sacrifice.\nCaution: don’t reject guidance because it is uncomfortable—sometimes discomfort is safety.\n\n5) Covenant (Family / Marriage – Lifetime commitment)\nCovenant relationships are not casual. They are built on commitment, responsibility, and faithfulness. Family is covenant by blood; marriage is covenant by promise. Covenant is the highest level of trust because it carries long-term consequences.\nAccess level: your future, identity, resources, and legacy.\nSigns: commitment, sacrifice, accountability, shared values, endurance.\nCaution: never treat covenant like a “vibe.” Covenant requires maturity, counsel, and time.",
+    "speaker": "",
+    "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [
+      "Every relationship has a level—don’t give everyone the same access.",
+      "Time is a test: character shows up in seasons, not speeches.",
+      "Attention is not care: loud connection isn’t always loyal connection.",
+      "Healthy relationships increase peace and purpose, not confusion and pressure.",
+      "Boundaries are wisdom: they keep the right people close and the wrong patterns far.",
+      "Choose relationships that align with your values and growth, not your loneliness."
+    ],
+    "published": true
+  },
+  {
+    "kind": "devotional",
+    "id": "8a8447f7-3868-4793-bce1-dc1904a7767d",
+    "title": "Relationships 102: Access, Patterns, and Protection",
+    "date": "2026-02-15",
+    "scripture": "a person’s true character, whether young or old, is revealed by what they do rather than what they say. Proverbs 20:11",
+    "quote": "When someone shows you who they are, believe them the first time. People know themselves much better than you do. That's why it's important to stop expecting them to be something other than who they are. ",
+    "story": "A young man named Tony met a girl named Sarah who felt like a perfect match—easy conversation, strong chemistry, the same jokes, the same “vibe.” Within weeks, he was ready to call it destiny. But an older mentor asked him one simple question: “How do they treat the people they don’t need to impress?”\n\nSo Tony started watching quietly. He noticed how Sarah spoke to her mother—sharp tone, impatient, dismissive. He saw how she treated a younger sibling—mocking, controlling, sometimes cruel “for fun.” With friends, it was loyalty when convenient, and silence when accountability was needed. Yet around Tony, Sarah was sweet, attentive, and spiritual—because she was still in the stage of trying to win him.\n\nThen one day, the mask slipped. A small disagreement happened, and the same disrespect Tony had seen at home showed up in the relationship—subtle at first, then clearer. That’s when it hit him: if their parents don’t matter to them, yours won’t matter either. They may perform for a season, but character always returns when life gets real.\n\nTony realized he had been about to “promote” someone too fast—moving from connection to commitment without allowing time to test the truth. Chemistry had made him excited, but character is what makes love safe. And covenant—family by blood and marriage by vow—is too sacred to treat like a temporary feeling.\n\nSo he slowed down, not because he was afraid, but because he finally understood wisdom: what you tolerate in the beginning becomes your future.",
+    "speaker": "",
+    "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [
+      "Watch how they treat family. Their pattern at home is often the blueprint for how they’ll treat your home.",
+      "Respect for parents is a sign of character. If they dishonor those who raised them, don’t assume they’ll honor yours.",
+      "Don’t confuse chemistry with readiness. Vibes create excitement; values create safety.",
+      "Time reveals truth. People can pretend briefly, but consistent character always shows up.",
+      "Don’t promote access too quickly. The level of trust you give should match what they’ve proven.",
+      "Covenant is sacred. Family is covenant by blood; marriage is covenant by vow—never treat commitment like a temporary feeling."
+    ],
+    "published": true
+  },
+  {
+    "kind": "devotional",
+    "id": "0b97296a-e0dc-4891-80c2-b04f0d731b25",
+    "title": "Relationships 103: The Partner Choice that Makes or Breaks",
+    "date": "2026-02-22",
+    "scripture": "God’s blessings follow you and await you at every turn:—      when you don’t walk in the ruts of those blind-as-bats,     you don’t stand with the good-for-nothings,     you don’t take your seat among the know-it-alls. Psalm 1 vs.1",
+    "quote": "Water has no effect on fake flowers",
+    "story": "Michael was proud of his progress. He had started from almost nothing—worked extra shifts, learned new skills, saved carefully, and built a small but solid foundation for his future. One evening, his uncle invited him for a walk and asked, “What are you building?”\n\nMichael smiled and listed his plans: career growth, savings, a business idea, a stable home. His uncle nodded, then asked a second question that caught him off guard: “And who are you building it with?”\n\nMichael had recently met someone he liked a lot. The chemistry was strong, the attention felt sweet, and being around them was exciting. But over time, Michael noticed something: whenever he talked about goals, the person changed the topic. When he said he needed to save, they called him too serious. When he wanted to study, they wanted to “vibe.” They were fun to be around, but their influence quietly lowered his standards and slowed his progress—making distraction feel like affection.\n\nOne day, his uncle took him to a shop with two flower displays near the entrance. One was stunning—perfect color, perfect shape, never changing. The uncle tapped the petals and Michael realized they were artificial. A few steps away was a small tray of real plants—some leaves uneven, some stems still growing. The uncle asked, “Which one looks better today?” Michael pointed to the perfect one. Then his uncle asked, “Which one will be taller, more radiant, and increase in value five years from now—and actually grow?”\n\nThen his uncle said, “Some relationships look beautiful, but they take you nowhere. You can pour in time, money, and energy, and still remain in the same place—only older, maybe heavier, but not better. Other relationships increase your quality of life: they sharpen you, strengthen you, and move you forward—where two people build, stretch, and grow together. That’s why your choice of partner is never neutral. The right person multiplies what you’ve worked for. The wrong person can reduce it to nothing, as if you never tried.”\n\nMichael went home and wrote three questions on paper. He realized his future was too valuable to be decided by feelings alone.",
+    "speaker": "",
+    "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [
+      "Your partner/closest association will make (increase) or break(reduce) your life. There is no neutral effect when someone has daily access to your time, mind, and money.",
+      "This is the biggest financial decision you will ever make. A wrong partner can destroy what your career, investments, and education built; a right partner can build alongside you.",
+      "Feelings are temporary; character is permanent. Don’t choose a  partner/associates  based only on emotions—choose based on proven values and consistent behavior.",
+      "Ask the first question: Does this person make me better—or just comfortable? Comfort can be a trap if it reduces discipline and growth.",
+      "Ask the second question: Where is this person going (goal)—what are they building? Direction matters as much as affection.",
+      "Ask the third question: What is my future plan? Be clear about where you want to be, what you’re working toward, and what you want out of life—then choose relationships that align with that future."
+    ],
+    "published": true
+  },
+  {
+    "kind": "devotional",
+    "id": "5de0afa5-565d-4cc3-b6fd-457f491e0c5d",
+    "title": "The Window Test — Peace, Patterns, and Agreement",
+    "date": "2026-03-01",
+    "scripture": "Do two walk together unless they have agreed to do so? Amos 3:3",
+    "quote": "Close the window that hurts you, no matter how beautiful the view is.",
+    "story": "Ada met Daniel at a time when life felt heavy. Daniel’s words were warm, his attention was consistent, and his confidence made her feel safe—at first. He prayed with her, listened to her, and talked about “building a future.” It felt like a beautiful view through a new window: fresh air, bright hope, a new beginning.\n\nBut as weeks became months, Ada started noticing small things that didn’t match the sweetness.\n\nWhen Daniel was upset, he became sarcastic and cutting—then later brought gifts and said, “You know I didn’t mean it.”\nWhen Ada needed time for family or personal growth, Daniel guilted her: “So I’m not important to you?”\nWhen she asked honest questions about his plans, he got defensive: “Why do you always analyze everything?”\nHe promised change after every conflict. He apologized—sometimes with tears. Yet the same behavior returned, like a cycle with a reset button.\n\nOne evening, Ada’s older sister came to visit. Before she left, she asked Ada a quiet question: “How do you feel after you spend time with him—peaceful or pressured?”\n\nAda tried to answer quickly, but her body answered first. She realized she often felt tense before seeing him—like she had to choose the right words, manage his mood, and avoid triggering drama. After their conversations, she felt drained, confused, and guilty—despite the “I love you” messages.\n\nHer sister didn’t insult Daniel. She simply said, “Time reveals character. Don’t rush closeness. Pay attention to patterns—patterns speak louder than apologies. And remember: when someone shows you who they are, believe them the first time.”\n\nAda began to step back—not to punish him, but to see clearly. She stopped ignoring what her peace was saying. She watched the pattern without explaining it away. And she asked herself a harder question: “Are we even walking in the same direction?”\n\nBecause it wasn’t only about romance. It was about alignment. If two people are not agreed in values, growth, and direction, then closeness becomes a tug-of-war. Love starts to feel like pressure. And pressure, over time, breaks people.\n\nThat night Ada stood by her window and realized the truth: the view may look beautiful, but if the window is cutting you every time you open it, wisdom says close it.",
+    "speaker": "",
+    "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [
+      "Time reveals character—don’t rush closeness. Fast intimacy can hide slow truth.",
+      "Patterns matter more than apologies. Repeated behavior is a message—believe it.",
+      "When someone shows you who they are, believe them the first time. Don’t rewrite reality to protect a feeling.",
+      "A healthy relationship adds peace. If you constantly feel drained, tense, or pressured, pay attention—your peace is warning you.",
+      "Agreement is not a small issue—it is the foundation. Without shared direction and values, love becomes conflict management.",
+      "Boundaries are not cruelty; they are clarity. Stepping back may be the kindest way to protect your future and your heart."
+    ],
+    "published": true
+  },
+  {
+    "kind": "devotional",
+    "id": "6a7d55b6-cbcb-4cb2-83b1-4ab113515889",
+    "title": "Healing After Hurt — Forgive, But Don’t Feel Guilty for Moving On",
+    "date": "2026-03-15",
+    "scripture": "If possible, so far as it is within your power, live in peace with all men! Romans 12:18",
+    "quote": "Love cannot grow where someone’s nature keeps breaking your wings.",
+    "story": "A butterfly landed near a scorpion and wasn’t afraid. She spoke gently, and for the first time, the scorpion tried to be gentle too—careful steps, sting hidden, softer days. She introduced him to sunlight and beauty, and he started dreaming of a different life.\n\nBut one night, while she rested beside him, his tail moved—reflex, habit, nature he hadn’t yet conquered. Pain woke her. He cried, “I didn’t mean to.” She whispered, “I know.” And with trembling wings, she flew away—not because she hated him, but because love cannot keep growing where wings keep getting broken.\n\nDays later, the butterfly wrestled with guilt. “Maybe I should have stayed longer. Maybe my leaving means I didn’t love enough.” But an older butterfly met her and said, “Forgiveness is something you give so your heart can heal. Reconciliation is something you build only when safety and change are proven. They are not the same.”\n\nThe butterfly realized she could forgive the scorpion without returning to the same danger. She could release bitterness without reopening the wound. She could move forward without guilt—because choosing safety is not hatred; it is wisdom.",
+    "speaker": "",
+    "theme": "",
+    "referenceUrl": "",
+    "referenceTitle": "",
+    "lessons": [
+      "Forgiveness releases your heart; reconciliation requires proven change. You can forgive without re-entering the same relationship.",
+      "Moving on is not wicked—it can be wise. Leaving harm is not a lack of love; it is self-respect and protection.",
+      "Trust is rebuilt by patterns, not promises. Words are easy; consistent behavior over time is the real evidence.",
+      "Apologies are not enough without accountability. Real repentance includes ownership, boundaries, and new fruit.",
+      "You can grieve and still grow. Healing doesn’t deny the pain—it learns from it and keeps walking.",
+      "Don’t carry guilt that belongs to someone else. You are not responsible for another person’s repeated choices."
+    ],
+    "published": true
+  },
   {
     "kind": "quote",
     "id": "baefb56c-468c-41aa-8261-961ab0791abd",

@@ -356,6 +356,7 @@
         }
 
         function formatSermonDate(value) {
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value || ""))) return "Date to be confirmed";
             const date = new Date(value + "T12:00:00");
             return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(undefined, {
                 weekday: "long", year: "numeric", month: "long", day: "numeric"
@@ -421,10 +422,10 @@
             } catch { return ""; }
         }
         function sermonReadLinks(sermon) {
-            const url = safePdfUrl(sermon.pdfUrl);
+            const url = safePdfUrl(sermon.pdfPublic === false ? "" : sermon.pdfUrl);
             const pdf = url ? '<a class="watch-link" href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer">Open sermon PDF ↗</a>' : '';
             const body = sermon.body ? '<details class="sermon-full-text"><summary>Read message</summary><div class="sermon-body">'+escapeHTML(sermon.body)+'</div></details>' : '';
-            return body + pdf + (!url && !body ? '<p class="sermon-text-note">PDF will be added soon</p>' : '');
+            return body + pdf + (!url && !body ? '<p class="sermon-text-note">PDF access pending</p>' : '');
         }
 
         function renderArchiveRow(sermon) {
@@ -458,19 +459,19 @@
             }
 
             container.innerHTML = filtered.slice(0, 4).map(function (sermon) {
-                const url = safePdfUrl(sermon.pdfUrl);
+                const url = safePdfUrl(sermon.pdfPublic === false ? "" : sermon.pdfUrl);
                 const content = `
                     <span class="cat-tag">${escapeHTML(sermon.category)}</span>
                     <h3 class="sermon-title">${escapeHTML(sermon.title)}</h3>
                     <p class="sermon-card-meta">${escapeHTML(sermon.scripture)}</p>
                     <p class="sermon-date">${escapeHTML(formatSermonDate(sermon.date))}</p>
                     <p class="sermon-speaker">Preacher: ${escapeHTML(sermon.speaker)}</p>
-                    ${url ? '<span class="watch-link">Open sermon PDF ↗</span>' : '<span class="sermon-text-note">PDF will be added soon</span>'}
+                    ${url ? '<span class="watch-link">Open sermon PDF ↗</span>' : '<span class="sermon-text-note">PDF access pending</span>'}
                 `;
                 if (sermon.body) {
                     const summary = sermon.summary ? '<p class="sermon-summary">'+escapeHTML(sermon.summary)+'</p>' : '';
                     const message = '<details class="sermon-full-text"><summary>Read message</summary><div class="sermon-body">'+escapeHTML(sermon.body)+'</div></details>';
-                    const cardContent = content.replace(url ? '<span class="watch-link">Open sermon PDF ↗</span>' : '<span class="sermon-text-note">PDF will be added soon</span>', '');
+                    const cardContent = content.replace(url ? '<span class="watch-link">Open sermon PDF ↗</span>' : '<span class="sermon-text-note">PDF access pending</span>', '');
                     const pdf = url ? '<a class="watch-link" href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer">Open sermon PDF ↗</a>' : '';
                     return '<article class="sermon-card">'+cardContent+summary+message+pdf+'</article>';
                 }
