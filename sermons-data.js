@@ -1,16 +1,5 @@
 window.BOL_SERMONS = [
   {
-    "id": "guarding-your-mind-and-purpose",
-    "title": "Guarding Your Mind & Purpose",
-    "speaker": "BOL Youth Team",
-    "date": "2026-10-25",
-    "category": "Hour of Power",
-    "scripture": "Romans 12:1–2",
-    "summary": "Practical steps for renewing your mind through daily scripture and surrounding yourself with godly community.",
-    "pdfUrl": "",
-    "body": ""
-  },
-  {
     "id": "evelyne-2026-10-18",
     "title": "When God's Leading Doesn't Look Like Progress",
     "speaker": "Sister Evelyne Onyedikachi",
