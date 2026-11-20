@@ -162,10 +162,10 @@
       const dateFormatter = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Vienna',year:'numeric',month:'2-digit',day:'2-digit'});
       function seasonForDate(date) {
         const p = Object.fromEntries(dateFormatter.formatToParts(date).map(x=>[x.type,x.value]));
-        const key = p.year+'-'+p.month+'-'+p.day;
-        if(key >= '2026-12-01' && key <= '2026-12-28') return 'christmas';
-        if(key >= '2026-12-29' && key <= '2026-12-31') return 'crossover';
-        if(key >= '2027-01-01' && key <= '2027-01-31') return 'newyear';
+        const key = p.month+'-'+p.day;
+        if(key >= '12-01' && key <= '12-28') return 'christmas';
+        if(key >= '12-29' && key <= '12-31') return 'crossover';
+        if(key >= '01-01' && key <= '01-31') return 'newyear';
         return 'regular';
       }
       const big=stage.querySelector('.bol-welcome-big'), script=stage.querySelector('.bol-welcome-script'), name=stage.querySelector('.bol-welcome-name'), greet=stage.querySelector('.bol-welcome-greeting'), invite=stage.querySelector('.bol-welcome-invite');
@@ -173,14 +173,19 @@
       const configs={
         regular,
         christmas:['JOY TO THE WORLD','Merry Christmas','Welcome to Beacon of Light Christian Fellowship Center Vienna',"We’re so glad you’re here.",'Join us as we celebrate the birth of Jesus Christ.'],
-        crossover:['CROSS OVER NIGHT','Into a New Year','Beacon of Light Christian Fellowship Center Vienna','31 December 2026','Join us in worship, prayer and thanksgiving.'],
+        crossover:['CROSS OVER NIGHT','Into a New Year','Beacon of Light Christian Fellowship Center Vienna','','Join us in worship, prayer and thanksgiving.'],
         newyear:['HAPPY NEW YEAR','Welcome to Beacon of Light','Christian Fellowship Center Vienna','May this year be filled with God’s goodness.','Join us for worship, prayer, and fellowship.']
       };
       const art=document.createElement('div');art.className='bol-season-art';art.setAttribute('aria-hidden','true');stage.prepend(art);
-      const year=document.createElement('span');year.className='bol-season-year';year.textContent='2027';year.hidden=true;big.after(year);
+      const year=document.createElement('span');year.className='bol-season-year';year.hidden=true;big.after(year);
       function render(){
-        const mode=seasonForDate(new Date());
-        if(stage.dataset.season===mode)return;
+        const now=new Date();
+        const mode=seasonForDate(now);
+        const currentYear=dateFormatter.formatToParts(now).find(p=>p.type==='year').value;
+        if(stage.dataset.season===mode && stage.dataset.seasonYear===currentYear)return;
+        stage.dataset.seasonYear=currentYear;
+        configs.crossover[3]='31 December '+currentYear;
+        year.textContent=currentYear;
         stage.dataset.season=mode;
         [big,script,name,greet,invite].forEach((el,i)=>el.textContent=configs[mode][i]);
         year.hidden=mode!=='newyear';
