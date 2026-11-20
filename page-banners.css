@@ -41,7 +41,8 @@
 }
 .banner-vienna { --banner-photo: url("https://images.unsplash.com/photo-1568132585619-01ebde363d59?auto=format&fit=crop&w=1600&q=80"); }
 .banner-archive { --banner-photo: url("https://images.unsplash.com/photo-1660593089599-f8e50f5204b6?auto=format&fit=crop&w=1600&q=80"); }
-.banner-hope { --banner-photo: url("https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?auto=format&fit=crop&w=1600&q=80"); }
+.banner-about { --banner-photo: url("https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?auto=format&fit=crop&w=1600&q=80"); }
+.banner-hope { --banner-photo: url("https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1600&q=80"); }
 .banner-scripture { --banner-photo: url("https://images.unsplash.com/photo-1789479925012-cca4d5402296?auto=format&fit=crop&w=1600&q=80"); }
 .banner-gathering { --banner-photo: url("https://images.unsplash.com/photo-1761058556617-ddd0f3b9795e?auto=format&fit=crop&w=1600&q=80"); }
 .banner-dawn { --banner-photo: url("https://images.unsplash.com/photo-1478341089230-f9be22921e38?auto=format&fit=crop&w=1600&q=80"); }
@@ -49,6 +50,21 @@
 .banner-learning { --banner-photo: url("https://images.unsplash.com/photo-1682253406151-45237a6f7acf?auto=format&fit=crop&w=1600&q=80"); }
 .banner-scripture { --banner-position: center 55%; }
 .banner-dawn { --banner-position: center 45%; }
+#main .about-hero .about-hope-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1.1rem;
+    padding: .7rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--ink);
+    font-weight: 800;
+    text-decoration: none;
+}
+#main .about-hero .about-hope-link:hover { filter: brightness(1.06); }
+#main .about-hero .about-hope-link:focus-visible { outline: 3px solid var(--on-hero); outline-offset: 3px; }
+
 @media (max-width: 650px) {
     #main .photo-banner {
         min-height: 260px;
@@ -59,7 +75,8 @@
     #main .photo-banner h1 { font-size: 2rem; }
     .banner-vienna { --banner-photo: url("https://images.unsplash.com/photo-1568132585619-01ebde363d59?auto=format&fit=crop&w=900&q=75"); }
     .banner-archive { --banner-photo: url("https://images.unsplash.com/photo-1660593089599-f8e50f5204b6?auto=format&fit=crop&w=900&q=75"); }
-    .banner-hope { --banner-photo: url("https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?auto=format&fit=crop&w=900&q=75"); }
+    .banner-about { --banner-photo: url("https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?auto=format&fit=crop&w=900&q=75"); }
+    .banner-hope { --banner-photo: url("https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=900&q=75"); }
     .banner-scripture { --banner-photo: url("https://images.unsplash.com/photo-1789479925012-cca4d5402296?auto=format&fit=crop&w=900&q=75"); }
     .banner-gathering { --banner-photo: url("https://images.unsplash.com/photo-1761058556617-ddd0f3b9795e?auto=format&fit=crop&w=900&q=75"); }
     .banner-dawn { --banner-photo: url("https://images.unsplash.com/photo-1478341089230-f9be22921e38?auto=format&fit=crop&w=900&q=75"); }
@@ -67,5 +84,6 @@
     .banner-learning { --banner-photo: url("https://images.unsplash.com/photo-1682253406151-45237a6f7acf?auto=format&fit=crop&w=900&q=75"); }
 }
 
-.banner-hope { --banner-position: center 65%; }
+.banner-about { --banner-position: center 65%; }
+.banner-hope { --banner-position: center 52%; }
 .banner-gathering { --banner-position: center 45%; }
