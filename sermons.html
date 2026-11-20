@@ -203,6 +203,85 @@
         }
     </style>
     <link rel="stylesheet" href="page-banners.css">
+    <style>
+        #main .sermon-intro {
+            --sermon-gold: #d8b15a;
+            --sermon-green: #173e32;
+            --sermon-gold-ink: #805719;
+        }
+        #main .sermon-intro > .photo-banner {
+            margin: 0;
+            background-image: linear-gradient(90deg, rgba(7,31,24,.92) 0%, rgba(10,40,32,.78) 42%, rgba(13,43,32,.24) 78%, rgba(14,40,30,.12)), var(--banner-photo);
+            border: 1px solid #b99a53;
+            box-shadow: 0 12px 30px rgba(32,65,44,.15);
+        }
+        #main .sermon-intro > .photo-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 78% 37%, rgba(255,227,151,.66), rgba(237,184,72,.22) 30%, transparent 60%);
+            mix-blend-mode: screen;
+            animation: sermon-bible-glow 5s ease-in-out infinite alternate;
+        }
+        #main .sermon-intro > .photo-banner::after {
+            content: "";
+            position: absolute;
+            inset: -25% auto -25% 0;
+            width: 36%;
+            pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(255,226,155,.36), transparent);
+            filter: blur(10px);
+            transform: translateX(-130%) skewX(-22deg);
+            animation: sermon-bible-sweep 7s ease-in-out infinite;
+        }
+        #main .sermon-intro > .photo-banner h1,
+        #main .sermon-intro > .photo-banner p {
+            position: relative;
+            z-index: 2;
+            color: #fff8e8;
+            text-shadow: 0 2px 8px #0b231d;
+        }
+        #main .latest-sermon {
+            background: linear-gradient(135deg, #fffdf6, #f3e7c7);
+            border: 1px solid #d7bf83;
+            border-left: 5px solid #b78a37;
+            color: #173e32;
+            box-shadow: 0 10px 28px rgba(32,65,44,.12);
+        }
+        #main .latest-sermon h2, #main .latest-sermon .sermon-pill,
+        #main .latest-sermon .watch-link, #main .latest-sermon .sermon-full-text summary,
+        #main .latest-sermon .sermon-body { color: #173e32; }
+        #main .latest-sermon .sermon-meta { color: #805719; }
+        #main .latest-sermon .featured-summary,
+        #main .latest-sermon .featured-date-label,
+        #main .latest-sermon .sermon-text-note { color: #41594c; }
+        #main .featured-date-block {
+            background: linear-gradient(145deg, #f2d68e, #c89b47);
+            color: #173e32;
+            box-shadow: 0 4px 12px rgba(128,87,25,.18);
+        }
+        #main .sermon-card { border-top-color: #b78a37; }
+        #main .cat-tag { background: #eae2c8; color: #173e32; }
+        #main .watch-link { text-decoration-color: #b78a37; }
+        #main .sermon-archive > summary { border-left: 4px solid #b78a37; }
+        @keyframes sermon-bible-glow { from { opacity: .62; } to { opacity: 1; } }
+        @keyframes sermon-bible-sweep {
+            0%, 12% { transform: translateX(-130%) skewX(-22deg); opacity: 0; }
+            22% { opacity: 1; }
+            65% { transform: translateX(390%) skewX(-22deg); opacity: .9; }
+            75%, 100% { transform: translateX(390%) skewX(-22deg); opacity: 0; }
+        }
+        @media (max-width: 650px) {
+            #main .sermon-intro > .photo-banner {
+                background-image: linear-gradient(90deg, rgba(7,31,24,.88), rgba(10,40,32,.65)), var(--banner-photo);
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #main .sermon-intro > .photo-banner::before { animation: none; opacity: .8; }
+            #main .sermon-intro > .photo-banner::after { animation: none; display: none; }
+        }
+    </style>
 </head>
 <body>
 
