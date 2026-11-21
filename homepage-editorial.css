@@ -37,3 +37,10 @@
 @media(max-width:850px){.home-belong{grid-template-columns:1fr}.home-discover-head{display:block}.home-discover-head p{max-width:60ch}.home-belong-art{min-height:320px}}
 @media(max-width:620px){.home-discover-grid{grid-template-columns:1fr}.home-pathway{min-height:265px}.home-values-strip{font-size:.6rem;gap:.5rem}.home-values-strip i{width:10px}.home-belong{margin:2.5rem 0}.home-welcome-cta{padding:2rem 1rem}}
 @media(prefers-reduced-motion:reduce){.home-belong-art:before{animation:none}.home-reveal-ready [data-home-reveal]{opacity:1;transform:none;transition:none}.home-pathway{transition:none}}
+
+/* Discovery grid stays collapsed until the visitor scrolls to its position. */
+.home-discover.home-discover-collapsed{max-height:0;min-height:0;opacity:0;margin-top:0;margin-bottom:0;overflow:hidden;pointer-events:none}
+.home-discover-trigger{height:2px;scroll-margin-top:80px}
+.home-discover:not(.home-discover-collapsed){animation:bolDiscoverOpen .65s ease-out both}
+@keyframes bolDiscoverOpen{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.home-discover:not(.home-discover-collapsed){animation:none}}

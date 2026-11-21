@@ -12,7 +12,21 @@
     <script src="hour-of-power.js" defer></script>
     <link rel="stylesheet" href="hour-of-power.css">
     <link rel="stylesheet" href="page-banners.css">
-    <style>.hop-challenge-promo{display:flex;align-items:center;justify-content:space-between;gap:1.8rem;flex-wrap:wrap;margin:2.4rem 0;padding:clamp(1.4rem,3.5vw,2.6rem);border:1px solid #c8a66b;border-radius:20px;background:linear-gradient(110deg,#0e2842,#0c4750);color:#fff}.hop-challenge-promo .eyebrow{color:#efcd85}.hop-challenge-promo h2{font:700 clamp(1.6rem,3vw,2.5rem) Georgia,serif;color:#fff;margin:.6rem 0}.hop-challenge-promo p{color:#e8f4ee;max-width:52ch;line-height:1.6}.hop-challenge-promo .button-primary{background:#f1d38a;color:#1a3339;border-color:#d8b86b}</style>
+    <style>
+.hop-challenge-mini{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:1.6rem;align-items:center;margin:1.5rem 0;padding:clamp(1.1rem,2.7vw,1.85rem);overflow:hidden;border-radius:19px;border:1px solid #b9975b;background:radial-gradient(circle at 76% 16%,#275a6877,transparent 42%),linear-gradient(115deg,#081e35,#10334b 58%,#091d33);box-shadow:0 14px 33px #0b284527;color:white}
+.hop-challenge-mini::before{position:absolute;content:"";inset:-50%;pointer-events:none;z-index:-1;background:conic-gradient(transparent,#eed3a522,transparent,transparent);animation:hopMiniShine 15s linear infinite}
+.hop-challenge-mini-label{color:#f4d28b;letter-spacing:.15em;font-size:.67rem;font-weight:850}
+.hop-challenge-mini h2{color:white;margin:.45rem 0;font:700 clamp(1.5rem,3vw,2.4rem)/1.13 Georgia,serif}
+.hop-challenge-mini h2 em{font-style:normal;color:#f4d28b}.hop-challenge-mini p{color:#e8f4ee;max-width:55ch;margin:.5rem 0 1rem;line-height:1.5}
+.hop-challenge-mini-action{display:inline-flex;gap:.8rem;align-items:center;padding:.7rem 1.2rem;border-radius:999px;background:#f2d18a;color:#102d35;text-decoration:none;font-weight:850;transition:transform .2s,box-shadow .2s;animation:hopMiniPulse 3s ease-in-out infinite alternate}
+.hop-challenge-mini-action:hover{transform:translateY(-3px);box-shadow:0 0 25px #f4d28b88;color:#102d35}
+.hop-challenge-mini-action:focus-visible{outline:3px solid white;outline-offset:3px}
+.hop-challenge-mini-doors{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;transform:rotate(4deg);border:2px solid #c6a366;border-radius:9px;padding:9px;background:#0e2139;box-shadow:8px 9px 0 #040f2388}
+.hop-challenge-mini-doors span{display:grid;place-items:center;aspect-ratio:.9;border:1px solid #b89859;border-radius:3px;color:#f1d593;font:bold .75rem Georgia,serif;background:#17324d}
+@keyframes hopMiniShine{to{transform:rotate(360deg)}}@keyframes hopMiniPulse{to{box-shadow:0 0 27px #f4d28b70}}
+@media(max-width:630px){.hop-challenge-mini{grid-template-columns:1fr}.hop-challenge-mini-doors{max-width:260px;transform:none}}
+@media(prefers-reduced-motion:reduce){.hop-challenge-mini::before,.hop-challenge-mini-action{animation:none!important}}
+</style>
 </head>
 <body data-theme="midnight">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -64,13 +78,14 @@
   <h2>Previous Hour of Power</h2><div id="hop-archive" class="hop-archive"></div>
 </section>
 
-        <section class="hop-challenge-promo" aria-labelledby="hop-challenge-heading">
-          <div>
-            <span class="eyebrow">24 Days · December 2026</span>
-            <h2 id="hop-challenge-heading">End-of-Year Bible Challenge</h2>
-            <p>Deep Bible mysteries, surprising characters and 24 doors to explore. Open to everyone in our church community.</p>
+        <section class="hop-challenge-mini" aria-labelledby="hop-challenge-heading">
+          <div class="hop-challenge-mini-copy">
+            <span class="hop-challenge-mini-label">DECEMBER 2026 · ALL AGES WELCOME</span>
+            <h2 id="hop-challenge-heading">24 Days. <em>24 Bible Mysteries.</em></h2>
+            <p>Uncover hidden stories, impossible-sounding clues and Scripture's most surprising details.</p>
+            <a href="bible-challenge.html" class="hop-challenge-mini-action">Enter the Bible Challenge <span aria-hidden="true">↗</span></a>
           </div>
-          <a class="button-primary" href="bible-challenge.html">Explore the Challenge →</a>
+          <div class="hop-challenge-mini-doors" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span></div>
         </section>
         <p class="hop-editor-link"><a href="admin/hour-of-power.html">Church editor sign in</a></p>
     </main>
