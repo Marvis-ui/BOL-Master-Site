@@ -73,6 +73,30 @@
 .challenge-board-empty{padding:2.4rem 1rem;text-align:center;color:var(--muted)}
 .challenge-board-note{font-size:.77rem;color:var(--muted)}
 @media(max-width:530px){.challenge-board-row{grid-template-columns:45px 1fr 60px;padding:.75rem;gap:.6rem}.challenge-board-tabs button{padding:.65rem .75rem}}
+</style><style>
+/* Fullscreen case experience: no answer validation or key in client code. */
+.challenge-day-zero[hidden],.day-zero-confirm[hidden],.day-zero-feedback[hidden],#day-zero-form[hidden]{display:none!important}
+body.challenge-focus{overflow:hidden}
+.challenge-day-zero{position:fixed!important;inset:0!important;z-index:9999!important;margin:0!important;max-width:none!important;overflow-y:auto;overscroll-behavior:contain;padding:clamp(2rem,5vh,4.3rem) clamp(1.1rem,6vw,5rem)!important;border:0!important;border-radius:0!important;background:radial-gradient(ellipse at 90% 0%,#ebd3a3 0%,transparent 34%),linear-gradient(130deg,#fcf9f0,#f1e8d4)!important;box-shadow:none!important;color:#193440}
+.challenge-day-zero > *{max-width:870px;margin-left:auto!important;margin-right:auto!important}
+.challenge-day-zero h3{font-size:clamp(1.8rem,4vw,3rem)}
+.challenge-day-zero:before,.challenge-day-zero:after{content:"";position:fixed;top:0;bottom:0;width:51%;z-index:5;pointer-events:none;background:repeating-linear-gradient(90deg,#0a182e 0%,#1b3454 7%,#0f2543 16%,#0c1d36 25%);box-shadow:inset 0 0 75px #050914,0 0 12px #0009}
+.challenge-day-zero:before{left:0;border-right:4px solid #d3af6b;transform:translateX(-103%)}
+.challenge-day-zero:after{right:0;border-left:4px solid #d3af6b;transform:translateX(103%)}
+.challenge-day-zero.is-revealing:before{animation:challengeCurtainLeft 1.35s cubic-bezier(.7,.02,.22,1) both}
+.challenge-day-zero.is-revealing:after{animation:challengeCurtainRight 1.35s cubic-bezier(.7,.02,.22,1) both}
+@keyframes challengeCurtainLeft{from{transform:translateX(0)}to{transform:translateX(-103%)}}
+@keyframes challengeCurtainRight{from{transform:translateX(0)}to{transform:translateX(103%)}}
+.day-zero-confirm{max-width:800px;padding:clamp(1.2rem,4vw,2.4rem);border:2px solid #c09a55;border-radius:18px;background:white;box-shadow:0 15px 40px #0e233322}
+.day-zero-confirm p{color:#26444b}
+.day-zero-confirm-actions{display:flex;flex-wrap:wrap;gap:.8rem}
+.day-zero-confirm-actions button{padding:.85rem 1.2rem;border-radius:100px;font-weight:800;cursor:pointer}
+#day-zero-review{background:white;color:#16493f;border:1px solid #b39f79}
+#day-zero-final{background:#155a4b;color:white;border:1px solid #155a4b}
+.day-zero-feedback{padding:clamp(1.8rem,5vw,3.8rem)!important;text-align:center;border:1px solid #bb9954!important;border-radius:20px!important;background:#fffaf0!important}
+.day-zero-feedback strong{display:block;font:700 clamp(1.8rem,4vw,3rem)/1.2 Georgia,serif;color:#174f43}
+.day-zero-feedback .day-zero-submit{margin-top:1rem}
+@media(prefers-reduced-motion:reduce){.challenge-day-zero.is-revealing:before{animation:none;transform:translateX(-103%)}.challenge-day-zero.is-revealing:after{animation:none;transform:translateX(103%)}}
 </style></head>
 <body data-theme="midnight">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -110,8 +134,8 @@
           <div><span class="eyebrow">YOUR 24-DAY INVESTIGATION</span><h2 id="calendar-title">Choose a numbered door</h2></div>
           <p id="challenge-calendar-status" role="status" aria-live="polite">The countdown begins on 1 December.</p>
         </div>
-        <div class="challenge-doors" id="challenge-doors" aria-label="Practice door and 24 daily Bible challenge doors"><button id="challenge-practice-door" type="button" class="challenge-door challenge-door-practice" aria-pressed="true" aria-label="Day 0 practice case"><span>0</span><small>PRACTICE</small></button></div>
-        <section class="challenge-day-zero" id="challenge-day-zero" aria-labelledby="day-zero-title">
+        <div class="challenge-doors" id="challenge-doors" aria-label="Practice door and 24 daily Bible challenge doors"><button id="challenge-practice-door" type="button" class="challenge-door challenge-door-practice" aria-pressed="false" aria-label="Day 0 practice case"><span>0</span><small>PRACTICE</small></button></div>
+        <section class="challenge-day-zero" id="challenge-day-zero" role="dialog" aria-modal="true" aria-labelledby="day-zero-title" tabindex="-1" hidden>
           <span class="challenge-practice-label">OPEN NOW · INTERACTIVE PRACTICE ONLY</span>
           <h3 id="day-zero-title">Day 0 — The Borrowed Iron</h3>
           <p>During a building project, one worker cried out because a borrowed iron axe head had fallen into water. Four details below resemble genuine Bible accounts. Which <strong>complete statement</strong> correctly reconstructs this incident?</p>
@@ -125,13 +149,14 @@
               <label><input type="radio" name="practice-answer" value="C"/><span><strong>C.</strong> Elisha threw salt into the spring and the iron rose from the water.</span></label>
               <label><input type="radio" name="practice-answer" value="D"/><span><strong>D.</strong> Gehazi laid the prophet's staff across the water, and the iron was restored.</span></label>
             </fieldset>
-            <button class="day-zero-submit" type="submit">Submit practice answer →</button>
+            <button class="day-zero-submit" type="submit">Review my final choice →</button>
           </form>
+          <div id="day-zero-confirm" class="day-zero-confirm" hidden><h3>Is this your final choice?</h3><p id="day-zero-confirm-summary"></p><p>Once you confirm, this answer is locked and cannot be changed on this device. No correct answer is shown.</p><div class="day-zero-confirm-actions"><button type="button" id="day-zero-review">Review my answer</button><button type="button" id="day-zero-final">Yes, submit my final choice</button></div></div>
           <div id="day-zero-feedback" class="day-zero-feedback" role="status" aria-live="polite" hidden></div>
-          <p class="day-zero-note">This is a local practice demonstration. Your name and answer are not transmitted or saved. Day 0 does not count towards the leaderboard.</p>
+          <p class="day-zero-note">This practice uses a local browser lock after confirmation; it does not transmit or retain your selected answer. It is not a secure identity check and Day 0 does not count towards the leaderboard.</p>
         </section>
         <div class="challenge-case" id="challenge-case" aria-live="polite">
-          <p class="challenge-case-state">The competition is being prepared. Daily questions and the secure submission system will appear here once the final question bank and private answer-key setup are approved. Nothing here reveals the solutions.</p>
+          <p class="challenge-case-state">Select Day 0 to experience the fullscreen curtain reveal and final-choice confirmation. Daily competition cases and protected submission will be enabled only after the secure backend is ready.</p>
         </div>
       </section>
       <section class="challenge-leaderboard" aria-labelledby="challenge-leaderboard-title">
