@@ -111,6 +111,22 @@ body.challenge-focus{overflow:hidden}
 .day-zero-identity-info{font-size:.85rem!important;line-height:1.5!important;color:#5a6266!important;max-width:72ch}
 .day-zero-submit{font-size:1.05rem!important;min-height:51px}
 .day-zero-confirm p,.day-zero-feedback p{font-size:1.14rem;line-height:1.65}
+</style><style>
+.challenge-account{margin:2rem 0;background:var(--surface-raised);border-radius:22px;border:1px solid #c3ac7c;padding:clamp(1.25rem,3vw,2.3rem);box-shadow:0 11px 28px #12243d11}
+.challenge-account [hidden]{display:none!important}.challenge-account-header{display:flex;align-items:center;justify-content:space-between;gap:1rem}.challenge-account-header h2{font:700 clamp(1.5rem,3vw,2.2rem)/1.2 Georgia,serif;margin:.4rem 0 1.1rem;color:var(--ink)}
+.challenge-account-icon{font-size:2rem;color:#a77d34}
+.challenge-account p{color:var(--muted);line-height:1.7}.challenge-account-form{display:grid;gap:.8rem;max-width:600px}.challenge-account-form label{font-size:1rem;font-weight:800;color:var(--ink)}
+.challenge-account-form input{font:inherit;font-size:1.08rem;min-height:52px;border-radius:10px;border:1px solid #bba67c;padding:.85rem 1rem;background:var(--surface);color:var(--ink)}
+.challenge-account-form button,#challenge-code-continue{justify-self:start;border:0;border-radius:999px;padding:.9rem 1.3rem;background:#135e51;color:white;font:800 1rem system-ui;cursor:pointer}
+.challenge-account-form button:disabled,#challenge-code-continue:disabled{opacity:.55;cursor:not-allowed}
+.challenge-text-button{padding:.65rem 0;border:0;border-bottom:1px solid currentColor;background:transparent;color:var(--green);font:750 .92rem system-ui;cursor:pointer;text-align:left;margin-top:.75rem}
+.challenge-account-note{font-size:.77rem}.challenge-account-error{margin:1rem 0;padding:1rem;border-left:4px solid #ac4b33;background:#fff0e8!important;color:#7a2a20!important}
+.challenge-code-display{display:inline-block;padding:1.1rem;border-radius:12px;background:#102d40;color:#f3d388;font:700 clamp(1.1rem,2.7vw,1.8rem)/1.4 ui-monospace,monospace;letter-spacing:.06em;overflow-wrap:anywhere}
+.challenge-code-confirm{display:flex;gap:.75rem;align-items:start;max-width:620px;margin:1.3rem 0;font-weight:700;color:var(--ink);line-height:1.5}
+.challenge-code-confirm input{margin-top:.3rem;width:20px;height:20px;accent-color:#136356}
+#challenge-welcome h3{font:700 clamp(1.5rem,2.8vw,2rem) Georgia,serif;color:var(--green)}
+.challenge-submitted-days{font-weight:700}.day-zero-player{font-size:1.12rem!important;font-weight:800;color:#164f41!important}
+@media(max-width:530px){.challenge-account-form button,#challenge-code-continue{width:100%}}
 </style></head>
 <body data-theme="midnight">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -143,6 +159,46 @@ body.challenge-focus{overflow:hidden}
         <p class="challenge-lede">Search the Word. Uncover forgotten stories. Untangle the genealogies. Separate Bible truth from tradition. Everyone is welcome, from age 10 to 80 and beyond.</p>
         <div class="challenge-meta"><span>1–24 DECEMBER 2026</span><span>NEW DOOR AT 7:00 AM · VIENNA</span><span>CHRISTMAS DAY FINALE</span></div>
       </section>
+      <section class="challenge-account" aria-labelledby="challenge-account-title">
+        <div class="challenge-account-header"><div><span class="eyebrow">YOUR PRIVATE CHALLENGE PASS</span><h2 id="challenge-account-title">Your Bible Challenge identity</h2></div><span class="challenge-account-icon" aria-hidden="true">✦</span></div>
+        <p id="challenge-account-loading" role="status">Checking whether this device is already registered…</p>
+        <div id="challenge-signup" hidden>
+          <p>First time here? Enter your name once. We'll remember this device and provide a private recovery code for another phone or computer.</p>
+          <form id="challenge-signup-form" class="challenge-account-form">
+            <label for="challenge-signup-name">Your name (shown on the leaderboard)</label>
+            <input id="challenge-signup-name" type="text" required maxlength="60" minlength="2" autocomplete="name" placeholder="e.g. Sarah K."/>
+            <button type="submit">Create my participant pass</button>
+          </form>
+          <button type="button" id="challenge-show-recover" class="challenge-text-button">Already participated? Recover my account</button>
+        </div>
+        <div id="challenge-recover" hidden>
+          <p>Enter the same name and recovery code you received when you first joined. No email address is required.</p>
+          <form id="challenge-recover-form" class="challenge-account-form">
+            <label for="challenge-recover-name">Your registered name</label>
+            <input id="challenge-recover-name" type="text" maxlength="60" minlength="2" required placeholder="e.g. Sarah K."/>
+            <label for="challenge-recover-code">Your private recovery code</label>
+            <input id="challenge-recover-code" type="text" required autocomplete="off" spellcheck="false" maxlength="25" placeholder="BOL-XXXX-XXXX-XXXX-XXXX"/>
+            <button type="submit">Restore my participant pass</button>
+          </form>
+          <button type="button" id="challenge-show-signup" class="challenge-text-button">First time? Create a new participant pass</button>
+        </div>
+        <div id="challenge-new-code" hidden>
+          <h3>Welcome to the challenge!</h3>
+          <p>This code is shown only once. <strong>Write it down</strong> and keep it private. You won't normally need it again on this device.</p>
+          <div id="challenge-code-display" class="challenge-code-display" aria-label="Your private recovery code"></div>
+          <button type="button" class="challenge-text-button" id="challenge-copy-code">Copy my recovery code</button>
+          <label class="challenge-code-confirm"><input id="challenge-saved-code" type="checkbox"/> I have written down or safely copied my recovery code.</label>
+          <button type="button" id="challenge-code-continue" disabled>Continue to the challenge →</button>
+        </div>
+        <div id="challenge-welcome" hidden>
+          <h3 id="challenge-welcome-name"></h3>
+          <p>You're recognized on this device. Your previous answers remain locked and your next challenge is ready when its door opens.</p>
+          <p id="challenge-submitted-days" class="challenge-submitted-days">Checking your submission record…</p>
+          <button type="button" id="challenge-switch-account" class="challenge-text-button">Different person using this device?</button>
+        </div>
+        <p id="challenge-account-error" role="alert" hidden></p>
+        <p class="challenge-account-note">Your device remembers a private session, not your recovery code. This is a church competition; please use one identity and do not share your access code.</p>
+      </section>
       <section class="challenge-panel" aria-labelledby="calendar-title">
         <div class="challenge-heading">
           <div><span class="eyebrow">YOUR 24-DAY INVESTIGATION</span><h2 id="calendar-title">Choose a numbered door</h2></div>
@@ -155,11 +211,7 @@ body.challenge-focus{overflow:hidden}
           <p>During a building project, one worker cried out because a borrowed iron axe head had fallen into water. Four details below resemble genuine Bible accounts. Which <strong>complete statement</strong> correctly reconstructs this incident?</p>
           <p class="challenge-scripture-hint">Research: 2 Kings 6:1–7</p>
           <form id="day-zero-form">
-            <label class="day-zero-name-label" for="day-zero-name">Your first name (practice only)</label>
-            <input id="day-zero-name" type="text" maxlength="40" autocomplete="off" required placeholder="Enter your first name"/>
-            <label class="day-zero-name-label" for="day-zero-postcode">Postcode (used with your first name for identification)</label>
-            <input id="day-zero-postcode" type="text" inputmode="text" minlength="3" maxlength="12" pattern="[A-Za-z0-9][A-Za-z0-9 -]{1,10}[A-Za-z0-9]" autocomplete="off" required placeholder="e.g. 1220"/>
-            <p class="day-zero-identity-info">Your first name and postcode help distinguish participants but are not a secret PIN. The live competition will also need a privately issued submission code to prevent impersonation. This practice form does not store your postcode.</p>
+            <p class="day-zero-player" id="day-zero-player">Participant pass required</p>
             <fieldset class="day-zero-options"><legend>Choose the statement supported by Scripture:</legend>
               <label><input type="radio" name="practice-answer" value="A" required/><span><strong>A.</strong> Elijah struck the river with his cloak and ordered the worker to retrieve the tool.</span></label>
               <label><input type="radio" name="practice-answer" value="B"/><span><strong>B.</strong> Elisha cut a stick and threw it into the water; the iron floated and the worker recovered it.</span></label>
@@ -168,12 +220,12 @@ body.challenge-focus{overflow:hidden}
             </fieldset>
             <button class="day-zero-submit" type="submit">Review my final choice →</button>
           </form>
-          <div id="day-zero-confirm" class="day-zero-confirm" hidden><h3>Is this your final choice?</h3><p id="day-zero-confirm-summary"></p><p>Once you confirm, this answer is locked and cannot be changed on this device. No correct answer is shown.</p><div class="day-zero-confirm-actions"><button type="button" id="day-zero-review">Review my answer</button><button type="button" id="day-zero-final">Yes, submit my final choice</button></div></div>
+          <div id="day-zero-confirm" class="day-zero-confirm" hidden><h3>Is this your final choice?</h3><p id="day-zero-confirm-summary"></p><p>Once confirmed, your answer is locked in the competition database, including across devices. You cannot change it or submit again. No correct answer is shown.</p><div class="day-zero-confirm-actions"><button type="button" id="day-zero-review">Review my answer</button><button type="button" id="day-zero-final">Yes, submit my final choice</button></div></div>
           <div id="day-zero-feedback" class="day-zero-feedback" role="status" aria-live="polite" hidden></div>
-          <p class="day-zero-note">This practice uses a browser-only completion flag. It does not transmit or retain your name, postcode or selected answer, and does not count towards the leaderboard.</p>
+          <p class="day-zero-note">Day 0 is practice only. Your selected option is stored securely against your participant ID and cannot be resubmitted, but the answer and its correctness remain hidden.</p>
         </section>
         <div class="challenge-case" id="challenge-case" aria-live="polite">
-          <p class="challenge-case-state">Select Day 0 to experience the fullscreen curtain reveal and final-choice confirmation. Daily competition cases and protected submission will be enabled only after the secure backend is ready.</p>
+          <p class="challenge-case-state">Create or recover your participant pass above, then choose Day 0 for a full-screen practice case. The official questions are not yet accepting answers.</p>
         </div>
       </section>
       <section class="challenge-leaderboard" aria-labelledby="challenge-leaderboard-title">
@@ -199,11 +251,11 @@ body.challenge-focus{overflow:hidden}
         <h2 id="rules-title">How it works</h2>
         <div class="challenge-rule-grid">
           <article><strong>01</strong><h3>Investigate</h3><p>A new Scripture investigation opens daily at 7:00 AM Vienna time. The challenge covers forgotten stories, unusual characters and biblical details.</p></article>
-          <article><strong>02</strong><h3>Choose with evidence</h3><p>Read carefully and select the one multiple-choice statement fully supported by Scripture. No full registration is planned. A first name and postcode can help match entries, but a separate privately issued code will be required to prevent impersonation.</p></article>
+          <article><strong>02</strong><h3>Choose with evidence</h3><p>Read carefully and select the one multiple-choice statement fully supported by Scripture. Your name creates a participant pass and the website generates a private recovery code. Returning devices are recognized automatically; no email registration is required.</p></article>
           <article><strong>03</strong><h3>One final entry</h3><p>Each participant may submit once per day. The proposed window is 72 hours after each 7:00 AM opening. Late-December cases close at 7:00 AM on Christmas Day for the answer reveal.</p></article>
           <article><strong>04</strong><h3>Discover the truth</h3><p>Solutions remain private until 25 December. The daily and overall leaderboards will show scores without revealing answers during the competition.</p></article>
         </div>
-        <p class="challenge-disclaimer">Competition setup is in progress. Answer submissions and leaderboards are not active yet. This preview does not transmit names, postcodes or answers.</p>
+        <p class="challenge-disclaimer">Competition setup is in progress. Answer submissions and leaderboards are not active yet. The Day 0 practice uses real participant records and a locked submission, but does not award points or reveal answers. Days 1–24 are not yet accepting submissions.</p>
       </section>
       <p class="challenge-back"><a href="hour-of-power.html">← Return to Hour of Power</a></p>
     </main>
