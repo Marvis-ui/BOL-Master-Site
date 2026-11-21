@@ -2,7 +2,7 @@
 "use strict";
 const practice=document.getElementById("challenge-day-zero"),door=document.getElementById("challenge-practice-door"),doors=document.getElementById("challenge-doors"),form=document.getElementById("day-zero-form"),confirmBox=document.getElementById("day-zero-confirm"),summary=document.getElementById("day-zero-confirm-summary"),feedback=document.getElementById("day-zero-feedback");
 if(!practice||!door||!doors||!form||!confirmBox||!feedback)return;
-const LOCK_KEY="bol-bible-challenge-day0-submitted-v2";
+const LOCK_KEY="bol-bible-challenge-day0-submitted-v3";
 let sessionLocked=false;
 function isLocked(){try{return window.localStorage.getItem(LOCK_KEY)==="1"||sessionLocked}catch{return sessionLocked}}
 function focusFirst(el){const item=el.querySelector("button:not([hidden]),input:not([hidden]),[tabindex]");(item||practice).focus()}
@@ -27,9 +27,9 @@ doors.addEventListener("click",event=>{const el=event.target.closest(".challenge
 form.addEventListener("submit",event=>{
  event.preventDefault();
  const name=document.getElementById("day-zero-name").value.trim();
- const year=document.getElementById("day-zero-year");
+ const postcode=document.getElementById("day-zero-postcode");
  const selected=form.querySelector('input[name="practice-answer"]:checked');
- if(!name||!year||!year.validity.valid||!selected){form.reportValidity();return}
+ if(!name||!postcode||!postcode.validity.valid||!selected){form.reportValidity();return}
  if(isLocked()){showThanks();return}
  summary.textContent=name+", you selected option "+selected.value+". Is this your final answer?";
  form.hidden=true;confirmBox.hidden=false;feedback.hidden=true;focusFirst(confirmBox);
@@ -37,7 +37,7 @@ form.addEventListener("submit",event=>{
 document.getElementById("day-zero-review").addEventListener("click",()=>{confirmBox.hidden=true;form.hidden=false;focusFirst(form)});
 document.getElementById("day-zero-final").addEventListener("click",()=>{
  if(isLocked()){showThanks();return}
- if(!document.getElementById("day-zero-name").value.trim()||!document.getElementById("day-zero-year").validity.valid||!form.querySelector('input[name="practice-answer"]:checked')){confirmBox.hidden=true;form.hidden=false;return}
+ if(!document.getElementById("day-zero-name").value.trim()||!document.getElementById("day-zero-postcode").validity.valid||!form.querySelector('input[name="practice-answer"]:checked')){confirmBox.hidden=true;form.hidden=false;return}
  sessionLocked=true;try{window.localStorage.setItem(LOCK_KEY,"1")}catch{}
  form.reset();showThanks();
 });
