@@ -104,6 +104,27 @@
             color: var(--accent-ink);
             border-color: var(--accent);
         }
+        .archive-older { margin: 0 0 1.5rem; }
+        .archive-older > summary {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            margin-bottom: 1rem;
+            padding: .7rem 1rem;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--ink);
+            font-weight: 750;
+            cursor: pointer;
+            list-style: none;
+        }
+        .archive-older > summary::-webkit-details-marker { display: none; }
+        .archive-older > summary::after { content: "＋"; font-size: .9rem; }
+        .archive-older[open] > summary::after { content: "−"; }
+        .archive-older .hide-label { display: none; }
+        .archive-older[open] .show-label { display: none; }
+        .archive-older[open] .hide-label { display: inline; }
         .archive-card {
             border-left: 5px solid var(--green);
         }
@@ -145,6 +166,10 @@
         <!-- Previous 6 Days Archive (Auto-populated) -->
         <h2 style="margin-bottom: 1rem; font-size: 1.3rem; color: var(--ink);">Recent Daily Reflections</h2>
         <div id="archive-quotes-list"></div>
+        <details class="archive-older">
+            <summary><span class="show-label">Show previous 3 days</span><span class="hide-label">Hide previous 3 days</span></summary>
+            <div id="older-quotes-list"></div>
+        </details>
     </div>
 
     <footer>
@@ -219,9 +244,12 @@
             </div>
         `;
 
-        // 2. Render Previous 6 Days Automatically
+        // 2. Render Previous 6 Days Automatically: the three newest stay open,
+        // while the three oldest remain available in the collapsible section.
         const archiveContainer = document.getElementById("archive-quotes-list");
-        let archiveHtml = "";
+        const olderContainer = document.getElementById("older-quotes-list");
+        let recentArchiveHtml = "";
+        let olderArchiveHtml = "";
 
         for (let offset = 1; offset <= 6; offset++) {
             const pastDate = new Date(today);
@@ -236,7 +264,7 @@
                 ? "Yesterday"
                 : pastDate.toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric", year: "numeric" });
 
-            archiveHtml += `
+            const cardHtml = `
                 <div class="card archive-card">
                     <small style="color: var(--green); font-weight: 700; text-transform: uppercase;">${label}</small>
                     <p style="font-size: 1.15rem; font-weight: 600; margin: 0.5rem 0; color: var(--ink);">"${verse.text}"</p>
@@ -246,9 +274,12 @@
                     </div>
                 </div>
             `;
+            if (offset <= 3) recentArchiveHtml += cardHtml;
+            else olderArchiveHtml += cardHtml;
         }
 
-        archiveContainer.innerHTML = archiveHtml;
+        archiveContainer.innerHTML = recentArchiveHtml;
+        olderContainer.innerHTML = olderArchiveHtml;
     </script>
     <script src="bolsite.js"></script>
 <script src="church-library.js" defer></script></body>
