@@ -91,16 +91,25 @@ form.onsubmit=e=>{
  e.preventDefault();const selected=form.querySelector('input[name="practice-answer"]:checked');
  if(!selected){form.reportValidity();return}
  if(submitted.has(0)){showThanks();return}
- summary.textContent=participant.name+", you selected option "+selected.value+". Is this your final answer?";
- form.hidden=true;confirmBox.hidden=false;feedback.hidden=true;focusInto(confirmBox);
+ const question=practice.querySelector("#day-zero-title + p");
+ const chosen=selected.closest("label")?.querySelector("span");
+ by("day-zero-review-question").textContent=question?.textContent?.trim()||"Please review the question above.";
+ const answerBox=by("day-zero-review-option");
+ answerBox.replaceChildren();
+ const letter=document.createElement("strong");letter.textContent=selected.value+".";
+ const words=document.createElement("span");words.textContent=chosen?.textContent?.replace(/^[A-D]\.\s*/,"").trim()||"Selected option "+selected.value;
+ answerBox.append(letter,words);
+ summary.textContent=participant.name+", please read the question and your chosen answer carefully before confirming.";
+ by("day-zero-confirm-error").hidden=true;
+ form.hidden=true;confirmBox.hidden=false;feedback.hidden=true;confirmBox.scrollIntoView({block:"start"});focusInto(confirmBox);
 };
 by("day-zero-review").onclick=()=>{confirmBox.hidden=true;form.hidden=false;focusInto(form)};
 by("day-zero-final").onclick=async()=>{
  if(busy)return;const selected=form.querySelector('input[name="practice-answer"]:checked');if(!selected){confirmBox.hidden=true;form.hidden=false;return}
  const button=by("day-zero-final");busy=true;button.disabled=true;button.textContent="Locking your answer…";notice("");
  try{await request("submit",{token:accessToken,day:0,option:selected.value});submitted.add(0);form.reset();showThanks()}
- catch(e){if(e.status===409){submitted.add(0);form.reset();showThanks()}else{const p=confirmBox.querySelector("p");p.textContent=friendly(e)+" Your choice is not confirmed yet. Please retry.";}}
- finally{busy=false;button.disabled=false;button.textContent="Yes, submit my final choice"}
+ catch(e){if(e.status===409){submitted.add(0);form.reset();showThanks()}else{const p=by("day-zero-confirm-error");p.hidden=false;p.textContent=friendly(e)+" Your choice is not confirmed yet. Please retry.";}}
+ finally{busy=false;button.disabled=false;button.textContent="Yes, lock my final answer"}
 };
 practice.addEventListener("keydown",event=>{
  if(event.key==="Escape"){event.preventDefault();event.stopPropagation()}

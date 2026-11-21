@@ -127,6 +127,24 @@ body.challenge-focus{overflow:hidden}
 #challenge-welcome h3{font:700 clamp(1.5rem,2.8vw,2rem) Georgia,serif;color:var(--green)}
 .challenge-submitted-days{font-weight:700}.day-zero-player{font-size:1.12rem!important;font-weight:800;color:#164f41!important}
 @media(max-width:530px){.challenge-account-form button,#challenge-code-continue{width:100%}}
+</style><style>
+.challenge-day-zero .challenge-scripture-hint{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.4rem;max-width:870px;padding:1.25rem 1.5rem!important;margin:1.1rem auto 1.6rem!important;border:2px solid #bc913e;border-radius:14px;background:#fff0c9;box-shadow:0 7px 19px #a88c482b}
+.challenge-scripture-hint strong{color:#704913;font:850 clamp(1.05rem,2vw,1.36rem)/1.4 system-ui;letter-spacing:.06em}
+.challenge-scripture-hint span{color:#16473b;font:800 clamp(1.25rem,2.5vw,1.7rem)/1.4 Georgia,serif}
+.day-zero-confirm{max-width:900px!important;padding:clamp(1.3rem,4vw,2.7rem)!important}
+.day-zero-confirm-kicker{display:block;color:#916924;letter-spacing:.11em;font:850 .87rem system-ui}
+.day-zero-confirm h3{font-size:clamp(2.1rem,5vw,3.5rem)!important;line-height:1.16;margin:.6rem 0 1.35rem!important}
+.day-zero-review-card{padding:clamp(1.2rem,3vw,2rem);background:#faf6ec;border:1px solid #cbb88c;border-radius:15px;margin:1rem 0}
+.day-zero-review-label{display:block;color:#8b622b;letter-spacing:.07em;font-weight:850;font-size:.9rem;margin-bottom:.75rem}
+.day-zero-review-card h4{font:850 clamp(1.05rem,2vw,1.25rem)/1.4 system-ui;color:#205447;margin:.9rem 0 .35rem}
+#day-zero-review-question{font:500 clamp(1.23rem,2.5vw,1.7rem)/1.65 system-ui;color:#1c393c;margin:.2rem 0 1.35rem}
+.day-zero-review-option{background:#e4f2e9;border:2px solid #247560;border-radius:12px;padding:1.2rem;color:#163f36;font:700 clamp(1.2rem,2.5vw,1.65rem)/1.6 system-ui}
+.day-zero-review-option strong{margin-right:.45rem;font-weight:900;color:#0d5948}
+.day-zero-confirm-person{font-size:clamp(1.1rem,2vw,1.32rem)!important;font-weight:750;color:#274e43!important}
+.day-zero-lock-warning{padding:1rem 1.1rem;border-left:4px solid #ba873b;background:#fff7e6;font-size:clamp(1.03rem,1.9vw,1.22rem)!important;line-height:1.65!important}
+.day-zero-confirm-error:not([hidden]){padding:.9rem;background:#fff0e9;border-radius:9px;border:1px solid #b4513e;color:#7e2b23}
+.day-zero-confirm-actions button{font-size:clamp(1.05rem,2vw,1.2rem)!important;min-height:55px;padding:.9rem 1.3rem!important}
+@media(max-width:560px){.day-zero-confirm-actions{display:grid!important;grid-template-columns:1fr}.day-zero-confirm-actions button{width:100%}}
 </style></head>
 <body data-theme="midnight">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -209,7 +227,7 @@ body.challenge-focus{overflow:hidden}
           <span class="challenge-practice-label">OPEN NOW · INTERACTIVE PRACTICE ONLY</span>
           <h3 id="day-zero-title">Day 0 — The Borrowed Iron</h3>
           <p>During a building project, one worker cried out because a borrowed iron axe head had fallen into water. Four details below resemble genuine Bible accounts. Which <strong>complete statement</strong> correctly reconstructs this incident?</p>
-          <p class="challenge-scripture-hint">Research: 2 Kings 6:1–7</p>
+          <p class="challenge-scripture-hint"><strong>TIP · SCRIPTURE TO READ</strong><span>2 Kings 6:1–7</span></p>
           <form id="day-zero-form">
             <p class="day-zero-player" id="day-zero-player">Participant pass required</p>
             <fieldset class="day-zero-options"><legend>Choose the statement supported by Scripture:</legend>
@@ -220,7 +238,19 @@ body.challenge-focus{overflow:hidden}
             </fieldset>
             <button class="day-zero-submit" type="submit">Review my final choice →</button>
           </form>
-          <div id="day-zero-confirm" class="day-zero-confirm" hidden><h3>Is this your final choice?</h3><p id="day-zero-confirm-summary"></p><p>Once confirmed, your answer is locked in the competition database, including across devices. You cannot change it or submit again. No correct answer is shown.</p><div class="day-zero-confirm-actions"><button type="button" id="day-zero-review">Review my answer</button><button type="button" id="day-zero-final">Yes, submit my final choice</button></div></div>
+          <div id="day-zero-confirm" class="day-zero-confirm" hidden>
+<span class="day-zero-confirm-kicker">BEFORE YOUR ANSWER IS LOCKED</span>
+<h3>Is this your final choice?</h3>
+<div class="day-zero-review-card">
+<span class="day-zero-review-label">DAY 0 · THE BORROWED IRON</span>
+<h4>The question</h4><p id="day-zero-review-question"></p>
+<h4>Your selected answer</h4><div id="day-zero-review-option" class="day-zero-review-option"></div>
+</div>
+<p id="day-zero-confirm-summary" class="day-zero-confirm-person"></p>
+<p class="day-zero-lock-warning"><strong>Important:</strong> Once you submit, your answer is locked across devices. You cannot change it or submit again. No correct answer will be revealed.</p>
+<p id="day-zero-confirm-error" class="day-zero-confirm-error" role="alert" hidden></p>
+<div class="day-zero-confirm-actions"><button type="button" id="day-zero-review">Let me reconsider</button><button type="button" id="day-zero-final">Yes, lock my final answer</button></div>
+</div>
           <div id="day-zero-feedback" class="day-zero-feedback" role="status" aria-live="polite" hidden></div>
           <p class="day-zero-note">Day 0 is practice only. Your selected option is stored securely against your participant ID and cannot be resubmitted, but the answer and its correctness remain hidden.</p>
         </section>
