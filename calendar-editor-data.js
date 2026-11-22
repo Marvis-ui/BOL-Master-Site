@@ -7,5 +7,14 @@ window.BOL_CALENDAR_EDITS = [
     "place": "",
     "mode": "birthday",
     "original": "Birthday"
+  },
+  {
+    "id": "93acedfc-b746-4e45-94c0-9fa86e1ac11f",
+    "date": "2026-12-20",
+    "title": "December Bunch",
+    "time": "After Service",
+    "place": "",
+    "mode": "replace",
+    "original": "Special Event"
   }
 ];
