@@ -11,10 +11,10 @@ window.BOL_CALENDAR_EDITS = [
   {
     "id": "93acedfc-b746-4e45-94c0-9fa86e1ac11f",
     "date": "2026-12-20",
-    "title": "December Bunch",
+    "title": "December Brunch",
     "time": "After Service",
     "place": "",
     "mode": "replace",
-    "original": "Special Event"
+    "original": "December Brunch (Date TBA)"
   }
 ];
