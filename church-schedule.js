@@ -73,7 +73,7 @@
       const d=w*7+col-offset+1;
       const cell=make("div","planner-day"+(col===6?" sunday":"")+(col===7?" planner-notes":""));
       cell.style.gridColumn=String(col<4?col+1:col+2);cell.style.gridRow=String(w+2);
-      if(col===7){if(w===0){const pending=(typeof bolFlexibleMonthlyEvents!=="undefined"?bolFlexibleMonthlyEvents[m]:[])||[];pending.forEach(t=>cell.append(make("p","planner-event special",t)));}}
+      if(col===7){if(w===0){const pending=(typeof bolFlexibleMonthlyEvents!=="undefined"?bolFlexibleMonthlyEvents[m]:[])||[];const replacedNotes=(window.BOL_CALENDAR_EDITS||[]).filter(e=>["replace","cancel"].includes(e.mode)&&e.original);pending.filter(t=>!replacedNotes.some(e=>{const [editYear,editMonth]=e.date.split("-").map(Number);return editYear===y&&editMonth===m+1&&e.original===t;})).forEach(t=>cell.append(make("p","planner-event special",t)));}}
       else if(d>=1&&d<=length){
         const date=make("strong","planner-date",d);cell.append(date);
         if(y===now.getFullYear()&&m===now.getMonth()&&d===now.getDate())cell.classList.add("planner-today");
